@@ -15,11 +15,13 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     init():void {
-        
+
+        this.loadingLoop();
     }
 
     loadingLoop():void {
-
+        console.log('s')
+        requestAnimationFrame(()=>this.loadingLoop());
     }
 
 }

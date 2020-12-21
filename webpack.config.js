@@ -23,6 +23,13 @@ module.exports = {
                     'stylus-loader'
                 ]
             },
+            {
+                test: /\.(png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: '[name].[ext]',
+                    outputPath: 'images',                }
+            }
         ],
     },
     resolve: {
