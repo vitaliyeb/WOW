@@ -26,7 +26,7 @@ class LoadingGame implements InterfaceLoadingGame{
                     width,
                     height
                 } = this.game.windowSize;
-            bgCtx.drawImage(img, 0, 0, width, height*1.5);
+            bgCtx.drawImage(img, 0, 0, width, height*(width/height));
         };
     }
 
