@@ -11,6 +11,8 @@ interface GameInterface {
 class Game implements GameInterface {
     canvasBackground: HTMLCanvasElement;
     canvasMain: HTMLCanvasElement;
+    backgroundContext: CanvasRenderingContext2D;
+    mainContext: CanvasRenderingContext2D;
     status: string;
     windowSize: {
         width: number;
@@ -21,6 +23,8 @@ class Game implements GameInterface {
     constructor() {
         this.canvasBackground = undefined;
         this.canvasMain = undefined;
+        this.backgroundContext = undefined;
+        this.mainContext = undefined;
         this.windowSize = {
             width: 0,
             height: 0
@@ -33,6 +37,8 @@ class Game implements GameInterface {
     init (): void{
         this.canvasBackground = document.querySelector('#canvas-bg');
         this.canvasMain = document.querySelector('#canvas-main');
+        this.backgroundContext = this.canvasBackground.getContext('2d');
+        this.mainContext = this.canvasMain.getContext('2d');
         this.setFullSize();
         this.runInitScene();
     };
