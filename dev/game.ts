@@ -19,7 +19,7 @@ class Game implements GameInterface {
         width: number;
         height: number;
     };
-    loadingGameStages: any;
+    loadingGameStages: LoadingGame;
 
     constructor() {
         this.canvasBackground = undefined;
@@ -31,7 +31,7 @@ class Game implements GameInterface {
             height: 0
         };
         this.status = 'loadingTheGame',
-        this.loadingGameStages = new LoadingGame(this);
+        this.loadingGameStages = undefined;
 
     }
 
@@ -41,6 +41,7 @@ class Game implements GameInterface {
         this.backgroundContext = this.canvasBackground.getContext('2d');
         this.mainContext = this.canvasMain.getContext('2d');
         this.setFullSize();
+        this.loadingGameStages = new LoadingGame(this);
         this.runInitScene();
     };
 
