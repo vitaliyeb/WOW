@@ -5,6 +5,7 @@ interface InterfaceLoadingGame {
     loadingLoop: ()=> void;
     paintLoading: ()=> void;
     CreateRectangleBorderRadius: (left:number, bottom:number, width:number, lineThickness:number)=> Path2D;
+    paintLoadingProcess: ()=> void;
 }
 
 class LoadingGame implements InterfaceLoadingGame{
@@ -18,7 +19,9 @@ class LoadingGame implements InterfaceLoadingGame{
     };
     paths: {
         loadingWrapper: Path2D
-    }
+    };
+    processing: number;
+    percentage: number;
 
 
     constructor(game: Game) {
@@ -26,6 +29,8 @@ class LoadingGame implements InterfaceLoadingGame{
         this.paths = {
             loadingWrapper: undefined
         };
+        this.processing = 50;
+        this.percentage = undefined;
         this.loadingDrawParametrs = {
             bottom: game.windowSize.height - game.windowSize.height / 100 * 17,
             width: game.windowSize.width / 100 * 80,
@@ -38,6 +43,7 @@ class LoadingGame implements InterfaceLoadingGame{
 
     init():void {
         this.game.setBackground('./images/loadingBg.jpg');
+        this.percentage = this.loadingDrawParametrs.width / 100;
         this.paintLoading();
         // this.loadingLoop();
     }
@@ -48,11 +54,22 @@ class LoadingGame implements InterfaceLoadingGame{
             this.paths.loadingWrapper = this.CreateRectangleBorderRadius(left, bottom, width, lineThickness);
         };
         this.paintDrawLoadingWrapper();
-
+        this.paintLoadingProcess();
     }
 
     loadingLoop():void {
         requestAnimationFrame(()=>this.loadingLoop());
+    }
+
+    paintLoadingProcess(): void {
+        if (this.processing < 1) return;
+        let {left, bottom, lineThickness, lineWidth} = this.loadingDrawParametrs,
+            ctx = this.game.mainContext,
+            width = this.processing * this.percentage,
+            path = this.CreateRectangleBorderRadius(left, bottom, width, lineThickness-lineWidth-0.5);
+        ctx.beginPath();
+        ctx.fillStyle = '#aebacd';
+        ctx.fill(path);
     }
 
     paintDrawLoadingWrapper(): void {
