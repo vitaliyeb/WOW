@@ -5,6 +5,7 @@ import { LoadingGame } from './stages/loadingGame'
 interface GameInterface {
     init: ()=> void;
     runInitScene: ()=> void;
+    setBackground: (path: string) => void;
 };
 
 
@@ -62,6 +63,23 @@ class Game implements GameInterface {
                 this.loadingGameStages.init();
                 break;
         }
+    }
+
+    setBackground(path: string) {
+        let img = new Image();
+        img.src = path;
+        img.onload = () => {
+            let bgCtx = this.backgroundContext,
+                {
+                    width,
+                    height
+                } = this.windowSize;
+            if (width >= height){
+                bgCtx.drawImage(img, 0, 0, width, height*(width/height));
+            }else {
+                bgCtx.drawImage(img, 0, 0, width*(height/width), height);
+            }
+        };
     }
 };
 
