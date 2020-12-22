@@ -29,7 +29,7 @@ class LoadingGame implements InterfaceLoadingGame{
         this.paths = {
             loadingWrapper: undefined
         };
-        this.processing = 50;
+        this.processing = 0;
         this.percentage = undefined;
         this.loadingDrawParametrs = {
             bottom: game.windowSize.height - game.windowSize.height / 100 * 17,
@@ -45,7 +45,7 @@ class LoadingGame implements InterfaceLoadingGame{
         this.game.setBackground('./images/loadingBg.jpg');
         this.percentage = this.loadingDrawParametrs.width / 100;
         this.paintLoading();
-        // this.loadingLoop();
+        this.loadingLoop();
     }
 
     paintLoading(): void{
@@ -58,6 +58,12 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
+        this.processing+=.5;
+        if (this.processing > 100) return;
+
+        this.paintDrawLoadingWrapper();
+        this.paintLoadingProcess();
+
         requestAnimationFrame(()=>this.loadingLoop());
     }
 
