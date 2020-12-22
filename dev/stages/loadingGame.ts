@@ -23,7 +23,7 @@ class LoadingGame implements InterfaceLoadingGame{
     defaultLoaders: Array<()=>Promise<any>>
     processing: number;
     percentage: number;
-
+    lazyProcessing: number;
 
     constructor(game: Game) {
         this.game = game;
@@ -31,6 +31,7 @@ class LoadingGame implements InterfaceLoadingGame{
             loadingWrapper: undefined
         };
         this.processing = 0;
+        this.lazyProcessing = 0;
         this.percentage = undefined;
         this.loadingDrawParametrs = {
             bottom: game.windowSize.height - game.windowSize.height / 100 * 17,
@@ -62,7 +63,8 @@ class LoadingGame implements InterfaceLoadingGame{
             return new Promise((resolve)=>{
                 f().then(()=> this.processing+= division)
             });
-        }));
+        }))
+            .then(()=>this.processing = 100);
     };
 
     paintLoading(): void{
@@ -75,10 +77,9 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
-        if (this.processing > 100) return;
-
+        if (this.lazyProcessing < this.processing) this.lazyProcessing+=.6;
         this.paintLoadingProcess();
-
+        if (this.lazyProcessing >= 100) return alert('nextStages');
         requestAnimationFrame(()=>this.loadingLoop());
     }
 
@@ -86,7 +87,7 @@ class LoadingGame implements InterfaceLoadingGame{
         if (this.processing < 1) return;
         let {left, bottom, lineThickness, lineWidth} = this.loadingDrawParametrs,
             ctx = this.game.mainContext,
-            width = this.processing * this.percentage,
+            width = this.lazyProcessing * this.percentage,
             path = this.CreateRectangleBorderRadius(left, bottom, width, lineThickness-lineWidth-0.5);
         ctx.beginPath();
         ctx.fillStyle = '#aebacd';
