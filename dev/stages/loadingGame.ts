@@ -1,7 +1,7 @@
 import { Game } from "../game";
 
 interface InterfaceLoadingGame {
-    init: ()=> void;
+    init: (arrFunctionPromise: Array<()=>Promise<any>>)=> void;
     loadingLoop: ()=> void;
     paintLoading: ()=> void;
     CreateRectangleBorderRadius: (left:number, bottom:number, width:number, lineThickness:number)=> Path2D;
@@ -20,6 +20,7 @@ class LoadingGame implements InterfaceLoadingGame{
     paths: {
         loadingWrapper: Path2D
     };
+    defaultLoaders: Array<()=>Promise<any>>
     processing: number;
     percentage: number;
 
@@ -37,16 +38,32 @@ class LoadingGame implements InterfaceLoadingGame{
             left: game.windowSize.width / 100 * 10,
             lineThickness: 10,
             lineWidth: .5
-        }
+        };
+        this.defaultLoaders = [
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 1000)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 2000)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 2500)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 3000))
+        ];
     }
 
 
-    init():void {
+    init(arrFunctionPromise = this.defaultLoaders):void {
         this.game.setBackground('./images/loadingBg.jpg');
         this.percentage = this.loadingDrawParametrs.width / 100;
+        this.loading(arrFunctionPromise);
         this.paintLoading();
         this.loadingLoop();
     }
+
+    loading(arrFunctionPromise: Array<any>): void{
+        let division = 100 / arrFunctionPromise.length;
+        Promise.all(arrFunctionPromise.map((f)=>{
+            return new Promise((resolve)=>{
+                f().then(()=> this.processing+= division)
+            });
+        }));
+    };
 
     paintLoading(): void{
         if (!this.paths.loadingWrapper) {
@@ -58,10 +75,8 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
-        this.processing+=.5;
         if (this.processing > 100) return;
 
-        this.paintDrawLoadingWrapper();
         this.paintLoadingProcess();
 
         requestAnimationFrame(()=>this.loadingLoop());
