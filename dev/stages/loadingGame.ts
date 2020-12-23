@@ -41,10 +41,10 @@ class LoadingGame implements InterfaceLoadingGame{
             lineWidth: .5
         };
         this.defaultLoaders = [
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 1000)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 2000)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 2500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 3000))
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 500)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 500)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 500)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 500))
         ];
     }
 
@@ -79,7 +79,7 @@ class LoadingGame implements InterfaceLoadingGame{
     loadingLoop():void {
         if (this.lazyProcessing < this.processing) this.lazyProcessing+=.6;
         this.paintLoadingProcess();
-        if (this.lazyProcessing >= 100) return alert('nextStages');
+        if (this.lazyProcessing >= 100) return this.game.setStatus('globalMenu');
         requestAnimationFrame(()=>this.loadingLoop());
     }
 

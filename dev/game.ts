@@ -1,4 +1,5 @@
 import { LoadingGame } from './stages/loadingGame'
+import GlobalMenu from "./stages/globalMenu";
 
 
 
@@ -6,6 +7,8 @@ interface GameInterface {
     init: ()=> void;
     runInitScene: ()=> void;
     setBackground: (path: string) => void;
+    setStatus: (status: string)=> void;
+    clearMainCanvas: ()=> void;
 };
 
 
@@ -20,6 +23,7 @@ class Game implements GameInterface {
         height: number;
     };
     loadingGameStages: LoadingGame;
+    globalMenu: GlobalMenu;
 
     constructor() {
         this.canvasBackground = undefined;
@@ -32,6 +36,7 @@ class Game implements GameInterface {
         };
         this.status = 'loadingTheGame',
         this.loadingGameStages = undefined;
+        this.globalMenu = undefined;
 
     }
 
@@ -44,6 +49,11 @@ class Game implements GameInterface {
         this.loadingGameStages = new LoadingGame(this);
         this.runInitScene();
     };
+
+    setStatus(status: string): void{
+        this.status = status;
+        this.runInitScene();
+    }
 
     setFullSize(): void{
         let screenElement = <HTMLDivElement>document.querySelector('.screen'),
@@ -63,7 +73,17 @@ class Game implements GameInterface {
             case 'loadingTheGame':
                 this.loadingGameStages.init();
                 break;
+            case 'globalMenu':
+                if (!this.globalMenu) this.globalMenu = new GlobalMenu(this);
+                this.globalMenu.init();
+                break;
         }
+    }
+
+    clearMainCanvas(): void {
+        let ctx = this.mainContext;
+        ctx.beginPath();
+        ctx.clearRect(0, 0, this.windowSize.width, this.windowSize.height);
     }
 
     setBackground(path: string) {
