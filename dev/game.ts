@@ -10,10 +10,12 @@ interface GameInterface {
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
+    setMouseMoveHandler: (f: ()=>any)=> void;
 };
 
 
 class Game implements GameInterface {
+    screenWrapper: HTMLDivElement;
     canvasBackground: HTMLCanvasElement;
     canvasMain: HTMLCanvasElement;
     backgroundContext: CanvasRenderingContext2D;
@@ -28,6 +30,7 @@ class Game implements GameInterface {
 
     constructor() {
         this.canvasBackground = undefined;
+        this.screenWrapper = undefined;
         this.canvasMain = undefined;
         this.backgroundContext = undefined;
         this.mainContext = undefined;
@@ -108,6 +111,10 @@ class Game implements GameInterface {
         if (n > min && max > n) return n;
         if (n > max) return max;
         if (n < min) return min;
+    }
+
+    setMouseMoveHandler(f: ()=>any): void{
+        this.
     }
 };
 

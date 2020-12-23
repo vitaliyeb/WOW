@@ -5,6 +5,7 @@ interface InterfaceGlobalMenu {
     init: ()=> void;
     menuLoop: ()=> void;
     createPathButtonPlay: ()=> Path2D;
+    menuMouseMove: ()=> void;
 }
 
 export default class GlobalMenu {
@@ -35,7 +36,12 @@ export default class GlobalMenu {
     init(): void {
         this.game.clearMainCanvas();
         if (!this.paths.playButton) this.paths.playButton = this.createPathButtonPlay();
+        this.game.setMouseMoveHandler(()=>this.menuMouseMove);
         this.menuLoop();
+    }
+
+    menuMouseMove(): void {
+        console.log(this)
     }
 
     menuLoop(): void {
