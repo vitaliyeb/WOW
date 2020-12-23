@@ -115,7 +115,7 @@ export {
     Game
 }
 
-
-let game = new Game();
-// console.log(game);
-game.init();
+window.addEventListener('load', function() {
+    let game = new Game();
+    game.init();
+}, false);
