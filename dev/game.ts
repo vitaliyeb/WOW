@@ -9,6 +9,7 @@ interface GameInterface {
     setBackground: (path: string) => void;
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
+    minMax: <T>(n: T, min: T, max: T )=> T;
 };
 
 
@@ -47,6 +48,7 @@ class Game implements GameInterface {
         this.mainContext = this.canvasMain.getContext('2d');
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
+        this.globalMenu = new GlobalMenu(this);
         this.runInitScene();
     };
 
@@ -74,7 +76,6 @@ class Game implements GameInterface {
                 this.loadingGameStages.init();
                 break;
             case 'globalMenu':
-                if (!this.globalMenu) this.globalMenu = new GlobalMenu(this);
                 this.globalMenu.init();
                 break;
         }
@@ -101,6 +102,12 @@ class Game implements GameInterface {
                 bgCtx.drawImage(img, 0, 0, width*(height/width), height);
             }
         };
+    }
+
+    minMax<T>(n: T, min: T, max: T): T {
+        if (n > min && max > n) return n;
+        if (n > max) return max;
+        if (n < min) return min;
     }
 };
 
