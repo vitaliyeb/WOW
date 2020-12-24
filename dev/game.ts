@@ -10,7 +10,7 @@ interface GameInterface {
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
-    setMouseMoveHandler: (f: ()=>any)=> void;
+    setMouseMoveHandler: (f: (e: MouseEvent)=>any)=> void;
 };
 
 
@@ -49,6 +49,7 @@ class Game implements GameInterface {
         this.canvasMain = document.querySelector('#canvas-main');
         this.backgroundContext = this.canvasBackground.getContext('2d');
         this.mainContext = this.canvasMain.getContext('2d');
+        this.screenWrapper = document.querySelector('.screen');
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
@@ -113,8 +114,8 @@ class Game implements GameInterface {
         if (n < min) return min;
     }
 
-    setMouseMoveHandler(f: ()=>any): void{
-        this.
+    setMouseMoveHandler(f: (e: MouseEvent)=>any): void{
+        this.screenWrapper.addEventListener("mousemove", f);
     }
 };
 
