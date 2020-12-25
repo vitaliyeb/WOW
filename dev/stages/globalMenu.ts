@@ -6,12 +6,15 @@ interface InterfaceGlobalMenu {
     menuLoop: ()=> void;
     createPathButtonPlay: ()=> Path2D;
     menuMouseMove: (o: {x: number, y: number})=> void;
+    createPathLevelInfo: ()=> Path2D;
+    paintLevelInfo: ()=> void;
 }
 
 export default class GlobalMenu {
     game: Game;
     paths: {
-        playButton: Path2D
+        playButton: Path2D,
+        levelInfo: Path2D
     };
     textPlayParametrs: {
         bottom: number;
@@ -29,21 +32,30 @@ export default class GlobalMenu {
             fs: 0
         }
         this.paths = {
-            'playButton': undefined
+            'playButton': undefined,
+            'levelInfo': undefined
         };
     }
 
     init(): void {
         this.game.clearMainCanvas();
         if (!this.paths.playButton) this.paths.playButton = this.createPathButtonPlay();
+        if (!this.paths.levelInfo) this.paths.levelInfo = this.createPathLevelInfo();
         this.game.setMouseMoveHandler((o: {x: number, y: number})=>this.menuMouseMove(o));
         this.menuLoop();
     }
 
     menuMouseMove({x, y}: {x: number, y: number}): void {
+        let {
+            mainContext,
+            screenWrapper
+        } = this.game;
         for (let [key, value] of Object.entries(this.paths)) {
-            if (this.game.mainContext.isPointInPath(value, x, y)){
-
+            if (mainContext.isPointInPath(value, x, y)){
+                screenWrapper.style.cursor = "pointer";
+                break;
+            } else {
+                screenWrapper.style.cursor = "default";
             }
         }
     }
@@ -51,6 +63,7 @@ export default class GlobalMenu {
     menuLoop(): void {
         this.game.clearMainCanvas();
         this.paintButtonPlay();
+        this.paintLevelInfo();
         requestAnimationFrame(()=>this.menuLoop());
     }
 
@@ -74,7 +87,7 @@ export default class GlobalMenu {
             width = this.game.minMax(windowWidth / 100 * 60, 300, 550),
             left = windowWidth / 2 - width / 2,
             height = this.game.minMax(windowHeight / 100 * 10, 45, 55),
-            bottom = windowHeight / 100 * 60,
+            bottom = windowHeight / 100 * 65,
             angleDivision = height / 2,
             path = new Path2D();
 
@@ -96,6 +109,28 @@ export default class GlobalMenu {
         this.buttonPlayGradient = linearGradient;
 
         return path;
+    }
+
+    createPathLevelInfo(): Path2D{
+        let path = new Path2D(),
+            { width: windowWidth, height: windowHeight } = this.game.windowSize,
+            radius = this.game.minMax(Math.min(windowWidth, windowHeight) / 100 * 25, 100, 200),
+            left = windowWidth / 2,
+            bottom = windowHeight / 100 * 30;
+
+        path.arc(left, bottom, radius, 0, Math.PI*2);
+
+        return path;
+    }
+
+    paintLevelInfo(): void{
+        let levelInfo = this.paths.levelInfo,
+            ctx = this.game.mainContext;
+
+        ctx.beginPath();
+        ctx.fill(levelInfo);
+
+
     }
 
 }
