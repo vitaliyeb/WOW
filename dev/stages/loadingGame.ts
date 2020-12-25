@@ -50,7 +50,7 @@ class LoadingGame implements InterfaceLoadingGame{
 
 
     init(arrFunctionPromise = this.defaultLoaders):void {
-        this.game.setBackground('./images/loadingBg.jpg');
+        this.game.setBackground('./images/loadingBg.jpg', true);
         this.percentage = this.loadingDrawParametrs.width / 100;
         this.loading(arrFunctionPromise);
         this.paintLoading();

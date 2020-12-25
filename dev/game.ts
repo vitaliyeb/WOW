@@ -6,7 +6,7 @@ import GlobalMenu from "./stages/globalMenu";
 interface GameInterface {
     init: ()=> void;
     runInitScene: ()=> void;
-    setBackground: (path: string) => void;
+    setBackground: (path: string, titleGame?: boolean) => void;
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
@@ -92,19 +92,30 @@ class Game implements GameInterface {
         ctx.clearRect(0, 0, this.windowSize.width, this.windowSize.height);
     }
 
-    setBackground(path: string) {
-        let img = new Image();
+    setBackground(path: string, titleGame?: boolean) {
+        let img = new Image(),
+        bgCtx = this.backgroundContext,
+            {
+                width,
+                height
+            } = this.windowSize;
+
         img.src = path;
         img.onload = () => {
-            let bgCtx = this.backgroundContext,
-                {
-                    width,
-                    height
-                } = this.windowSize;
             if (width >= height){
                 bgCtx.drawImage(img, 0, 0, width, height*(width/height));
             }else {
                 bgCtx.drawImage(img, 0, 0, width*(height/width), height);
+            }
+            if (titleGame){
+                let left = width / 2,
+                    top = height / 100 * 15;
+                bgCtx.beginPath();
+                bgCtx.font = `500 40px Roboto`;
+                bgCtx.textBaseline = 'middle';
+                bgCtx.textAlign = 'center';
+                bgCtx.fillStyle = "#fff";
+                bgCtx.fillText('Words of wonders', left, top);
             }
         };
     }
