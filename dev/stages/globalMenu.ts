@@ -22,10 +22,12 @@ export default class GlobalMenu {
         fs: number
     }
     buttonPlayGradient: CanvasGradient;
+    levelInfoGradient: CanvasGradient;
 
     constructor(game: Game) {
         this.game = game;
         this.buttonPlayGradient = undefined;
+        this.levelInfoGradient = undefined;
         this.textPlayParametrs = {
             bottom: 0,
             left: 0,
@@ -87,7 +89,7 @@ export default class GlobalMenu {
             width = this.game.minMax(windowWidth / 100 * 60, 300, 550),
             left = windowWidth / 2 - width / 2,
             height = this.game.minMax(windowHeight / 100 * 10, 45, 55),
-            bottom = windowHeight / 100 * 65,
+            bottom = windowHeight / 100 * 70,
             angleDivision = height / 2,
             path = new Path2D();
 
@@ -113,10 +115,17 @@ export default class GlobalMenu {
 
     createPathLevelInfo(): Path2D{
         let path = new Path2D(),
+            ctx = this.game.mainContext,
             { width: windowWidth, height: windowHeight } = this.game.windowSize,
-            radius = this.game.minMax(Math.min(windowWidth, windowHeight) / 100 * 25, 100, 200),
+            radius = this.game.minMax(Math.min(windowWidth, windowHeight) / 100 * 10, 100, 140),
             left = windowWidth / 2,
-            bottom = windowHeight / 100 * 30;
+            bottom = windowHeight / 100 * 45;
+
+        let gradient = ctx.createLinearGradient(left + radius, bottom - radius, left + radius, bottom + radius );
+        gradient.addColorStop(0, '#697af3');
+        gradient.addColorStop(1, '#7d42d1');
+
+        this.levelInfoGradient= gradient;
 
         path.arc(left, bottom, radius, 0, Math.PI*2);
 
@@ -127,10 +136,13 @@ export default class GlobalMenu {
         let levelInfo = this.paths.levelInfo,
             ctx = this.game.mainContext;
 
+        ctx.save();
         ctx.beginPath();
+        ctx.shadowColor = '#f8f9d6';
+        ctx.shadowBlur = 50;
+        ctx.fillStyle = this.levelInfoGradient;
         ctx.fill(levelInfo);
-
+        ctx.restore();
 
     }
-
 }
