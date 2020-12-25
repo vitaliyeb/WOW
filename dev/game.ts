@@ -10,7 +10,8 @@ interface GameInterface {
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
-    setMouseMoveHandler: (f: (e: MouseEvent)=>any)=> void;
+    setMouseMoveHandler: (f: (o: {x: number, y: number})=>any)=> void;
+    getCursorPosition: (e: MouseEvent) => {x: number, y: number}
 };
 
 
@@ -108,14 +109,21 @@ class Game implements GameInterface {
         };
     }
 
+    getCursorPosition(e: MouseEvent): {x: number, y: number} {
+        return {
+            x: e.offsetX,
+            y: e.offsetY
+        }
+    }
+
     minMax<T>(n: T, min: T, max: T): T {
         if (n > min && max > n) return n;
         if (n > max) return max;
         if (n < min) return min;
     }
 
-    setMouseMoveHandler(f: (e: MouseEvent)=>any): void{
-        this.screenWrapper.addEventListener("mousemove", f);
+    setMouseMoveHandler(f: (o: {x: number, y: number})=>any): void{
+        this.screenWrapper.addEventListener("mousemove", (e: MouseEvent)=>f(this.getCursorPosition(e)));
     }
 };
 
