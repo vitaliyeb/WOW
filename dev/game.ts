@@ -1,5 +1,6 @@
 import { LoadingGame } from './stages/loadingGame'
 import GlobalMenu from "./stages/globalMenu";
+import {User} from "./user";
 
 
 
@@ -28,6 +29,7 @@ class Game implements GameInterface {
     };
     loadingGameStages: LoadingGame;
     globalMenu: GlobalMenu;
+    user: User;
 
     constructor() {
         this.canvasBackground = undefined;
@@ -35,6 +37,7 @@ class Game implements GameInterface {
         this.canvasMain = undefined;
         this.backgroundContext = undefined;
         this.mainContext = undefined;
+        this.user = undefined;
         this.windowSize = {
             width: 0,
             height: 0
@@ -42,7 +45,6 @@ class Game implements GameInterface {
         this.status = 'loadingTheGame',
         this.loadingGameStages = undefined;
         this.globalMenu = undefined;
-
     }
 
     init (): void{
@@ -51,6 +53,7 @@ class Game implements GameInterface {
         this.backgroundContext = this.canvasBackground.getContext('2d');
         this.mainContext = this.canvasMain.getContext('2d');
         this.screenWrapper = document.querySelector('.screen');
+        this.user = new User(this);
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
