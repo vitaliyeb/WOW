@@ -7,6 +7,7 @@ interface InterfaceGlobalMenu {
     createPathButtonPlay: ()=> Path2D;
     menuMouseMove: (o: {x: number, y: number})=> void;
     createPathLevelInfo: ()=> Path2D;
+    createPathLocation: ()=> Path2D;
     paintLevelInfo: ()=> void;
 }
 
@@ -14,7 +15,8 @@ export default class GlobalMenu {
     game: Game;
     paths: {
         playButton: Path2D,
-        levelInfo: Path2D
+        levelInfo: Path2D,
+        locationIcon: Path2D
     };
     textPlayParametrs: {
         bottom: number;
@@ -35,7 +37,8 @@ export default class GlobalMenu {
         }
         this.paths = {
             'playButton': undefined,
-            'levelInfo': undefined
+            'levelInfo': undefined,
+            'locationIcon' : undefined
         };
     }
 
@@ -130,6 +133,10 @@ export default class GlobalMenu {
         path.arc(left, bottom, radius, 0, Math.PI*2);
 
         return path;
+    }
+
+    createPathLocation(): Path2D{
+        return  new Path2D();
     }
 
     paintLevelInfo(): void{
