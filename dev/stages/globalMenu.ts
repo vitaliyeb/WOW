@@ -9,6 +9,7 @@ interface InterfaceGlobalMenu {
     createPathLevelInfo: ()=> Path2D;
     createPathLocation: ()=> Path2D;
     paintLevelInfo: ()=> void;
+    paintLocation: ()=> void;
 }
 
 export default class GlobalMenu {
@@ -22,19 +23,35 @@ export default class GlobalMenu {
         bottom: number;
         left: number;
         fs: number
+    };
+    locationParams: {
+        x: number,
+        y: number,
+        r: number,
+        width: number,
+        height: number
     }
     buttonPlayGradient: CanvasGradient;
     levelInfoGradient: CanvasGradient;
+    locationImg: HTMLImageElement;
 
     constructor(game: Game) {
         this.game = game;
         this.buttonPlayGradient = undefined;
         this.levelInfoGradient = undefined;
+        this.locationParams = {
+            x: 0,
+            y: 0,
+            r: 0,
+            width: 40,
+            height: 40
+        };
         this.textPlayParametrs = {
             bottom: 0,
             left: 0,
             fs: 0
-        }
+        };
+        this.locationImg = undefined;
         this.paths = {
             'playButton': undefined,
             'levelInfo': undefined,
@@ -46,6 +63,7 @@ export default class GlobalMenu {
         this.game.clearMainCanvas();
         if (!this.paths.playButton) this.paths.playButton = this.createPathButtonPlay();
         if (!this.paths.levelInfo) this.paths.levelInfo = this.createPathLevelInfo();
+        if (!this.paths.locationIcon) this.paths.locationIcon = this.createPathLocation();
         this.game.setMouseMoveHandler((o: {x: number, y: number})=>this.menuMouseMove(o));
         this.menuLoop();
     }
@@ -69,6 +87,7 @@ export default class GlobalMenu {
         this.game.clearMainCanvas();
         this.paintButtonPlay();
         this.paintLevelInfo();
+        this.paintLocation();
         requestAnimationFrame(()=>this.menuLoop());
     }
 
@@ -130,13 +149,40 @@ export default class GlobalMenu {
 
         this.levelInfoGradient= gradient;
 
-        path.arc(left, bottom, radius, 0, Math.PI*2);
+        path.arc(left, bottom, radius, 0, Math.PI * 2);
 
         return path;
     }
 
     createPathLocation(): Path2D{
-        return  new Path2D();
+        let path = new Path2D,
+            {height, width} = this.game.windowSize,
+            x = width - 60,
+            y = 20,
+            r = 20;
+        path.arc(x + r, y + r, r, 0, Math.PI  *  2);  
+
+        this.locationParams.x = x;
+        this.locationParams.y = y;
+        this.locationParams.r = r;
+
+        this.locationImg = new Image(this.locationParams.width, this.locationParams.height);
+        this.locationImg.src = './images/location.png'
+        
+        return path;
+    }
+
+    paintLocation(): void{
+        let ctx = this.game.mainContext,
+            {x, y, width, height} = this.locationParams,
+            img = this.locationImg;
+        ctx.beginPath();
+        ctx.fillStyle = 'transparent';
+        ctx.fill(this.paths.locationIcon);
+        ctx.beginPath();
+        console.log(x, y);
+        
+        ctx.drawImage(img, x, y, width, height);
     }
 
     paintLevelInfo(): void{
