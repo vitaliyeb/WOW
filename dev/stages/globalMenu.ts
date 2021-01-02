@@ -10,6 +10,8 @@ interface InterfaceGlobalMenu {
     createPathLocation: ()=> Path2D;
     paintLevelInfo: ()=> void;
     paintLocation: ()=> void;
+    mainClick: (e: MouseEvent)=> void;
+    locationIconOnClick: () => void;
 }
 
 export default class GlobalMenu {
@@ -65,6 +67,7 @@ export default class GlobalMenu {
         if (!this.paths.levelInfo) this.paths.levelInfo = this.createPathLevelInfo();
         if (!this.paths.locationIcon) this.paths.locationIcon = this.createPathLocation();
         this.game.setMouseMoveHandler((o: {x: number, y: number})=>this.menuMouseMove(o));
+        this.game.screenWrapper.addEventListener('click', (e: MouseEvent)=> this.mainClick(e));
         this.menuLoop();
     }
 
@@ -81,6 +84,21 @@ export default class GlobalMenu {
                 screenWrapper.style.cursor = "default";
             }
         }
+    }
+
+    mainClick(e: MouseEvent): void{
+        let x: number = e.offsetX,
+            y: number = e.offsetY,
+            mainContext = this.game.mainContext;
+
+        for (let [key, value] of Object.entries(this.paths)) {
+            let keyClick: keyof GlobalMenu = key+'OnClick';
+            if (mainContext.isPointInPath(value, x, y)) this[keyClick]();
+        }
+    }
+
+    locationIconOnClick(): void{
+
     }
 
     menuLoop(): void {
@@ -156,7 +174,7 @@ export default class GlobalMenu {
 
     createPathLocation(): Path2D{
         let path = new Path2D,
-            {height, width} = this.game.windowSize,
+            {width} = this.game.windowSize,
             x = width - 60,
             y = 20,
             r = 20;
@@ -180,7 +198,6 @@ export default class GlobalMenu {
         ctx.fillStyle = 'transparent';
         ctx.fill(this.paths.locationIcon);
         ctx.beginPath();
-        console.log(x, y);
         
         ctx.drawImage(img, x, y, width, height);
     }
