@@ -15,6 +15,7 @@ interface InterfaceGlobalMenu {
 }
 
 export default class GlobalMenu {
+    [propName: string]: any;
     game: Game;
     paths: {
         playButton: Path2D,
@@ -98,7 +99,7 @@ export default class GlobalMenu {
     }
 
     locationIconOnClick(): void{
-
+        this.game.setStatus('location');
     }
 
     menuLoop(): void {
