@@ -60,6 +60,8 @@ export default class GlobalMenu {
             'levelInfo': undefined,
             'locationIcon' : undefined
         };
+        this.mainClick = this.mainClick.bind(this);
+        this.menuMouseMove = this.menuMouseMove.bind(this);
     }
 
     init(): void {
@@ -67,8 +69,8 @@ export default class GlobalMenu {
         if (!this.paths.playButton) this.paths.playButton = this.createPathButtonPlay();
         if (!this.paths.levelInfo) this.paths.levelInfo = this.createPathLevelInfo();
         if (!this.paths.locationIcon) this.paths.locationIcon = this.createPathLocation();
-        this.game.setMouseMoveHandler((o: {x: number, y: number})=>this.menuMouseMove(o));
-        this.game.screenWrapper.addEventListener('click', (e: MouseEvent)=> this.mainClick(e));
+        this.game.setMouseMoveHandler(this.menuMouseMove);
+        this.game.screenWrapper.addEventListener('click', this.mainClick);
         this.menuLoop();
     }
 
@@ -98,11 +100,20 @@ export default class GlobalMenu {
         }
     }
 
+    clearEventListener(): void{
+
+    }
+
     locationIconOnClick(): void{
         this.game.setStatus('location');
     }
 
     menuLoop(): void {
+        if(this.game.status !== 'globalMenu') {
+            let screenWrapper = this.game.screenWrapper;
+            screenWrapper.removeEventListener('click', this.mainClick);
+            return;
+        };
         this.game.clearMainCanvas();
         this.paintButtonPlay();
         this.paintLevelInfo();

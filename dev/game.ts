@@ -1,5 +1,6 @@
 import { LoadingGame } from './stages/loadingGame'
 import GlobalMenu from "./stages/globalMenu";
+import Location from "./stages/location";
 import {User} from "./user";
 
 
@@ -29,6 +30,7 @@ class Game implements GameInterface {
     };
     loadingGameStages: LoadingGame;
     globalMenu: GlobalMenu;
+    location: Location;
     user: User;
 
     constructor() {
@@ -37,6 +39,7 @@ class Game implements GameInterface {
         this.canvasMain = undefined;
         this.backgroundContext = undefined;
         this.mainContext = undefined;
+        this.location = undefined;
         this.user = undefined;
         this.windowSize = {
             width: 0,
@@ -57,6 +60,7 @@ class Game implements GameInterface {
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
+        this.location = new Location(this);
         this.runInitScene();
     };
 
@@ -86,6 +90,9 @@ class Game implements GameInterface {
             case 'globalMenu':
                 this.globalMenu.init();
                 break;
+            case 'location':
+                this.location.init();
+                break;    
         }
     }
 
