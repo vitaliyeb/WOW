@@ -44,7 +44,7 @@ class Game implements GameInterface {
             width: 0,
             height: 0
         };
-        this.status = 'loadingTheGame',
+        this.status = 'location',
         this.loadingGameStages = undefined;
         this.globalMenu = undefined;
     }
