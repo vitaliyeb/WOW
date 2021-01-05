@@ -5,7 +5,7 @@ interface InterfaceGlobalMenu {
     init: ()=> void;
     menuLoop: ()=> void;
     createPathButtonPlay: ()=> Path2D;
-    menuMouseMove: (o: {x: number, y: number})=> void;
+    menuMouseMove: (e: MouseEvent)=> void;
     createPathLevelInfo: ()=> Path2D;
     createPathLocation: ()=> Path2D;
     paintLevelInfo: ()=> void;
@@ -69,16 +69,17 @@ export default class GlobalMenu {
         if (!this.paths.playButton) this.paths.playButton = this.createPathButtonPlay();
         if (!this.paths.levelInfo) this.paths.levelInfo = this.createPathLevelInfo();
         if (!this.paths.locationIcon) this.paths.locationIcon = this.createPathLocation();
-        this.game.setMouseMoveHandler(this.menuMouseMove);
         this.game.screenWrapper.addEventListener('click', this.mainClick);
+        this.game.screenWrapper.addEventListener('mousemove', this.menuMouseMove);
         this.menuLoop();
     }
 
-    menuMouseMove({x, y}: {x: number, y: number}): void {
+    menuMouseMove(e: MouseEvent): void {
         let {
             mainContext,
             screenWrapper
-        } = this.game;
+        } = this.game,
+        {x, y} = this.game.getCursorPosition(e);
         for (let [key, value] of Object.entries(this.paths)) {
             if (mainContext.isPointInPath(value, x, y)){
                 screenWrapper.style.cursor = "pointer";
@@ -100,10 +101,6 @@ export default class GlobalMenu {
         }
     }
 
-    clearEventListener(): void{
-
-    }
-
     locationIconOnClick(): void{
         this.game.setStatus('location');
     }
@@ -112,6 +109,7 @@ export default class GlobalMenu {
         if(this.game.status !== 'globalMenu') {
             let screenWrapper = this.game.screenWrapper;
             screenWrapper.removeEventListener('click', this.mainClick);
+            screenWrapper.removeEventListener('mousemove', this.menuMouseMove);
             return;
         };
         this.game.clearMainCanvas();
