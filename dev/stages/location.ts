@@ -9,9 +9,13 @@ interface LocationInterface {
 
 export default class Location {
     game: Game;
+    headingGradient: CanvasGradient;
+    headingHeight: number;
     
     constructor(game: Game) {
         this.game = game;
+        this.headingGradient = undefined;
+        this.headingHeight = 60;
     }
     
     fillBackground() {
@@ -23,20 +27,28 @@ export default class Location {
 
     paintHeader() {
         let ctx = this.game.mainContext,
-        height = 60,
+        height = this.headingHeight,
         width = this.game.windowSize.width;
 
         ctx.beginPath();
         
-        ctx.fillStyle = "red";
+        ctx.fillStyle = this.headingGradient;
+        ctx.shadowColor = '#3a4c8d';
+        ctx.shadowOffsetY = 0;
+        ctx.shadowBlur = 15;
         ctx.fillRect(0, 0, width, height);
-        ctx.shadowColor = '#f8f9d6';
-        ctx.shadowBlur = 5;
     }
 
 
     init(){
         this.fillBackground(); 
+        if(!this.headingGradient){
+            let ctx = this.game.mainContext,
+            gradient = ctx.createLinearGradient(0, 0, 0, this.headingHeight);
+            gradient.addColorStop(0, '#6571dd');
+            gradient.addColorStop(1, '#394d90');
+            this.headingGradient = gradient;
+        }
         this.game.clearMainCanvas();
 
 
