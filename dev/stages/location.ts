@@ -37,6 +37,19 @@ export default class Location {
         ctx.shadowOffsetY = 0;
         ctx.shadowBlur = 15;
         ctx.fillRect(0, 0, width, height);
+
+        ctx.font = `500 24px Roboto`;
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+        ctx.fillStyle = "#fff";
+        ctx.fillText('ИССЛЕДОВАТЬ', this.game.windowSize.width / 2, this.headingHeight / 2);
+
+        ctx.beginPath();
+        ctx.lineWidth = 5;
+        ctx.moveTo(35, 15);
+        ctx.lineTo(20, 30);
+        ctx.lineTo(35, 45);
+        ctx.stroke();
     }
 
 
