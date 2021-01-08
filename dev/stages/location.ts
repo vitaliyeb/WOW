@@ -5,17 +5,21 @@ interface LocationInterface {
     init: () => void;
     fillBackground: () => void;
     paintHeader: () => void;
+    createBackPath: () => Path2D;
 }
 
 export default class Location {
     game: Game;
     headingGradient: CanvasGradient;
     headingHeight: number;
+    backPath: Path2D;
     
     constructor(game: Game) {
         this.game = game;
         this.headingGradient = undefined;
         this.headingHeight = 60;
+        this.backPath = undefined;
+        this.mouseMove = this.mouseMove.bind(this);
     }
     
     fillBackground() {
@@ -29,7 +33,7 @@ export default class Location {
         let ctx = this.game.mainContext,
         height = this.headingHeight,
         width = this.game.windowSize.width;
-
+        ctx.save();
         ctx.beginPath();
         
         ctx.fillStyle = this.headingGradient;
@@ -46,10 +50,28 @@ export default class Location {
 
         ctx.beginPath();
         ctx.lineWidth = 5;
-        ctx.moveTo(35, 15);
-        ctx.lineTo(20, 30);
-        ctx.lineTo(35, 45);
-        ctx.stroke();
+        ctx.lineCap = 'round';
+        ctx.strokeStyle = "#fff";
+        ctx.stroke(this.backPath);
+        ctx.restore();
+    }
+
+    createBackPath(): Path2D{
+        let path = new Path2D();
+        path.moveTo(35, 15);
+        path.lineTo(20, 30);
+        path.lineTo(35, 45);
+        return path;
+    }
+
+    mouseMove(e: MouseEvent){
+        let {x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext,
+            screenWrapper = this.game.screenWrapper;
+
+        screenWrapper.style.cursor = ctx.isPointInPath(this.backPath, x, y) ? "pointer" : "default";
+        
+        
     }
 
 
@@ -62,7 +84,9 @@ export default class Location {
             gradient.addColorStop(1, '#394d90');
             this.headingGradient = gradient;
         }
+        if(!this.backPath) this.backPath = this.createBackPath();
         this.game.clearMainCanvas();
+        this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
 
 
         this.paintHeader();
