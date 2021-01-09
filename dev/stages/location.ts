@@ -13,13 +13,16 @@ export default class Location {
     headingGradient: CanvasGradient;
     headingHeight: number;
     backPath: Path2D;
+    animateFrameId: number;
     
     constructor(game: Game) {
         this.game = game;
         this.headingGradient = undefined;
+        this.animateFrameId = undefined;
         this.headingHeight = 60;
         this.backPath = undefined;
         this.mouseMove = this.mouseMove.bind(this);
+        this.click = this.click.bind(this);
     }
     
     fillBackground() {
@@ -68,10 +71,31 @@ export default class Location {
         let {x, y} = this.game.getCursorPosition(e),
             ctx = this.game.mainContext,
             screenWrapper = this.game.screenWrapper;
-
         screenWrapper.style.cursor = ctx.isPointInPath(this.backPath, x, y) ? "pointer" : "default";
-        
-        
+    };
+
+    click(e: MouseEvent) {
+        let { x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext;
+        if(ctx.isPointInPath(this.backPath, x, y)){
+            cancelAnimationFrame(this.animateFrameId);
+            this.clearEventListeners();
+            this.game.setStatus('globalMenu');
+        }
+
+    }
+
+    clearEventListeners(): void {
+        let screenWrapper = this.game.screenWrapper;
+        screenWrapper.removeEventListener('mousemove', this.mouseMove);
+        screenWrapper.removeEventListener('click', this.click);
+        screenWrapper.style.cursor = 'default';
+    }
+
+    locationLoop(): void {
+        this.game.clearMainCanvas();
+        this.paintHeader();
+        this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
 
@@ -85,10 +109,8 @@ export default class Location {
             this.headingGradient = gradient;
         }
         if(!this.backPath) this.backPath = this.createBackPath();
-        this.game.clearMainCanvas();
         this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
-
-
-        this.paintHeader();
+        this.game.screenWrapper.addEventListener('click', this.click);
+        this.locationLoop();
     }
 }
