@@ -14,13 +14,25 @@ export default class Location {
     headingHeight: number;
     backPath: Path2D;
     animateFrameId: number;
+    scrolTop: number;
+    heightVisibleDivision: number;
+    cardSize: {
+        width: number,
+        height: number
+    }
     
     constructor(game: Game) {
         this.game = game;
-        this.headingGradient = undefined;
+        this.headingGradient = undefined; 
         this.animateFrameId = undefined;
         this.headingHeight = 60;
         this.backPath = undefined;
+        this.scrolTop = 0;
+        this.cardSize = {
+            width: 300,
+            height: 250
+        };
+        this.heightVisibleDivision = this.game.windowSize.height - this.headingHeight;
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
     }
@@ -95,9 +107,19 @@ export default class Location {
     locationLoop(): void {
         this.game.clearMainCanvas();
         this.paintHeader();
+
         this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
+    getVisibleCard(): void{
+        let top = this.scrolTop,
+            heightVisibleDivision = this.heightVisibleDivision,
+            cardHeight = this.cardSize.height;
+            
+
+            
+
+    }
 
     init(){
         this.fillBackground(); 
@@ -112,5 +134,9 @@ export default class Location {
         this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
         this.game.screenWrapper.addEventListener('click', this.click);
         this.locationLoop();
+    }
+
+    paintCard(): void{
+
     }
 }

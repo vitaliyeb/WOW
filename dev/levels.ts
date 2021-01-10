@@ -36,6 +36,38 @@ class Levels implements InterfaceLevels{
                         ]
                     }
                 ]
+            },
+            {
+                country: 'египет2',
+                status: '',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                country: 'египет2',
+                status: '',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
             }
         ]
     }
