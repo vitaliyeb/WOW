@@ -79,5 +79,6 @@ class Levels implements InterfaceLevels{
 
 
 export {
-    Levels
+    Levels,
+    InterfaceСountry
 }

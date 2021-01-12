@@ -1,4 +1,5 @@
 import { Game } from "../game";
+import { InterfaceСountry } from "../levels";
 
 
 interface LocationInterface {
@@ -16,6 +17,7 @@ export default class Location {
     animateFrameId: number;
     scrolTop: number;
     heightVisibleDivision: number;
+    cardBottomPadding: number;
     cardSize: {
         width: number,
         height: number
@@ -32,6 +34,7 @@ export default class Location {
             width: 300,
             height: 250
         };
+        this.cardBottomPadding = 15;
         this.heightVisibleDivision = this.game.windowSize.height - this.headingHeight;
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
@@ -107,17 +110,26 @@ export default class Location {
     locationLoop(): void {
         this.game.clearMainCanvas();
         this.paintHeader();
-
+        this.getVisibleCard();
         this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
     getVisibleCard(): void{
         let top = this.scrolTop,
             heightVisibleDivision = this.heightVisibleDivision,
-            cardHeight = this.cardSize.height;
-            
+            paddingBottom = this.cardBottomPadding,
+            cardHeight = this.cardSize.height,
+            cards = this.game.user.levels.countries;    
 
-            
+        cards.reduce((lastY, el) => {
+            let y = lastY + cardHeight + paddingBottom;
+            this.paintCard(y, el);
+            return y;
+        }, top); 
+    }
+
+    paintCard(y: number, el: InterfaceСountry): void{
+        
 
     }
 
@@ -134,9 +146,5 @@ export default class Location {
         this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
         this.game.screenWrapper.addEventListener('click', this.click);
         this.locationLoop();
-    }
-
-    paintCard(): void{
-
     }
 }
