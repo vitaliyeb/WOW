@@ -109,27 +109,31 @@ export default class Location {
 
     locationLoop(): void {
         this.game.clearMainCanvas();
-        this.paintHeader();
         this.getVisibleCard();
+        this.paintHeader();
         this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
     getVisibleCard(): void{
         let top = this.scrolTop,
             heightVisibleDivision = this.heightVisibleDivision,
+            headingHeight = this.headingHeight,
             paddingBottom = this.cardBottomPadding,
             cardHeight = this.cardSize.height,
             cards = this.game.user.levels.countries;    
 
-        cards.reduce((lastY, el) => {
-            let y = lastY + cardHeight + paddingBottom;
-            this.paintCard(y, el);
+        cards.reduce((lastY, el, ind) => {
+            let y = lastY + headingHeight + (ind ? cardHeight + paddingBottom : 0) + 5;
+            this.paintCard(y, cardHeight, el);
             return y;
-        }, top); 
+        }, top);
     }
 
-    paintCard(y: number, el: InterfaceСountry): void{
-        
+    paintCard(y: number, cardHeight: number, el: InterfaceСountry): void{
+        let ctx = this.game.mainContext;
+        ctx.beginPath();
+        ctx.fillStyle = 'red';
+        ctx.fillRect(100, y, 300, cardHeight);
 
     }
 
