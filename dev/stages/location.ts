@@ -31,7 +31,7 @@ export default class Location {
         this.backPath = undefined;
         this.scrolTop = 0;
         this.cardSize = {
-            width: 300,
+            width: this.game.minMax(300, this.game.windowSize.width / 100 * 70, 800),
             height: 250
         };
         this.cardBottomPadding = 15;
@@ -104,7 +104,7 @@ export default class Location {
 
     scrollLocationCard(e: WheelEvent) {
         this.scrolTop+= e.deltaY / 7;
-        if (this.scrolTop < 0) this.scrolTop = 0;
+        if (this.scrolTop > 0) this.scrolTop = 0;
     }
 
     clearEventListeners(): void {
@@ -140,7 +140,7 @@ export default class Location {
         let ctx = this.game.mainContext;
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.fillRect(100, y, 300, cardHeight);
+        ctx.fillRect(100, y, this.cardSize.width, cardHeight);
 
     }
 
