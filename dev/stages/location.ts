@@ -38,6 +38,8 @@ export default class Location {
         this.heightVisibleDivision = this.game.windowSize.height - this.headingHeight;
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
+        this.scrollLocationCard = this.scrollLocationCard.bind(this);
+        document.addEventListener('wheel', this.scrollLocationCard)
     }
     
     fillBackground() {
@@ -100,6 +102,11 @@ export default class Location {
 
     }
 
+    scrollLocationCard(e: WheelEvent) {
+        this.scrolTop+= e.deltaY / 7;
+        if (this.scrolTop < 0) this.scrolTop = 0;
+    }
+
     clearEventListeners(): void {
         let screenWrapper = this.game.screenWrapper;
         screenWrapper.removeEventListener('mousemove', this.mouseMove);
@@ -123,7 +130,7 @@ export default class Location {
             cards = this.game.user.levels.countries;    
 
         cards.reduce((lastY, el, ind) => {
-            let y = lastY + headingHeight + (ind ? cardHeight + paddingBottom : 0) + 5;
+            let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
             this.paintCard(y, cardHeight, el);
             return y;
         }, top);
