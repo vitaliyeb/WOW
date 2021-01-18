@@ -18,6 +18,7 @@ export default class Location {
     scrolTop: number;
     heightVisibleDivision: number;
     cardBottomPadding: number;
+    fullHeightLevels: number;
     cardSize: {
         width: number,
         height: number
@@ -29,6 +30,7 @@ export default class Location {
         this.animateFrameId = undefined;
         this.headingHeight = 60;
         this.backPath = undefined;
+        this.fullHeightLevels = undefined;
         this.scrolTop = 0;
         this.cardSize = {
             width: this.game.minMax(300, this.game.windowSize.width / 100 * 70, 800),
@@ -105,6 +107,9 @@ export default class Location {
     scrollLocationCard(e: WheelEvent) {
         this.scrolTop+= e.deltaY / 7;
         if (this.scrolTop > 0) this.scrolTop = 0;
+        console.log(this.fullHeightLevels);
+        console.log()
+        if (Math.abs(this.scrolTop) + window.innerHeight + this.headingHeight > this.fullHeightLevels) this.scrolTop = this.fullHeightLevels;
     }
 
     clearEventListeners(): void {
@@ -153,6 +158,8 @@ export default class Location {
             gradient.addColorStop(1, '#394d90');
             this.headingGradient = gradient;
         }
+
+        if(!this.fullHeightLevels) this.fullHeightLevels = this.game.user.levels.countries.length * (this.cardSize.height + 20);
         if(!this.backPath) this.backPath = this.createBackPath();
         this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
         this.game.screenWrapper.addEventListener('click', this.click);
