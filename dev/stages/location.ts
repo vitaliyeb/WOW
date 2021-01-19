@@ -106,10 +106,9 @@ export default class Location {
 
     scrollLocationCard(e: WheelEvent) {
         this.scrolTop+= e.deltaY / 7;
-        if (this.scrolTop > 0) this.scrolTop = 0;
-        console.log(this.fullHeightLevels);
-        console.log()
-        if (Math.abs(this.scrolTop) + window.innerHeight + this.headingHeight > this.fullHeightLevels) this.scrolTop = this.fullHeightLevels;
+        if (this.scrolTop > 0) return this.scrolTop = 0;
+        let diff = this.fullHeightLevels - (window.innerHeight - this.headingHeight);
+        if ( diff < Math.abs(this.scrolTop) ) this.scrolTop = -diff;
     }
 
     clearEventListeners(): void {
