@@ -19,6 +19,7 @@ export default class Location {
     heightVisibleDivision: number;
     cardBottomPadding: number;
     fullHeightLevels: number;
+    locationActivePaths: Array<any>;
     cardSize: {
         width: number,
         height: number
@@ -33,15 +34,16 @@ export default class Location {
         this.fullHeightLevels = undefined;
         this.scrolTop = 0;
         this.cardSize = {
-            width: this.game.minMax(300, this.game.windowSize.width / 100 * 70, 800),
+            width: this.game.minMax(300, this.game.windowSize.width / 100 * 70, 500),
             height: 250
         };
+        this.locationActivePaths = [];
         this.cardBottomPadding = 15;
         this.heightVisibleDivision = this.game.windowSize.height - this.headingHeight;
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
         this.scrollLocationCard = this.scrollLocationCard.bind(this);
-        document.addEventListener('wheel', this.scrollLocationCard)
+        document.addEventListener('wheel', this.scrollLocationCard);
     }
     
     fillBackground() {
@@ -141,12 +143,30 @@ export default class Location {
     }
 
     paintCard(y: number, cardHeight: number, el: InterfaceСountry): void{
-        let ctx = this.game.mainContext;
+        let ctx = this.game.mainContext,
+            path = new Path2D(),
+            x = (this.game.windowSize.width - this.cardSize.width) / 2, 
+            width = this.cardSize.width,
+            angleRadiusDivision = 15;
+
+        path.moveTo(x + angleRadiusDivision, y);
+        path.lineTo(x + width - angleRadiusDivision, y);
+        path.quadraticCurveTo(x + width, y, x + width, y + angleRadiusDivision);
+        path.lineTo(x + width, y + cardHeight - angleRadiusDivision); 
+        path.quadraticCurveTo(x + width, y + cardHeight, x + width - angleRadiusDivision, y + cardHeight);
+        path.lineTo(x + angleRadiusDivision, y + cardHeight); 
+        path.quadraticCurveTo(x, y + cardHeight, x, y + cardHeight - angleRadiusDivision);
+        path.lineTo(x, y + angleRadiusDivision); 
+        path.quadraticCurveTo(x, y, x + angleRadiusDivision, y);
+
+
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.fillRect((this.game.windowSize.width - this.cardSize.width) / 2, y, this.cardSize.width, cardHeight);
-
+        ctx.fill(path);
+        ;
     }
+
+
 
     init(){
         this.fillBackground(); 

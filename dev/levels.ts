@@ -6,7 +6,7 @@ interface InterfaceSights {
 
 interface InterfaceСountry {
     country: string,
-    status: "" | "" | "",
+    status: "done" | "" | "",
     sights: Array<any>
 }
 
@@ -23,7 +23,7 @@ class Levels implements InterfaceLevels{
         this.countries = [
             {
                 country: 'египет',
-                status: '',
+                status: 'done',
                 sights: [
                     {
                         title: 'Пирамиды гизы',
