@@ -144,7 +144,7 @@ export default class Location {
         let ctx = this.game.mainContext;
         ctx.beginPath();
         ctx.fillStyle = 'red';
-        ctx.fillRect(100, y, this.cardSize.width, cardHeight);
+        ctx.fillRect((this.game.windowSize.width - this.cardSize.width) / 2, y, this.cardSize.width, cardHeight);
 
     }
 
