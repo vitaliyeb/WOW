@@ -7,6 +7,7 @@ interface LocationInterface {
     fillBackground: () => void;
     paintHeader: () => void;
     createBackPath: () => Path2D;
+    createRect: (x: number, y: number, width: number, height: number, radius: number ) => Path2D;
 }
 
 export default class Location {
@@ -34,7 +35,7 @@ export default class Location {
         this.fullHeightLevels = undefined;
         this.scrolTop = 0;
         this.cardSize = {
-            width: this.game.minMax(300, this.game.windowSize.width / 100 * 70, 500),
+            width: this.game.minMax(300, this.game.windowSize.width / 100 * 50, 500),
             height: 250
         };
         this.locationActivePaths = [];
@@ -144,28 +145,34 @@ export default class Location {
 
     paintCard(y: number, cardHeight: number, el: InterfaceСountry): void{
         let ctx = this.game.mainContext,
-            path = new Path2D(),
             x = (this.game.windowSize.width - this.cardSize.width) / 2, 
             width = this.cardSize.width,
-            angleRadiusDivision = 15;
-
-        path.moveTo(x + angleRadiusDivision, y);
-        path.lineTo(x + width - angleRadiusDivision, y);
-        path.quadraticCurveTo(x + width, y, x + width, y + angleRadiusDivision);
-        path.lineTo(x + width, y + cardHeight - angleRadiusDivision); 
-        path.quadraticCurveTo(x + width, y + cardHeight, x + width - angleRadiusDivision, y + cardHeight);
-        path.lineTo(x + angleRadiusDivision, y + cardHeight); 
-        path.quadraticCurveTo(x, y + cardHeight, x, y + cardHeight - angleRadiusDivision);
-        path.lineTo(x, y + angleRadiusDivision); 
-        path.quadraticCurveTo(x, y, x + angleRadiusDivision, y);
+            angleRadiusDivision = 15,
+            path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
 
 
         ctx.beginPath();
         ctx.fillStyle = 'red';
         ctx.fill(path);
-        ;
+        
     }
 
+
+    createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
+        let path = new Path2D();
+
+        path.moveTo(x + radius, y);
+        path.lineTo(x + width - radius, y);
+        path.quadraticCurveTo(x + width, y, x + width, y + radius);
+        path.lineTo(x + width, y + height - radius); 
+        path.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        path.lineTo(x + radius, y + height); 
+        path.quadraticCurveTo(x, y + height, x, y + height - radius);
+        path.lineTo(x, y + radius); 
+        path.quadraticCurveTo(x, y, x + radius, y);
+
+        return path;
+    }
 
 
     init(){
