@@ -12,7 +12,8 @@ interface GameInterface {
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
-    getCursorPosition: (e: MouseEvent) => {x: number, y: number}
+    getCursorPosition: (e: MouseEvent) => {x: number, y: number};
+    loadImages: (url: string, name: string) => Promise<HTMLImageElement>;
 };
 
 
@@ -31,6 +32,9 @@ class Game implements GameInterface {
     globalMenu: GlobalMenu;
     location: Location;
     user: User;
+    imagesStore: {
+        [propName: string]: HTMLImageElement;
+    };
 
     constructor() {
         this.canvasBackground = undefined;
@@ -44,7 +48,8 @@ class Game implements GameInterface {
             width: 0,
             height: 0
         };
-        this.status = 'location',
+        this.imagesStore = {};
+        this.status = 'loadingTheGame',
         this.loadingGameStages = undefined;
         this.globalMenu = undefined;
     }
@@ -101,11 +106,14 @@ class Game implements GameInterface {
         ctx.clearRect(0, 0, this.windowSize.width, this.windowSize.height);
     }
 
-    loadImages(url: string): Promise<HTMLImageElement> {
+    loadImages(url: string, name: string): Promise<HTMLImageElement> {
         let htmlImgElement: HTMLImageElement = new Image();
         return new Promise((res, rej)=> {
             htmlImgElement.src = url;
-            htmlImgElement.onload = () => res(htmlImgElement);
+            htmlImgElement.onload = () => {
+                this.imagesStore[name] = htmlImgElement;
+                return res(htmlImgElement);
+            }
         });
     }
 

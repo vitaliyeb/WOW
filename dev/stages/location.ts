@@ -136,6 +136,9 @@ export default class Location {
             cardHeight = this.cardSize.height,
             cards = this.game.user.levels.countries;    
 
+        console.log(this.game.imagesStore);
+        
+
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
             this.paintCard(y, cardHeight, el);
