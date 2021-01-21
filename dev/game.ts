@@ -101,6 +101,14 @@ class Game implements GameInterface {
         ctx.clearRect(0, 0, this.windowSize.width, this.windowSize.height);
     }
 
+    loadImages(url: string): Promise<HTMLImageElement> {
+        let htmlImgElement: HTMLImageElement = new Image();
+        return new Promise((res, rej)=> {
+            htmlImgElement.src = url;
+            htmlImgElement.onload = () => res(htmlImgElement);
+        });
+    }
+
     setBackground(path: string, titleGame?: boolean) {
         let img = new Image(),
         bgCtx = this.backgroundContext,

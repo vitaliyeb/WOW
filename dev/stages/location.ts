@@ -150,6 +150,7 @@ export default class Location {
             angleRadiusDivision = 15,
             path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
 
+        
 
         ctx.beginPath();
         ctx.fillStyle = 'red';
