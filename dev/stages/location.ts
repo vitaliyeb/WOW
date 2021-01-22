@@ -134,10 +134,8 @@ export default class Location {
             headingHeight = this.headingHeight,
             paddingBottom = this.cardBottomPadding,
             cardHeight = this.cardSize.height,
-            cards = this.game.user.levels.countries;    
-
-        console.log(this.game.imagesStore);
-        
+            cards = this.game.user.levels.countries;  
+          
 
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
@@ -154,9 +152,9 @@ export default class Location {
             path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
 
         
-
+        let patternImg = ctx.createPattern(this.game.imagesStore.locationFrance, 'no-repeat');
         ctx.beginPath();
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = patternImg;
         ctx.fill(path);
         
     }

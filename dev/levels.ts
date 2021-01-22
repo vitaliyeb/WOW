@@ -6,6 +6,7 @@ interface InterfaceSights {
 
 interface InterfaceСountry {
     country: string,
+    imageName: string,
     status: "done" | "" | "",
     sights: Array<any>
 }
@@ -23,71 +24,8 @@ class Levels implements InterfaceLevels{
         this.countries = [
             {
                 country: 'египет',
+                imageName: 'locationFrance',
                 status: 'done',
-                sights: [
-                    {
-                        title: 'Пирамиды гизы',
-                        status: '',
-                        levels: [
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                country: 'египет2',
-                status: '',
-                sights: [
-                    {
-                        title: 'Пирамиды гизы',
-                        status: '',
-                        levels: [
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                country: 'египет2',
-                status: '',
-                sights: [
-                    {
-                        title: 'Пирамиды гизы',
-                        status: '',
-                        levels: [
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                country: 'египет3',
-                status: '',
-                sights: [
-                    {
-                        title: 'Пирамиды гизы',
-                        status: '',
-                        levels: [
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                country: 'египет4',
-                status: '',
                 sights: [
                     {
                         title: 'Пирамиды гизы',

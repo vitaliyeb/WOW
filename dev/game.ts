@@ -107,7 +107,7 @@ class Game implements GameInterface {
     }
 
     loadImages(url: string, name: string): Promise<HTMLImageElement> {
-        let htmlImgElement: HTMLImageElement = new Image();
+        let htmlImgElement: HTMLImageElement = new Image(2000, 2000);
         return new Promise((res, rej)=> {
             htmlImgElement.src = url;
             htmlImgElement.onload = () => {

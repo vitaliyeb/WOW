@@ -42,10 +42,10 @@ class LoadingGame implements InterfaceLoadingGame{
         };
         this.defaultLoaders = [
             ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 1500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 2500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 3500))
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 50)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 100)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 200)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 300))
         ];
     }
 
