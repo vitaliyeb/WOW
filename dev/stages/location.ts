@@ -123,8 +123,9 @@ export default class Location {
 
     locationLoop(): void {
         this.game.clearMainCanvas();
-        this.getVisibleCard();
         this.paintHeader();
+        this.getVisibleCard();
+        
         this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
@@ -151,12 +152,12 @@ export default class Location {
             angleRadiusDivision = 15,
             path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
 
-        
-        let patternImg = ctx.createPattern(this.game.imagesStore.locationFrance, 'no-repeat');
+        ctx.save();
         ctx.beginPath();
-        ctx.fillStyle = patternImg;
-        ctx.fill(path);
-        
+
+        ctx.clip(path);
+        ctx.drawImage(this.game.imagesStore.locationFrance, x, y, width, cardHeight);
+        ctx.restore();
     }
 
 
