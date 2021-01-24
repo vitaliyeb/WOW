@@ -61,9 +61,7 @@ class LoadingGame implements InterfaceLoadingGame{
 
     loading(arrFunctionPromise: Array<any>): void{
         let division = 100 / arrFunctionPromise.length;
-        Promise.all(arrFunctionPromise.map((f)=> f().then(()=> this.processing+= division)))
-        .then(()=>console.log(this.game.imagesStore));
-        
+        Promise.all(arrFunctionPromise.map((f)=> f().then(()=> this.processing+= division)))       
     };
 
     paintLoading(): void{

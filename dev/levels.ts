@@ -38,6 +38,91 @@ class Levels implements InterfaceLevels{
                         ]
                     }
                 ]
+            },
+            {
+                country: 'египет',
+                imageName: 'locationFrance',
+                status: 'done',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                country: 'египет',
+                imageName: 'locationFrance',
+                status: 'done',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                country: 'египет',
+                imageName: 'locationFrance',
+                status: 'done',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                country: 'египет',
+                imageName: 'locationFrance',
+                status: 'done',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
+            },
+            {
+                country: 'египет',
+                imageName: 'locationFrance',
+                status: 'done',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: '',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
             }
         ]
     }

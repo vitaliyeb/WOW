@@ -44,7 +44,6 @@ export default class Location {
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
         this.scrollLocationCard = this.scrollLocationCard.bind(this);
-        document.addEventListener('wheel', this.scrollLocationCard);
     }
     
     fillBackground() {
@@ -110,7 +109,7 @@ export default class Location {
     scrollLocationCard(e: WheelEvent) {
         this.scrolTop+= e.deltaY / 7;
         if (this.scrolTop > 0) return this.scrolTop = 0;
-        let diff = this.fullHeightLevels - (window.innerHeight - this.headingHeight);
+        let diff = this.fullHeightLevels - (window.innerHeight - this.headingHeight);       
         if ( diff < Math.abs(this.scrolTop) ) this.scrolTop = -diff;
     }
 
@@ -123,9 +122,8 @@ export default class Location {
 
     locationLoop(): void {
         this.game.clearMainCanvas();
-        this.paintHeader();
         this.getVisibleCard();
-        
+        this.paintHeader();
         this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
@@ -135,11 +133,15 @@ export default class Location {
             headingHeight = this.headingHeight,
             paddingBottom = this.cardBottomPadding,
             cardHeight = this.cardSize.height,
-            cards = this.game.user.levels.countries;  
+            cards = this.game.user.levels.countries,
+            tMin = -cardHeight + headingHeight, 
+            tMax = window.innerHeight;
           
 
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
+            if(y > tMax || y < tMin) return y ;
+            
             this.paintCard(y, cardHeight, el);
             return y;
         }, top);
@@ -192,6 +194,7 @@ export default class Location {
         if(!this.backPath) this.backPath = this.createBackPath();
         this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
         this.game.screenWrapper.addEventListener('click', this.click);
+        document.addEventListener('wheel', this.scrollLocationCard);
         this.locationLoop();
     }
 }
