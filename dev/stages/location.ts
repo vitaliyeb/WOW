@@ -129,7 +129,6 @@ export default class Location {
 
     getVisibleCard(): void{
         let top = this.scrolTop,
-            heightVisibleDivision = this.heightVisibleDivision,
             headingHeight = this.headingHeight,
             paddingBottom = this.cardBottomPadding,
             cardHeight = this.cardSize.height,
@@ -158,7 +157,7 @@ export default class Location {
         ctx.beginPath();
 
         ctx.clip(path);
-        ctx.drawImage(this.game.imagesStore.locationFrance, x, y, width, cardHeight);
+        ctx.drawImage(this.game.imagesStore[el.imageName], x, y, width, cardHeight);
         ctx.restore();
     }
 

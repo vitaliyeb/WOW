@@ -24,7 +24,7 @@ class Levels implements InterfaceLevels{
         this.countries = [
             {
                 country: 'египет',
-                imageName: 'locationFrance',
+                imageName: 'locationEgipet',
                 status: 'done',
                 sights: [
                     {

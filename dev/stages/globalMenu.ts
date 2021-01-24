@@ -66,6 +66,7 @@ export default class GlobalMenu {
 
     init(): void {
         this.game.clearMainCanvas();
+        this.game.setBackground('./images/loadingBg.jpg', true);
         if (!this.paths.playButton) this.paths.playButton = this.createPathButtonPlay();
         if (!this.paths.levelInfo) this.paths.levelInfo = this.createPathLevelInfo();
         if (!this.paths.locationIcon) this.paths.locationIcon = this.createPathLocation();

@@ -64,7 +64,7 @@ class Game implements GameInterface {
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
-        this.location = new Location(this);
+        this.location = new Location(this);        
         this.runInitScene();
     };
 
@@ -118,13 +118,13 @@ class Game implements GameInterface {
     }
 
     setBackground(path: string, titleGame?: boolean) {
-        let img = new Image(),
+        let img = new Image(),        
         bgCtx = this.backgroundContext,
             {
                 width,
                 height
             } = this.windowSize;
-
+        console.log('wqewqe');
         img.src = path;
         img.onload = () => {
             if (width >= height){
