@@ -23,12 +23,12 @@ class Levels implements InterfaceLevels{
     constructor() {
         this.countries = [
             {
-                country: 'египет',
+                country: 'ЕГИПЕТ',
                 imageName: 'locationEgipet',
                 status: 'done',
                 sights: [
                     {
-                        title: 'Пирамиды гизы',
+                        title: 'ПИРАМИДЫ ГИЗЫ',
                         status: '',
                         levels: [
                             {
@@ -36,16 +36,9 @@ class Levels implements InterfaceLevels{
                                 letters: ["C", "О", "Н"]
                             },
                         ]
-                    }
-                ]
-            },
-            {
-                country: 'египет',
-                imageName: 'locationFrance',
-                status: 'done',
-                sights: [
+                    },
                     {
-                        title: 'Пирамиды гизы',
+                        title: 'БОЛЬШОЙ СФИНКС',
                         status: '',
                         levels: [
                             {
@@ -53,50 +46,9 @@ class Levels implements InterfaceLevels{
                                 letters: ["C", "О", "Н"]
                             },
                         ]
-                    }
-                ]
-            },
-            {
-                country: 'египет',
-                imageName: 'locationFrance',
-                status: 'done',
-                sights: [
+                    },
                     {
-                        title: 'Пирамиды гизы',
-                        status: '',
-                        levels: [
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                country: 'египет',
-                imageName: 'locationFrance',
-                status: 'done',
-                sights: [
-                    {
-                        title: 'Пирамиды гизы',
-                        status: '',
-                        levels: [
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                        ]
-                    }
-                ]
-            },
-            {
-                country: 'египет',
-                imageName: 'locationFrance',
-                status: 'done',
-                sights: [
-                    {
-                        title: 'Пирамиды гизы',
+                        title: 'КРАСНОЕ МОРЕ',
                         status: '',
                         levels: [
                             {
