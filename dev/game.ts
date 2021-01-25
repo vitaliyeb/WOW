@@ -12,7 +12,8 @@ interface GameInterface {
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
-    getCursorPosition: (e: MouseEvent) => {x: number, y: number}
+    getCursorPosition: (e: MouseEvent) => {x: number, y: number};
+    loadImages: (url: string, name: string) => Promise<HTMLImageElement>;
 };
 
 
@@ -31,6 +32,9 @@ class Game implements GameInterface {
     globalMenu: GlobalMenu;
     location: Location;
     user: User;
+    imagesStore: {
+        [propName: string]: HTMLImageElement;
+    };
 
     constructor() {
         this.canvasBackground = undefined;
@@ -44,7 +48,8 @@ class Game implements GameInterface {
             width: 0,
             height: 0
         };
-        this.status = 'location',
+        this.imagesStore = {};
+        this.status = 'loadingTheGame',
         this.loadingGameStages = undefined;
         this.globalMenu = undefined;
     }
@@ -59,7 +64,7 @@ class Game implements GameInterface {
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
-        this.location = new Location(this);
+        this.location = new Location(this);        
         this.runInitScene();
     };
 
@@ -101,14 +106,25 @@ class Game implements GameInterface {
         ctx.clearRect(0, 0, this.windowSize.width, this.windowSize.height);
     }
 
+    loadImages(url: string, name: string): Promise<HTMLImageElement> {
+        let htmlImgElement: HTMLImageElement = new Image(2000, 2000);
+        return new Promise((res, rej)=> {
+            htmlImgElement.src = url;
+            htmlImgElement.onload = () => {
+                this.imagesStore[name] = htmlImgElement;
+                return res(htmlImgElement);
+            }
+        });
+    }
+
     setBackground(path: string, titleGame?: boolean) {
-        let img = new Image(),
+        let img = new Image(),        
         bgCtx = this.backgroundContext,
             {
                 width,
                 height
             } = this.windowSize;
-
+        console.log('wqewqe');
         img.src = path;
         img.onload = () => {
             if (width >= height){

@@ -7,6 +7,7 @@ interface LocationInterface {
     fillBackground: () => void;
     paintHeader: () => void;
     createBackPath: () => Path2D;
+    createRect: (x: number, y: number, width: number, height: number, radius: number ) => Path2D;
 }
 
 export default class Location {
@@ -19,6 +20,7 @@ export default class Location {
     heightVisibleDivision: number;
     cardBottomPadding: number;
     fullHeightLevels: number;
+    locationActivePaths: Array<any>;
     cardSize: {
         width: number,
         height: number
@@ -33,15 +35,15 @@ export default class Location {
         this.fullHeightLevels = undefined;
         this.scrolTop = 0;
         this.cardSize = {
-            width: this.game.minMax(300, this.game.windowSize.width / 100 * 70, 800),
+            width: this.game.minMax(300, this.game.windowSize.width / 100 * 50, 500),
             height: 250
         };
+        this.locationActivePaths = [];
         this.cardBottomPadding = 15;
         this.heightVisibleDivision = this.game.windowSize.height - this.headingHeight;
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
         this.scrollLocationCard = this.scrollLocationCard.bind(this);
-        document.addEventListener('wheel', this.scrollLocationCard)
     }
     
     fillBackground() {
@@ -107,7 +109,7 @@ export default class Location {
     scrollLocationCard(e: WheelEvent) {
         this.scrolTop+= e.deltaY / 7;
         if (this.scrolTop > 0) return this.scrolTop = 0;
-        let diff = this.fullHeightLevels - (window.innerHeight - this.headingHeight);
+        let diff = this.fullHeightLevels - (window.innerHeight - this.headingHeight);       
         if ( diff < Math.abs(this.scrolTop) ) this.scrolTop = -diff;
     }
 
@@ -127,26 +129,55 @@ export default class Location {
 
     getVisibleCard(): void{
         let top = this.scrolTop,
-            heightVisibleDivision = this.heightVisibleDivision,
             headingHeight = this.headingHeight,
             paddingBottom = this.cardBottomPadding,
             cardHeight = this.cardSize.height,
-            cards = this.game.user.levels.countries;    
+            cards = this.game.user.levels.countries,
+            tMin = -cardHeight + headingHeight, 
+            tMax = window.innerHeight;
+          
 
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
+            if(y > tMax || y < tMin) return y ;
+            
             this.paintCard(y, cardHeight, el);
             return y;
         }, top);
     }
 
     paintCard(y: number, cardHeight: number, el: InterfaceСountry): void{
-        let ctx = this.game.mainContext;
-        ctx.beginPath();
-        ctx.fillStyle = 'red';
-        ctx.fillRect(100, y, this.cardSize.width, cardHeight);
+        let ctx = this.game.mainContext,
+            x = (this.game.windowSize.width - this.cardSize.width) / 2, 
+            width = this.cardSize.width,
+            angleRadiusDivision = 15,
+            path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
 
+        ctx.save();
+        ctx.beginPath();
+
+        ctx.clip(path);
+        ctx.drawImage(this.game.imagesStore[el.imageName], x, y, width, cardHeight);
+        ctx.restore();
     }
+
+
+    createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
+        let path = new Path2D();
+
+        path.moveTo(x + radius, y);
+        path.lineTo(x + width - radius, y);
+        path.quadraticCurveTo(x + width, y, x + width, y + radius);
+        path.lineTo(x + width, y + height - radius); 
+        path.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        path.lineTo(x + radius, y + height); 
+        path.quadraticCurveTo(x, y + height, x, y + height - radius);
+        path.lineTo(x, y + radius); 
+        path.quadraticCurveTo(x, y, x + radius, y);
+
+        return path;
+    }
+
 
     init(){
         this.fillBackground(); 
@@ -162,6 +193,7 @@ export default class Location {
         if(!this.backPath) this.backPath = this.createBackPath();
         this.game.screenWrapper.addEventListener('mousemove', this.mouseMove);
         this.game.screenWrapper.addEventListener('click', this.click);
+        document.addEventListener('wheel', this.scrollLocationCard);
         this.locationLoop();
     }
 }

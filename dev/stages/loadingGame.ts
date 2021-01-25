@@ -41,13 +41,16 @@ class LoadingGame implements InterfaceLoadingGame{
             lineWidth: .5
         };
         this.defaultLoaders = [
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 500)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 500))
+            ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
+            ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet'),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 50)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 100)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 200)),
+            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 300))
         ];
     }
 
+    
 
     init(arrFunctionPromise = this.defaultLoaders):void {
         this.game.setBackground('./images/loadingBg.jpg', true);
@@ -59,12 +62,7 @@ class LoadingGame implements InterfaceLoadingGame{
 
     loading(arrFunctionPromise: Array<any>): void{
         let division = 100 / arrFunctionPromise.length;
-        Promise.all(arrFunctionPromise.map((f)=>{
-            return new Promise((resolve)=>{
-                f().then(()=> this.processing+= division)
-            });
-        }))
-            .then(()=>this.processing = 100);
+        Promise.all(arrFunctionPromise.map((f)=> f().then(()=> this.processing+= division)))       
     };
 
     paintLoading(): void{
@@ -77,7 +75,7 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
-        if (this.lazyProcessing < this.processing) this.lazyProcessing+=101; //.6
+        if (this.lazyProcessing < this.processing) this.lazyProcessing+=.6; //.6
         this.paintLoadingProcess();
         if (this.lazyProcessing >= 100) return this.game.setStatus('globalMenu');
         requestAnimationFrame(()=>this.loadingLoop());
