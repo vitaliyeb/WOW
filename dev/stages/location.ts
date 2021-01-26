@@ -169,10 +169,14 @@ export default class Location {
             width = 130,
             margin = 10;
 
-        ctx.fillStyle = '#ea5c01';
+        ctx.font = "11px roboto";
+        ctx.textAlign = 'left';
         country.sights.reduce((lastY, sight)=>{
             let path = this.createRect(x + margin, lastY, width, height, height /2);
+            ctx.fillStyle = '#ea5c01';
             ctx.fill(path);
+            ctx.fillStyle = '#fff';
+            ctx.fillText(sight.title, x + margin + 7, lastY + height / 2, width - 40);
 
             return lastY + height + margin;
         }, y + 20);
