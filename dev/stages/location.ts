@@ -1,5 +1,6 @@
 import { Game } from "../game";
 import { InterfaceСountry } from "../levels";
+import * as Path from "path";
 
 
 interface LocationInterface {
@@ -142,6 +143,7 @@ export default class Location {
             if(y > tMax || y < tMin) return y ;
             
             this.paintCard(y, cardHeight, el);
+            this.paintSection(y, el);
             return y;
         }, top);
     }
@@ -159,6 +161,14 @@ export default class Location {
         ctx.clip(path);
         ctx.drawImage(this.game.imagesStore[el.imageName], x, y, width, cardHeight);
         ctx.restore();
+    }
+
+    paintSection(y: number, el: InterfaceСountry ): Path2D{
+        let path = new Path2D();
+
+
+
+        return path;
     }
 
 
