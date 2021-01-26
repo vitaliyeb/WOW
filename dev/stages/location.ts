@@ -135,22 +135,22 @@ export default class Location {
             cardHeight = this.cardSize.height,
             cards = this.game.user.levels.countries,
             tMin = -cardHeight + headingHeight, 
-            tMax = window.innerHeight;
+            tMax = window.innerHeight,
+            x = (this.game.windowSize.width - this.cardSize.width) / 2;
           
 
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
             if(y > tMax || y < tMin) return y ;
             
-            this.paintCard(y, cardHeight, el);
-            this.paintSection(y, el);
+            this.paintCard(y, x, cardHeight, el);
+            this.paintSections(y, x + 20, el);
             return y;
         }, top);
     }
 
-    paintCard(y: number, cardHeight: number, el: InterfaceСountry): void{
+    paintCard(y: number, x: number, cardHeight: number, el: InterfaceСountry): void{
         let ctx = this.game.mainContext,
-            x = (this.game.windowSize.width - this.cardSize.width) / 2, 
             width = this.cardSize.width,
             angleRadiusDivision = 15,
             path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
@@ -163,12 +163,19 @@ export default class Location {
         ctx.restore();
     }
 
-    paintSection(y: number, el: InterfaceСountry ): Path2D{
-        let path = new Path2D();
+    paintSections(y: number, x: number, country: InterfaceСountry ): void{
+        let ctx = this.game.mainContext,
+            height = 25,
+            width = 130,
+            margin = 10;
 
+        ctx.fillStyle = '#ea5c01';
+        country.sights.reduce((lastY, sight)=>{
+            let path = this.createRect(x + margin, lastY, width, height, height /2);
+            ctx.fill(path);
 
-
-        return path;
+            return lastY + height + margin;
+        }, y + 20);
     }
 
 
