@@ -167,7 +167,9 @@ export default class Location {
         let ctx = this.game.mainContext,
             height = 25,
             width = 130,
-            margin = 10;
+            margin = 10,
+            iconWidth = 12,
+            iconHeight = 12;
 
         ctx.font = "11px roboto";
         ctx.textAlign = 'left';
@@ -177,6 +179,8 @@ export default class Location {
             ctx.fill(path);
             ctx.fillStyle = '#fff';
             ctx.fillText(sight.title, x + margin + 7, lastY + height / 2, width - 40);
+
+            ctx.drawImage(this.game.imagesStore.searchIcon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
 
             return lastY + height + margin;
         }, y + 20);

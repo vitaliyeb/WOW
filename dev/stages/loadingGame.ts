@@ -41,6 +41,7 @@ class LoadingGame implements InterfaceLoadingGame{
             lineWidth: .5
         };
         this.defaultLoaders = [
+            ()=>this.game.loadImages('./images/search.png', 'searchIcon'),
             ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
             ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet'),
             ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 50)),

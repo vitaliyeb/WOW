@@ -124,7 +124,7 @@ class Game implements GameInterface {
                 width,
                 height
             } = this.windowSize;
-        console.log('wqewqe');
+
         img.src = path;
         img.onload = () => {
             if (width >= height){
