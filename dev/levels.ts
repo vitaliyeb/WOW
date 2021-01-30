@@ -62,7 +62,7 @@ class Levels implements InterfaceLevels{
                 ]
             },
             {
-                country: 'египет',
+                country: 'ФРАНЦИЯ',
                 imageName: 'locationFrance',
                 status: 'done',
                 sights: [

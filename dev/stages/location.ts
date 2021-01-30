@@ -142,9 +142,15 @@ export default class Location {
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
             if(y > tMax || y < tMin) return y ;
-            
+            let ctx = this.game.mainContext;
+
             this.paintCard(y, x, cardHeight, el);
             this.paintSections(y, x + 20, el);
+
+            ctx.font = "22px roboto";
+            ctx.textBaseline = "bottom";
+            ctx.fillText(el.country, x + 30, y + cardHeight - 10);
+
             return y;
         }, top);
     }
@@ -173,6 +179,7 @@ export default class Location {
 
         ctx.font = "11px roboto";
         ctx.textAlign = 'left';
+        ctx.textBaseline = "middle";
         country.sights.reduce((lastY, sight)=>{
             let path = this.createRect(x + margin, lastY, width, height, height /2);
             ctx.fillStyle = '#ea5c01';
