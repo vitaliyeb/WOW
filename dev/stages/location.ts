@@ -176,6 +176,12 @@ export default class Location {
         ctx.textBaseline = "bottom";
         ctx.textAlign = "left";
         ctx.fillText(cardTitle, x + 20, y + cardHeight - 10);
+
+        if(el.status === "done"){
+            let doneW = 30,
+                doneH = 30;
+            ctx.drawImage(this.game.imagesStore.checkGreen, x + width - 10 - doneW, y + cardHeight - 10 - doneH, doneW, doneH );
+        }
         
         ctx.restore();
     }
