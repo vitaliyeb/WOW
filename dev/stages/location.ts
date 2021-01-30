@@ -142,20 +142,22 @@ export default class Location {
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
             if(y > tMax || y < tMin) return y ;
-            let ctx = this.game.mainContext;
+            let ctx = this.game.mainContext,
+            isBlock = el.status === 'block';
 
-            this.paintCard(y, x, cardHeight, el);
-            this.paintSections(y, x + 20, el);
+            this.paintCard(y, x, cardHeight, el, isBlock);
 
+            if(!isBlock) this.paintSections(y, x + 20, el);
+            
             ctx.font = "22px roboto";
             ctx.textBaseline = "bottom";
-            ctx.fillText(el.country, x + 30, y + cardHeight - 10);
+            ctx.fillText(isBlock ? 'НЕ ИЗУЧЕНО' : el.country, x + 30, y + cardHeight - 10);
 
             return y;
         }, top);
     }
 
-    paintCard(y: number, x: number, cardHeight: number, el: InterfaceСountry): void{
+    paintCard(y: number, x: number, cardHeight: number, el: InterfaceСountry, block?: boolean): void{
         let ctx = this.game.mainContext,
             width = this.cardSize.width,
             angleRadiusDivision = 15,
@@ -166,6 +168,13 @@ export default class Location {
 
         ctx.clip(path);
         ctx.drawImage(this.game.imagesStore[el.imageName], x, y, width, cardHeight);
+        if(block){
+            let questionW = 60,
+                questionH = 80;
+            ctx.fillStyle = "#909090e6";
+            ctx.fillRect(0, 0, this.game.windowSize.width, this.game.windowSize.height);
+            ctx.drawImage(this.game.imagesStore.questoin, x + (width / 2) - (questionW / 2), y + (cardHeight / 2) - (questionH / 2), questionW, questionH);
+        }
         ctx.restore();
     }
 

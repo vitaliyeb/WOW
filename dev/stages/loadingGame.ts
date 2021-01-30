@@ -43,6 +43,7 @@ class LoadingGame implements InterfaceLoadingGame{
         this.defaultLoaders = [
             ()=>this.game.loadImages('./images/check.png', 'check'),
             ()=>this.game.loadImages('./images/search.png', 'searchIcon'),
+            ()=>this.game.loadImages('./images/question.png', 'questoin'),
             ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
             ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet'),
             ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 50)),

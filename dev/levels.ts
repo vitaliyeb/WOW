@@ -9,7 +9,7 @@ interface InterfaceSights {
 interface InterfaceСountry {
     country: string,
     imageName: string,
-    status: "done" | "process",
+    status: "done" | "process" | "block",
     sights: Array<InterfaceSights>
 }
 
@@ -64,7 +64,24 @@ class Levels implements InterfaceLevels{
             {
                 country: 'ФРАНЦИЯ',
                 imageName: 'locationFrance',
-                status: 'done',
+                status: 'process',
+                sights: [
+                    {
+                        title: 'Пирамиды гизы',
+                        status: 'process',
+                        levels: [
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                        ]
+                    }
+                ]
+            }, 
+            {
+                country: 'ФРАНЦИЯ',
+                imageName: 'locationFrance',
+                status: 'block',
                 sights: [
                     {
                         title: 'Пирамиды гизы',
