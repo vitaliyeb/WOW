@@ -138,43 +138,45 @@ export default class Location {
             tMax = window.innerHeight,
             x = (this.game.windowSize.width - this.cardSize.width) / 2;
           
-
         cards.reduce((lastY, el, ind) => {
             let y = lastY + (ind ? cardHeight + paddingBottom : headingHeight) + 5;
             if(y > tMax || y < tMin) return y ;
-            let ctx = this.game.mainContext,
-            isBlock = el.status === 'block';
 
-            this.paintCard(y, x, cardHeight, el, isBlock);
-
-            if(!isBlock) this.paintSections(y, x + 20, el);
-            
-            ctx.font = "22px roboto";
-            ctx.textBaseline = "bottom";
-            ctx.fillText(isBlock ? 'НЕ ИЗУЧЕНО' : el.country, x + 30, y + cardHeight - 10);
+            this.paintCard(y, x, cardHeight, el);
 
             return y;
         }, top);
     }
 
-    paintCard(y: number, x: number, cardHeight: number, el: InterfaceСountry, block?: boolean): void{
+    paintCard(y: number, x: number, cardHeight: number, el: InterfaceСountry): void{
         let ctx = this.game.mainContext,
             width = this.cardSize.width,
             angleRadiusDivision = 15,
-            path = this.createRect(x, y, width, cardHeight, angleRadiusDivision);
+            path = this.createRect(x, y, width, cardHeight, angleRadiusDivision),
+            isBlock = el.status === 'block',
+            cardTitle = isBlock ? 'НЕ ИЗУЧЕНО' : el.country;
 
         ctx.save();
         ctx.beginPath();
 
         ctx.clip(path);
         ctx.drawImage(this.game.imagesStore[el.imageName], x, y, width, cardHeight);
-        if(block){
+
+        if(isBlock){
             let questionW = 60,
                 questionH = 80;
-            ctx.fillStyle = "#909090e6";
+            ctx.fillStyle = "#535353e6";
             ctx.fillRect(0, 0, this.game.windowSize.width, this.game.windowSize.height);
             ctx.drawImage(this.game.imagesStore.questoin, x + (width / 2) - (questionW / 2), y + (cardHeight / 2) - (questionH / 2), questionW, questionH);
         }
+        
+        if(!isBlock) this.paintSections(y, x + 10, el);
+        ctx.fillStyle = "#fff";
+        ctx.font = "22px roboto";
+        ctx.textBaseline = "bottom";
+        ctx.textAlign = "left";
+        ctx.fillText(cardTitle, x + 20, y + cardHeight - 10);
+        
         ctx.restore();
     }
 
@@ -194,7 +196,7 @@ export default class Location {
             ctx.fillStyle = '#ea5c01';
             ctx.fill(path);
             ctx.fillStyle = '#fff';
-            ctx.fillText(sight.title, x + margin + 7, lastY + height / 2, width - 40);
+            ctx.fillText(sight.title, x + margin + 10, lastY + height / 2, width - 40);
             let icon = this.game.imagesStore[sight.status === 'done' ? 'check' : 'searchIcon'];
             ctx.drawImage(icon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
 

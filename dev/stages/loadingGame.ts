@@ -42,6 +42,7 @@ class LoadingGame implements InterfaceLoadingGame{
         };
         this.defaultLoaders = [
             ()=>this.game.loadImages('./images/check.png', 'check'),
+            ()=>this.game.loadImages('./images/checkGreen.png', 'checkGreen'),
             ()=>this.game.loadImages('./images/search.png', 'searchIcon'),
             ()=>this.game.loadImages('./images/question.png', 'questoin'),
             ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
