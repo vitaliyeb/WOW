@@ -1,14 +1,16 @@
 
 
 interface InterfaceSights {
-
+    title: string,
+    status: "done" | "process",
+    levels: any
 }
 
 interface InterfaceСountry {
     country: string,
     imageName: string,
-    status: "done" | "" | "",
-    sights: Array<any>
+    status: "done" | "process",
+    sights: Array<InterfaceSights>
 }
 
 
@@ -29,7 +31,7 @@ class Levels implements InterfaceLevels{
                 sights: [
                     {
                         title: 'ПИРАМИДЫ ГИЗЫ',
-                        status: '',
+                        status: 'done',
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -39,7 +41,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'БОЛЬШОЙ СФИНКС',
-                        status: '',
+                        status: 'done',
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -49,7 +51,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'КРАСНОЕ МОРЕ',
-                        status: '',
+                        status: 'done',
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -66,7 +68,7 @@ class Levels implements InterfaceLevels{
                 sights: [
                     {
                         title: 'Пирамиды гизы',
-                        status: '',
+                        status: 'process',
                         levels: [
                             {
                                 words: ['Сон', "Нос"],

@@ -1,6 +1,7 @@
 import './game.ts'
 import './../public/img/loadingBg.jpg'
 import './../public/img/location.png'
-import './../public/img/serch.png'
+import './../public/img/search.png'
 import './../public/img/egipetLocal.jpg'
 import './../public/img/franceLocal.jpg'
+import './../public/img/check.png'

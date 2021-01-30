@@ -179,8 +179,8 @@ export default class Location {
             ctx.fill(path);
             ctx.fillStyle = '#fff';
             ctx.fillText(sight.title, x + margin + 7, lastY + height / 2, width - 40);
-
-            ctx.drawImage(this.game.imagesStore.searchIcon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
+            let icon = this.game.imagesStore[sight.status === 'done' ? 'check' : 'searchIcon'];
+            ctx.drawImage(icon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
 
             return lastY + height + margin;
         }, y + 20);
