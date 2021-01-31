@@ -1,6 +1,5 @@
 import { Game } from "../game";
-import { InterfaceСountry } from "../levels";
-import * as Path from "path";
+import { InterfaceСountry, InterfaceSightHandler } from "../levels";
 
 
 interface LocationInterface {
@@ -12,7 +11,7 @@ interface LocationInterface {
 }
 
 interface EventHandlersInterface {
-
+    [propName : string] : any 
 }
 
 export default class Location {
@@ -22,8 +21,12 @@ export default class Location {
     backPath: Path2D;
     animateFrameId: number;
     scrolTop: number;
+    cursorPosition: {
+        x: number,
+        y: number
+    };
     heightVisibleDivision: number;
-    eventStore: Array<EventHandlersInterface>
+    eventStore: Array<EventHandlersInterface>;
     cardBottomPadding: number;
     fullHeightLevels: number;
     locationActivePaths: Array<any>;
@@ -44,6 +47,10 @@ export default class Location {
         this.cardSize = {
             width: this.game.minMax(300, this.game.windowSize.width / 100 * 50, 500),
             height: 250
+        };
+        this.cursorPosition = {
+            x: 0,
+            y: 0
         };
         this.locationActivePaths = [];
         this.cardBottomPadding = 15;
@@ -96,10 +103,9 @@ export default class Location {
     }
 
     mouseMove(e: MouseEvent){
-        let {x, y} = this.game.getCursorPosition(e),
-            ctx = this.game.mainContext,
-            screenWrapper = this.game.screenWrapper;
-        screenWrapper.style.cursor = ctx.isPointInPath(this.backPath, x, y) ? "pointer" : "default";
+        let {x, y} = this.game.getCursorPosition(e);
+        this.cursorPosition.x = x; 
+        this.cursorPosition.y = y;
     };
 
     click(e: MouseEvent) {
@@ -127,10 +133,21 @@ export default class Location {
         screenWrapper.style.cursor = 'default';
     }
 
+    checkPathInCursorPosition(x: number, y: number) {
+        let ctx = this.game.mainContext,
+        screenWrapper = this.game.screenWrapper;
+
+        if(ctx.isPointInPath(this.backPath, x, y)) return screenWrapper.style.cursor = "pointer";
+        if(this.eventStore.some((el) => ctx.isPointInPath(el.path, x, y))) return screenWrapper.style.cursor = "pointer";
+        screenWrapper.style.cursor = "default";
+    }
+
     locationLoop(): void {
+        this.eventStore = [];
         this.game.clearMainCanvas();
         this.getVisibleCard();
         this.paintHeader();
+        this.checkPathInCursorPosition(this.cursorPosition.x, this.cursorPosition.y);
         this.animateFrameId = requestAnimationFrame(()=>this.locationLoop());
     }
 
@@ -177,6 +194,7 @@ export default class Location {
         }
         
         if(!isBlock) this.paintSections(y, x + 10, el);
+        
         ctx.fillStyle = "#fff";
         ctx.font = "22px roboto";
         ctx.textBaseline = "bottom";
@@ -212,10 +230,18 @@ export default class Location {
             let icon = this.game.imagesStore[sight.status === 'done' ? 'check' : 'searchIcon'];
             ctx.drawImage(icon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
 
+            this.eventStore.push({
+                path: path,
+                name: sight.handlerId
+            });
+
             return lastY + height + margin;
         }, y + 20);
     }
 
+    handlerSectionClick(handler: InterfaceSightHandler) {
+        
+    }
 
     createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
         let path = new Path2D();

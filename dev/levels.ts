@@ -3,12 +3,15 @@
 interface InterfaceSights {
     title: string,
     status: "done" | "process",
-    handler: {
-        img: string,
-        heading: string,
-        description: string
-    },
+    handlerId: string;
+    handler: InterfaceSightHandler,
     levels: any
+}
+
+interface InterfaceSightHandler {
+    img: string,
+    heading: string,
+    description: string
 }
 
 interface InterfaceСountry {
@@ -37,6 +40,7 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'ПИРАМИДЫ ГИЗЫ',
                         status: 'done',
+                        handlerId: "1",
                         handler: {
                             img: 'gizaBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
@@ -52,8 +56,9 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'БОЛЬШОЙ СФИНКС',
                         status: 'done',
+                        handlerId: "2",
                         handler: {
-                            img: 'gizaBg',
+                            img: 'bigSfinxBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
                             description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
                         },
@@ -67,8 +72,9 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'КРАСНОЕ МОРЕ',
                         status: 'done',
+                        handlerId: "3",
                         handler: {
-                            img: 'gizaBg',
+                            img: 'redSeaBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
                             description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
                         },
@@ -89,6 +95,7 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'Пирамиды гизы',
                         status: 'process',
+                        handlerId: "4",
                         handler: {
                             img: 'gizaBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
@@ -111,6 +118,7 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'Пирамиды гизы',
                         status: 'process',
+                        handlerId: "5",
                         handler: {
                             img: 'gizaBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
@@ -136,5 +144,6 @@ class Levels implements InterfaceLevels{
 
 export {
     Levels,
-    InterfaceСountry
+    InterfaceСountry,
+    InterfaceSightHandler
 }
