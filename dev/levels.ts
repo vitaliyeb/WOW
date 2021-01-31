@@ -3,6 +3,11 @@
 interface InterfaceSights {
     title: string,
     status: "done" | "process",
+    handler: {
+        img: string,
+        heading: string,
+        description: string
+    },
     levels: any
 }
 
@@ -32,6 +37,11 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'ПИРАМИДЫ ГИЗЫ',
                         status: 'done',
+                        handler: {
+                            img: 'gizaBg',
+                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                        },
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -42,6 +52,11 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'БОЛЬШОЙ СФИНКС',
                         status: 'done',
+                        handler: {
+                            img: 'gizaBg',
+                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                        },
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -52,6 +67,11 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'КРАСНОЕ МОРЕ',
                         status: 'done',
+                        handler: {
+                            img: 'gizaBg',
+                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                        },
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -69,6 +89,11 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'Пирамиды гизы',
                         status: 'process',
+                        handler: {
+                            img: 'gizaBg',
+                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                        },
                         levels: [
                             {
                                 words: ['Сон', "Нос"],
@@ -86,6 +111,11 @@ class Levels implements InterfaceLevels{
                     {
                         title: 'Пирамиды гизы',
                         status: 'process',
+                        handler: {
+                            img: 'gizaBg',
+                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                        },
                         levels: [
                             {
                                 words: ['Сон', "Нос"],

@@ -11,6 +11,10 @@ interface LocationInterface {
     createRect: (x: number, y: number, width: number, height: number, radius: number ) => Path2D;
 }
 
+interface EventHandlersInterface {
+
+}
+
 export default class Location {
     game: Game;
     headingGradient: CanvasGradient;
@@ -19,6 +23,7 @@ export default class Location {
     animateFrameId: number;
     scrolTop: number;
     heightVisibleDivision: number;
+    eventStore: Array<EventHandlersInterface>
     cardBottomPadding: number;
     fullHeightLevels: number;
     locationActivePaths: Array<any>;
@@ -35,6 +40,7 @@ export default class Location {
         this.backPath = undefined;
         this.fullHeightLevels = undefined;
         this.scrolTop = 0;
+        this.eventStore = [];
         this.cardSize = {
             width: this.game.minMax(300, this.game.windowSize.width / 100 * 50, 500),
             height: 250
