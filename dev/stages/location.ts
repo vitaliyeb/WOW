@@ -209,6 +209,17 @@ export default class Location {
             ctx.drawImage(this.game.imagesStore.checkGreen, x + width - 10 - doneW, y + cardHeight - 10 - doneH, doneW, doneH );
         }
 
+        if(el.status === 'process'){
+            this.eventStore.push({
+                path,
+                handler: () => {
+                    cancelAnimationFrame(this.animateFrameId);
+                    this.clearEventListeners();
+                    this.game.setStatus('game');
+                }
+            });            
+        }
+
         ctx.restore();
     }
 
@@ -245,7 +256,7 @@ export default class Location {
         return () => {
             cancelAnimationFrame(this.animateFrameId);
             this.clearEventListeners();
-            this.game.setStatus(status === "process" ? 'investigated' : 'investigated', handler);
+            this.game.setStatus(status === "process" ? 'game' : 'investigated', handler);
         };
     }
 
