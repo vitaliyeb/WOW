@@ -7,7 +7,7 @@ import {User} from "./user";
 
 interface GameInterface {
     init: ()=> void;
-    runInitScene: ()=> void;
+    runInitScene: (arg: Array<any>)=> void;
     setBackground: (path: string, titleGame?: boolean) => void;
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
@@ -68,9 +68,9 @@ class Game implements GameInterface {
         this.runInitScene();
     };
 
-    setStatus(status: string): void{
+    setStatus(status: string, ...arg: any): void{
         this.status = status;
-        this.runInitScene();
+        this.runInitScene(arg);
     }
 
     setFullSize(): void{
@@ -86,7 +86,7 @@ class Game implements GameInterface {
         }
     }
 
-    runInitScene(): void{
+    runInitScene(arg?: any[]): void{
         switch (this.status){
             case 'loadingTheGame':
                 this.loadingGameStages.init();
@@ -98,7 +98,10 @@ class Game implements GameInterface {
                 this.location.init();
                 break;   
             case 'investigated':
-                
+                console.log('run investigated');
+                break;
+            case 'game':
+                console.log('run game');
                 break;
         }
     }

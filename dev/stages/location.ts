@@ -117,7 +117,7 @@ export default class Location {
             return this.game.setStatus('globalMenu');
         };
         let suitablePath = this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)).pop();
-        console.log(suitablePath);
+        suitablePath?.handler();
     }
 
     scrollLocationCard(e: WheelEvent) {
@@ -128,6 +128,7 @@ export default class Location {
     }
 
     clearEventListeners(): void {
+        this.eventStore = [];
         let screenWrapper = this.game.screenWrapper;
         screenWrapper.removeEventListener('mousemove', this.mouseMove);
         screenWrapper.removeEventListener('click', this.click);
@@ -241,9 +242,11 @@ export default class Location {
     }
 
     handlerSectionClick({status, handler}: InterfaceSights) {
-        if(status === "done") {
-            return 
-        }
+        return () => {
+            cancelAnimationFrame(this.animateFrameId);
+            this.clearEventListeners();
+            this.game.setStatus(status === "process" ? 'investigated' : 'investigated', handler);
+        };
     }
 
     createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
