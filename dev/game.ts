@@ -96,7 +96,10 @@ class Game implements GameInterface {
                 break;
             case 'location':
                 this.location.init();
-                break;    
+                break;   
+            case 'investigated':
+                
+                break;
         }
     }
 

@@ -145,5 +145,6 @@ class Levels implements InterfaceLevels{
 export {
     Levels,
     InterfaceСountry,
+    InterfaceSights,
     InterfaceSightHandler
 }

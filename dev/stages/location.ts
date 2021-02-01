@@ -1,5 +1,5 @@
 import { Game } from "../game";
-import { InterfaceСountry, InterfaceSightHandler } from "../levels";
+import { InterfaceСountry, InterfaceSights } from "../levels";
 
 
 interface LocationInterface {
@@ -114,9 +114,10 @@ export default class Location {
         if(ctx.isPointInPath(this.backPath, x, y)){
             cancelAnimationFrame(this.animateFrameId);
             this.clearEventListeners();
-            this.game.setStatus('globalMenu');
-        }
-
+            return this.game.setStatus('globalMenu');
+        };
+        let suitablePath = this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)).pop();
+        console.log(suitablePath);
     }
 
     scrollLocationCard(e: WheelEvent) {
@@ -206,7 +207,7 @@ export default class Location {
                 doneH = 30;
             ctx.drawImage(this.game.imagesStore.checkGreen, x + width - 10 - doneW, y + cardHeight - 10 - doneH, doneW, doneH );
         }
-        
+
         ctx.restore();
     }
 
@@ -232,15 +233,17 @@ export default class Location {
 
             this.eventStore.push({
                 path: path,
-                name: sight.handlerId
+                handler: this.handlerSectionClick(sight)
             });
 
             return lastY + height + margin;
         }, y + 20);
     }
 
-    handlerSectionClick(handler: InterfaceSightHandler) {
-        
+    handlerSectionClick({status, handler}: InterfaceSights) {
+        if(status === "done") {
+            return 
+        }
     }
 
     createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
