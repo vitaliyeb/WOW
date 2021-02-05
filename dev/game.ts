@@ -1,6 +1,7 @@
 import { LoadingGame } from './stages/loadingGame'
 import GlobalMenu from "./stages/globalMenu";
 import Location from "./stages/location";
+import Investigated from './stages/investigated';
 import {User} from "./user";
 
 
@@ -31,6 +32,7 @@ class Game implements GameInterface {
     loadingGameStages: LoadingGame;
     globalMenu: GlobalMenu;
     location: Location;
+    investigated: Investigated;
     user: User;
     imagesStore: {
         [propName: string]: HTMLImageElement;
@@ -39,6 +41,7 @@ class Game implements GameInterface {
     constructor() {
         this.canvasBackground = undefined;
         this.screenWrapper = undefined;
+        this.investigated = undefined;
         this.canvasMain = undefined;
         this.backgroundContext = undefined;
         this.mainContext = undefined;
@@ -60,6 +63,7 @@ class Game implements GameInterface {
         this.backgroundContext = this.canvasBackground.getContext('2d');
         this.mainContext = this.canvasMain.getContext('2d');
         this.screenWrapper = document.querySelector('.screen');
+        this.investigated = new Investigated(this);
         this.user = new User(this);
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
@@ -98,7 +102,7 @@ class Game implements GameInterface {
                 this.location.init();
                 break;   
             case 'investigated':
-                console.log('run investigated');
+                console.log('run investigated', arg);
                 break;
             case 'game':
                 console.log('run game');
