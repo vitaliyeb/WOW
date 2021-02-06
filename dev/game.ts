@@ -102,7 +102,7 @@ class Game implements GameInterface {
                 this.location.init();
                 break;   
             case 'investigated':
-                console.log('run investigated', arg);
+                this.investigated.init(arg[0]);
                 break;
             case 'game':
                 console.log('run game');

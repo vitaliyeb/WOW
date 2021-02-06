@@ -1,7 +1,8 @@
 import { Game } from '../game';
+import { InterfaceSightHandler } from '../levels';
 
 interface InterfaceGame {
-    init: ()=> void
+    init: (data: InterfaceSightHandler)=> void
 }
 
 
@@ -12,7 +13,9 @@ class Investigated {
         this.game = game;
     }
 
+    init ( data: InterfaceSightHandler ) {
 
+    }
 
 
 
