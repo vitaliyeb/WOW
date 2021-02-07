@@ -41,22 +41,21 @@ class LoadingGame implements InterfaceLoadingGame{
             lineWidth: .5
         };
         this.defaultLoaders = [
+            ()=>this.game.loadImages('./images/loadingBg.jpg', 'mainBg'),
+            ()=>this.game.loadImages('./images/giza.jpg', 'gizaBg'),
             ()=>this.game.loadImages('./images/check.png', 'check'),
             ()=>this.game.loadImages('./images/checkGreen.png', 'checkGreen'),
             ()=>this.game.loadImages('./images/search.png', 'searchIcon'),
             ()=>this.game.loadImages('./images/question.png', 'questoin'),
             ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
-            ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet'),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(1), 50)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(2), 100)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(3), 200)),
-            ()=>new Promise((resolve)=>setTimeout(()=>resolve(4), 300))
+            ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet')
         ];
     }
 
     
 
     init(arrFunctionPromise = this.defaultLoaders):void {
+        // this.game.
         this.game.setBackground('./images/loadingBg.jpg', true);
         this.percentage = this.loadingDrawParametrs.width / 100;
         this.loading(arrFunctionPromise);
@@ -81,7 +80,11 @@ class LoadingGame implements InterfaceLoadingGame{
     loadingLoop():void {
         if (this.lazyProcessing < this.processing) this.lazyProcessing+= 100; //.6
         this.paintLoadingProcess();
-        if (this.lazyProcessing >= 100) return this.game.setStatus('globalMenu');
+        if (this.lazyProcessing >= 100) return this.game.setStatus('investigated', {
+            img: 'gizaBg',
+            heading: 'ПИРАМИДЫ ГИЗЫ',
+            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+        }); //this.game.setStatus('globalMenu');
         requestAnimationFrame(()=>this.loadingLoop());
     }
 

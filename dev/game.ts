@@ -9,7 +9,7 @@ import {User} from "./user";
 interface GameInterface {
     init: ()=> void;
     runInitScene: (arg: Array<any>)=> void;
-    setBackground: (path: string, titleGame?: boolean) => void;
+    setBackground: (imageId: string, titleGame?: boolean) => void;
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
     minMax: <T>(n: T, min: T, max: T )=> T;
@@ -117,7 +117,7 @@ class Game implements GameInterface {
     }
 
     loadImages(url: string, name: string): Promise<HTMLImageElement> {
-        let htmlImgElement: HTMLImageElement = new Image(2000, 2000);
+        let htmlImgElement: HTMLImageElement = new Image(1000, 1000);
         return new Promise((res, rej)=> {
             htmlImgElement.src = url;
             htmlImgElement.onload = () => {
@@ -127,32 +127,37 @@ class Game implements GameInterface {
         });
     }
 
-    setBackground(path: string, titleGame?: boolean) {
-        let img = new Image(),        
-        bgCtx = this.backgroundContext,
+    
+
+    async setBackground(imageId: string, titleGame?: boolean) {
+        let bgCtx = this.backgroundContext,
             {
                 width,
                 height
-            } = this.windowSize;
+            } = this.windowSize,
+            image = null;
+            
+            
 
-        img.src = path;
-        img.onload = () => {
-            if (width >= height){
-                bgCtx.drawImage(img, 0, 0, width, height*(width/height));
-            }else {
-                bgCtx.drawImage(img, 0, 0, width*(height/width), height);
-            }
-            if (titleGame){
-                let left = width / 2,
-                    top = height / 100 * 15;
-                bgCtx.beginPath();
-                bgCtx.font = `500 40px Roboto`;
-                bgCtx.textBaseline = 'middle';
-                bgCtx.textAlign = 'center';
-                bgCtx.fillStyle = "#fff";
-                bgCtx.fillText('Words of wonders', left, top);
-            }
-        };
+
+
+        // img.onload = () => {
+        //     if (width >= height){
+        //         bgCtx.drawImage(img, 0, 0, width, height*(width/height));
+        //     }else {
+        //         bgCtx.drawImage(img, 0, 0, width*(height/width), height);
+        //     }
+        //     if (titleGame){
+        //         let left = width / 2,
+        //             top = height / 100 * 15;
+        //         bgCtx.beginPath();
+        //         bgCtx.font = `500 40px Roboto`;
+        //         bgCtx.textBaseline = 'middle';
+        //         bgCtx.textAlign = 'center';
+        //         bgCtx.fillStyle = "#fff";
+        //         bgCtx.fillText('Words of wonders', left, top);
+        //     }
+        // };
     }
 
     getCursorPosition(e: MouseEvent): {x: number, y: number} {

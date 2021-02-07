@@ -7,14 +7,21 @@ interface InterfaceGame {
 
 
 class Investigated {
-    game: Game
+    game: Game;
+    imageBg: HTMLImageElement;
+    heading: string;
+    description: string;
+
 
     constructor(game: Game) {
         this.game = game;
+        this.imageBg = null;
     }
 
-    init ( data: InterfaceSightHandler ) {
-
+    init ( {img, heading, description}: InterfaceSightHandler ) {
+        this.imageBg = this.game.imagesStore[img];    
+        
+        
     }
 
 
