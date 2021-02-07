@@ -41,7 +41,6 @@ class LoadingGame implements InterfaceLoadingGame{
             lineWidth: .5
         };
         this.defaultLoaders = [
-            ()=>this.game.loadImages('./images/loadingBg.jpg', 'mainBg'),
             ()=>this.game.loadImages('./images/giza.jpg', 'gizaBg'),
             ()=>this.game.loadImages('./images/check.png', 'check'),
             ()=>this.game.loadImages('./images/checkGreen.png', 'checkGreen'),
@@ -55,8 +54,7 @@ class LoadingGame implements InterfaceLoadingGame{
     
 
     init(arrFunctionPromise = this.defaultLoaders):void {
-        // this.game.
-        this.game.setBackground('./images/loadingBg.jpg', true);
+        this.game.setBackground('mainBg', true);
         this.percentage = this.loadingDrawParametrs.width / 100;
         this.loading(arrFunctionPromise);
         this.paintLoading();

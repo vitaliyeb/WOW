@@ -12,6 +12,7 @@ interface GameInterface {
     setBackground: (imageId: string, titleGame?: boolean) => void;
     setStatus: (status: string)=> void;
     clearMainCanvas: ()=> void;
+    paintPreloader: () => void
     minMax: <T>(n: T, min: T, max: T )=> T;
     getCursorPosition: (e: MouseEvent) => {x: number, y: number};
     loadImages: (url: string, name: string) => Promise<HTMLImageElement>;
@@ -68,9 +69,27 @@ class Game implements GameInterface {
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
-        this.location = new Location(this);        
-        this.runInitScene();
+        this.location = new Location(this);    
+        this.paintPreloader();  
     };
+
+    paintPreloader() {
+        let ctx = this.backgroundContext,
+        { width, height } = this.windowSize;
+
+        ctx.fillStyle = '#ff9800';
+        ctx.fillRect(0, 0, width, height);
+        ctx.font = `${this.minMax(width / 20, 24, 38)}px cursive`;
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#fff';
+        ctx.fillText('VITALIYEB GAMES', width / 2, height / 2);
+
+        Promise.all([
+            this.loadImages('./images/loadingBg.jpg', 'mainBg'),
+            new Promise((res, rej) => setTimeout(res, 1000))
+        ]).then(() => this.runInitScene())
+    }
 
     setStatus(status: string, ...arg: any): void{
         this.status = status;
@@ -135,29 +154,23 @@ class Game implements GameInterface {
                 width,
                 height
             } = this.windowSize,
-            image = null;
+            image = this.imagesStore[imageId];
             
-            
-
-
-
-        // img.onload = () => {
-        //     if (width >= height){
-        //         bgCtx.drawImage(img, 0, 0, width, height*(width/height));
-        //     }else {
-        //         bgCtx.drawImage(img, 0, 0, width*(height/width), height);
-        //     }
-        //     if (titleGame){
-        //         let left = width / 2,
-        //             top = height / 100 * 15;
-        //         bgCtx.beginPath();
-        //         bgCtx.font = `500 40px Roboto`;
-        //         bgCtx.textBaseline = 'middle';
-        //         bgCtx.textAlign = 'center';
-        //         bgCtx.fillStyle = "#fff";
-        //         bgCtx.fillText('Words of wonders', left, top);
-        //     }
-        // };
+        if (width >= height){
+            bgCtx.drawImage(image, 0, 0, width, height*(width/height));
+        }else {
+            bgCtx.drawImage(image, 0, 0, width*(height/width), height);
+        }
+        if (titleGame){
+            let left = width / 2,
+                top = height / 100 * 15;
+            bgCtx.beginPath();
+            bgCtx.font = `500 40px Roboto`;
+            bgCtx.textBaseline = 'middle';
+            bgCtx.textAlign = 'center';
+            bgCtx.fillStyle = "#fff";
+            bgCtx.fillText('Words of wonders', left, top);
+        }
     }
 
     getCursorPosition(e: MouseEvent): {x: number, y: number} {
