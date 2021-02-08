@@ -6,6 +6,7 @@ interface InterfaceGame {
     drawText: () => void;
     drawArrow: () => void;
     mouseMoveHandler: (e: MouseEvent) => void;
+    separationTextInStroke: (text: string) => void;
 }
 
 
@@ -42,7 +43,7 @@ class Investigated {
         ctx = this.game.mainContext,
         screenWrapper = this.game.screenWrapper;
         
-        if(ctx.isPointInPath(this.backPath, x, y)) return screenWrapper.style.cursor = 'pointer';
+        if(ctx.isPointInStroke(this.backPath, x, y)) return screenWrapper.style.cursor = 'pointer';
         screenWrapper.style.cursor = 'default';
     }
 
@@ -52,15 +53,21 @@ class Investigated {
             { height, width } = this.game.windowSize,
             division = height / 100,
             left = width / 2,
-            maxWidthText = width / 100 * 85;
+            maxWidthText = width / 100 * 85,
+            fsHeading = this.game.minMax(width / 100 * 5, 28, 48),
+            fsDescription = this.game.minMax(width / 100 * 3, 28, 34),
+            testText = 'sadasdsad asdsadsad sadsadasd asdsadasdasd asd asdsad asdasdasdasdsad adsadadasd adasdasd da ' + description;
+
+
 
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#fff';    
-        ctx.font = `${this.game.minMax(width / 65, 28, 38)}px Roboto`;
+        ctx.font = `${fsHeading}px Roboto`;
         ctx.fillText(heading, left, division * 80, maxWidthText);
-        ctx.font = '18px Roboto'
-        ctx.fillText(description, left, division * 85, maxWidthText);
+        ctx.font = `${fsDescription}px Roboto`;
+        this.separationTextInStroke(testText);
+        ctx.fillText(testText, left, division * 85, maxWidthText);
     }
 
     drawArrow() {
@@ -68,7 +75,7 @@ class Investigated {
         ctx = this.game.mainContext,
         top = 20,
         left = 25,
-        width = 25,
+        width = 20,
         height = 30;
 
         ctx.lineWidth = 7;
@@ -81,6 +88,14 @@ class Investigated {
         ctx.stroke(path);
         
         this.backPath = path;
+    }
+
+    separationTextInStroke(str: string) {
+        let ctx = this.game.mainContext,
+            maxWidth = this.game.windowSize.width / 100 * 90,
+            dataText = ctx.measureText(str);
+
+        console.log(dataText)
     }
 
 }

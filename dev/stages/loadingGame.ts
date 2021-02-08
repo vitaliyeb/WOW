@@ -76,7 +76,7 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
-        if (this.lazyProcessing < this.processing) this.lazyProcessing+= 100; //.6
+        if (this.lazyProcessing < this.processing) this.lazyProcessing+= 20; //.6
         this.paintLoadingProcess();
         if (this.lazyProcessing >= 100) return this.game.setStatus('investigated', {
             img: 'gizaBg',
