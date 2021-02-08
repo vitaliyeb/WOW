@@ -93,9 +93,24 @@ class Investigated {
     separationTextInStroke(str: string) {
         let ctx = this.game.mainContext,
             maxWidth = this.game.windowSize.width / 100 * 90,
-            dataText = ctx.measureText(str);
+            words = str.split(' '),
+            lines: Array<string> = [];
 
-        console.log(dataText)
+        words.reduce((acc: string, str, i) => {
+            let row = `${acc}  ${str}`,
+                textWidth = ctx.measureText(row).width;
+
+            if (textWidth > maxWidth){
+                lines.push(acc);
+                return  str;
+            }
+
+            if (i === words.length - 1)  return lines.push(acc);
+
+            return row;
+        }, '');
+
+        console.log(lines)
     }
 
 }
