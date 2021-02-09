@@ -1,11 +1,21 @@
 
+interface InterfeceLevelData {
+    keyData: {
+        [key: string]: {
+            row: number;
+            col: number;
+            direction: string;
+        };
+    };
+    letters: Array<string>
+}
 
 interface InterfaceSights {
     title: string,
     status: "done" | "process",
     handlerId: string;
     handler: InterfaceSightHandler,
-    levels: any
+    levels: Array<InterfeceLevelData>
 }
 
 interface InterfaceSightHandler {
@@ -48,35 +58,20 @@ class Levels implements InterfaceLevels{
                         },
                         levels: [
                             {
-                                words: [
-                                    [0, 'Н', 0],
-                                    ['C', 'О', 'Н'],
-                                    [0, 'C', 0]
-                                ],
                                 keyData: {
                                     'НОС': { 
-                                        row: 1,
+                                        row: 0,
                                         col: 1,
-                                        direction: 'down',
-                                        keyLength: 3
+                                        direction: 'down'
                                     },
-                                    'СОН': {
-                                        row: 1,
-                                        col: 0,
-                                        direction: 'left',
-                                        keyLength: 3
-                                    }
+                                    // 'СОН': {
+                                    //     row: 1,
+                                    //     col: 0,
+                                    //     direction: 'left'
+                                    // }
                                 },
                                 letters: ["C", "О", "Н"]
-                            },
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
-                            {
-                                words: ['Сон', "Нос"],
-                                letters: ["C", "О", "Н"]
-                            },
+                            }
                         ]
                     },
                     {
@@ -90,9 +85,20 @@ class Levels implements InterfaceLevels{
                         },
                         levels: [
                             {
-                                words: ['Сон', "Нос"],
+                                keyData: {
+                                    'НОС': { 
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'left'
+                                    }
+                                },
                                 letters: ["C", "О", "Н"]
-                            },
+                            }
                         ]
                     },
                     {
@@ -106,9 +112,20 @@ class Levels implements InterfaceLevels{
                         },
                         levels: [
                             {
-                                words: ['Сон', "Нос"],
+                                keyData: {
+                                    'НОС': { 
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'left'
+                                    }
+                                },
                                 letters: ["C", "О", "Н"]
-                            },
+                            }
                         ]
                     }
                 ]
@@ -129,9 +146,20 @@ class Levels implements InterfaceLevels{
                         },
                         levels: [
                             {
-                                words: ['Сон', "Нос"],
+                                keyData: {
+                                    'НОС': { 
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'left'
+                                    }
+                                },
                                 letters: ["C", "О", "Н"]
-                            },
+                            }
                         ]
                     }
                 ]
@@ -152,9 +180,20 @@ class Levels implements InterfaceLevels{
                         },
                         levels: [
                             {
-                                words: ['Сон', "Нос"],
+                                keyData: {
+                                    'НОС': { 
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'left'
+                                    }
+                                },
                                 letters: ["C", "О", "Н"]
-                            },
+                            }
                         ]
                     }
                 ]
@@ -170,6 +209,7 @@ class Levels implements InterfaceLevels{
 
 export {
     Levels,
+    InterfeceLevelData,
     InterfaceСountry,
     InterfaceSights,
     InterfaceSightHandler
