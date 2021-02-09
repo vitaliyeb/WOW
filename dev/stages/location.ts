@@ -96,6 +96,7 @@ export default class Location {
 
     createBackPath(): Path2D{
         let path = new Path2D();
+        this.game.mainContext.lineWidth = 7;
         path.moveTo(35, 15);
         path.lineTo(20, 30);
         path.lineTo(35, 45);
@@ -111,7 +112,7 @@ export default class Location {
     click(e: MouseEvent) {
         let { x, y} = this.game.getCursorPosition(e),
             ctx = this.game.mainContext;
-        if(ctx.isPointInPath(this.backPath, x, y)){
+        if(ctx.isPointInStroke(this.backPath, x, y)){
             cancelAnimationFrame(this.animateFrameId);
             this.clearEventListeners();
             return this.game.setStatus('globalMenu');
@@ -139,7 +140,7 @@ export default class Location {
         let ctx = this.game.mainContext,
         screenWrapper = this.game.screenWrapper;
 
-        if(ctx.isPointInPath(this.backPath, x, y)) return screenWrapper.style.cursor = "pointer";
+        if(ctx.isPointInStroke(this.backPath, x, y)) return screenWrapper.style.cursor = "pointer";
         if(this.eventStore.some((el) => ctx.isPointInPath(el.path, x, y))) return screenWrapper.style.cursor = "pointer";
         screenWrapper.style.cursor = "default";
     }

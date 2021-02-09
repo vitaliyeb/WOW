@@ -78,11 +78,7 @@ class LoadingGame implements InterfaceLoadingGame{
     loadingLoop():void {
         if (this.lazyProcessing < this.processing) this.lazyProcessing+= 20; //.6
         this.paintLoadingProcess();
-        if (this.lazyProcessing >= 100) return this.game.setStatus('investigated', {
-            img: 'gizaBg',
-            heading: 'ПИРАМИДЫ ГИЗЫ',
-            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
-        }); //this.game.setStatus('globalMenu');
+        if (this.lazyProcessing >= 100) return this.game.setStatus('globalMenu');
         requestAnimationFrame(()=>this.loadingLoop());
     }
 
