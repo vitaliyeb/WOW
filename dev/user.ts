@@ -7,13 +7,22 @@ interface  InterfaceUser {
 
 class User implements InterfaceUser {
     game: Game;
-    level: number
+    levelData: {
+        countries: number;
+        sights: number;
+        playId: number;
+
+    };
     levels: Levels;
 
 
     constructor(game: Game) {
         this.game = game;
-        this.level = 0;
+        this.levelData = {
+            countries: 0,
+            sights: 0,
+            playId: 0
+        };
         this.levels = new Levels();
     }
 }

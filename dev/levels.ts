@@ -48,6 +48,32 @@ class Levels implements InterfaceLevels{
                         },
                         levels: [
                             {
+                                words: [
+                                    [0, 'Н', 0],
+                                    ['C', 'О', 'Н'],
+                                    [0, 'C', 0]
+                                ],
+                                keyData: {
+                                    'НОС': { 
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down',
+                                        keyLength: 3
+                                    },
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'left',
+                                        keyLength: 3
+                                    }
+                                },
+                                letters: ["C", "О", "Н"]
+                            },
+                            {
+                                words: ['Сон', "Нос"],
+                                letters: ["C", "О", "Н"]
+                            },
+                            {
                                 words: ['Сон', "Нос"],
                                 letters: ["C", "О", "Н"]
                             },
