@@ -12,6 +12,7 @@ interface InterfaceGame {
     drawArrow: () => void;
     mouseMoveHandler: (e: MouseEvent) => void;
     separationTextInStroke: (text: string) => InterfaceSeparateLines;
+    goBack: () => void;
 }
 
 
@@ -41,6 +42,10 @@ class Investigated {
         this.drawText();
         this.drawArrow();
         document.addEventListener('mousemove', this.mouseMoveHandler)
+    }
+
+    goBack(): void {
+
     }
 
     mouseMoveHandler(e: MouseEvent) {
