@@ -12,7 +12,8 @@ interface InterfaceGame {
     drawArrow: () => void;
     mouseMoveHandler: (e: MouseEvent) => void;
     separationTextInStroke: (text: string) => InterfaceSeparateLines;
-    goBack: () => void;
+    goBack: (e: MouseEvent) => void;
+    clearEvents: () => void;
 }
 
 
@@ -30,6 +31,7 @@ class Investigated {
         this.backPath = null;
 
         this.mouseMoveHandler = this.mouseMoveHandler.bind(this);
+        this.goBack = this.goBack.bind(this);
     }
 
     init ( {img, heading, description}: InterfaceSightHandler ) {
@@ -42,10 +44,21 @@ class Investigated {
         this.drawText();
         this.drawArrow();
         document.addEventListener('mousemove', this.mouseMoveHandler)
+        document.addEventListener('click', this.goBack)
     }
 
-    goBack(): void {
+    goBack(e: MouseEvent): void {
+        let { x, y } = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext;
+        if (ctx.isPointInStroke(this.backPath, x, y)){
+            this.clearEvents();
+            this.game.setStatus('location');
+        }
+    }
 
+    clearEvents() {
+        document.removeEventListener('click', this.goBack);
+        document.removeEventListener('mousemove', this.mouseMoveHandler)
     }
 
     mouseMoveHandler(e: MouseEvent) {
