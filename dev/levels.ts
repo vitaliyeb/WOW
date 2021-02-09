@@ -64,11 +64,11 @@ class Levels implements InterfaceLevels{
                                         col: 1,
                                         direction: 'down'
                                     },
-                                    // 'СОН': {
-                                    //     row: 1,
-                                    //     col: 0,
-                                    //     direction: 'left'
-                                    // }
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
                                 },
                                 letters: ["C", "О", "Н"]
                             }
