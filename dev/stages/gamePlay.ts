@@ -43,16 +43,27 @@ export default class gamePlay implements InterfaceGamePlay{
     createKeysMap() {
         let data = this.levelData.keyData,
         map: Array<Array<any>> =null,
+        dataEntry = Object.entries(data),
         maxRow = [1],
         maxCol = [1];
         
-        Object.entries(data).forEach(([key, data])=> {
+        dataEntry.forEach(([key, data])=> {
             if(data.direction === 'down') maxRow.push(data.row + key.length);
             if(data.direction === 'right') maxCol.push(data.col + key.length);
         });
         
         map = Array(Math.max(...maxRow)).fill(Array(Math.max(...maxCol)).fill(false));
-        console.log(map);
+        
+        dataEntry.forEach(([key, {direction, row, col}])=> {
+            if(direction == 'row'){
+                let min = row,
+                    max = row + key.length;
+                map.forEach((row, i) => {
+                    if(i > min && i < max) 
+                });
+            }
+        });
+
         
         
         
