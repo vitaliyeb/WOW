@@ -1,12 +1,17 @@
 import { Game } from '../game';
 import { InterfaceSightHandler } from '../levels';
 
+interface InterfaceSeparateLines {
+    lines: Array<string>;
+    lineHeight: number
+}
+
 interface InterfaceGame {
     init: (data: InterfaceSightHandler)=> void;
     drawText: () => void;
     drawArrow: () => void;
     mouseMoveHandler: (e: MouseEvent) => void;
-    separationTextInStroke: (text: string) => void;
+    separationTextInStroke: (text: string) => InterfaceSeparateLines;
 }
 
 
@@ -55,19 +60,22 @@ class Investigated {
             left = width / 2,
             maxWidthText = width / 100 * 85,
             fsHeading = this.game.minMax(width / 100 * 5, 28, 48),
-            fsDescription = this.game.minMax(width / 100 * 3, 28, 34),
-            testText = 'sadasdsad asdsadsad sadsadasd asdsadasdasd asd asdsad asdasdasdasdsad adsadadasd adasdasd da ' + description;
+            fsDescription = this.game.minMax(width / 100 * 3, 18, 34);
 
-
-
+        ctx.save();
+        ctx.shadowColor = '#000';
+        ctx.shadowBlur = 5;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillStyle = '#fff';    
         ctx.font = `${fsHeading}px Roboto`;
         ctx.fillText(heading, left, division * 80, maxWidthText);
         ctx.font = `${fsDescription}px Roboto`;
-        this.separationTextInStroke(testText);
-        ctx.fillText(testText, left, division * 85, maxWidthText);
+        let { lines, lineHeight } = this.separationTextInStroke(description);
+        lines.forEach((str, line)=> {
+            ctx.fillText(str, left, division * 85 + (lineHeight * line), maxWidthText);
+        });
+        ctx.restore();
     }
 
     drawArrow() {
@@ -90,11 +98,12 @@ class Investigated {
         this.backPath = path;
     }
 
-    separationTextInStroke(str: string) {
+    separationTextInStroke(str: string): InterfaceSeparateLines {
         let ctx = this.game.mainContext,
             maxWidth = this.game.windowSize.width / 100 * 90,
             words = str.split(' '),
-            lines: Array<string> = [];
+            lines: Array<string> = [],
+            { actualBoundingBoxDescent, actualBoundingBoxAscent } = ctx.measureText(str);
 
         words.reduce((acc: string, str, i) => {
             let row = `${acc}  ${str}`,
@@ -110,7 +119,10 @@ class Investigated {
             return row;
         }, '');
 
-        console.log(lines)
+        return {
+            lines,
+            lineHeight: actualBoundingBoxDescent + actualBoundingBoxAscent
+        }
     }
 
 }
