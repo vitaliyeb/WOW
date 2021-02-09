@@ -1,5 +1,6 @@
 import { LoadingGame } from './stages/loadingGame'
 import GlobalMenu from "./stages/globalMenu";
+import GamePlay from "./stages/gamePlay";
 import Location from "./stages/location";
 import Investigated from './stages/investigated';
 import {User} from "./user";
@@ -35,6 +36,7 @@ class Game implements GameInterface {
     location: Location;
     investigated: Investigated;
     user: User;
+    gamePlay: GamePlay
     imagesStore: {
         [propName: string]: HTMLImageElement;
     };
@@ -69,7 +71,8 @@ class Game implements GameInterface {
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
-        this.location = new Location(this);    
+        this.location = new Location(this);
+        this.gamePlay = new GamePlay(this);
         this.paintPreloader();  
     };
 
@@ -124,7 +127,7 @@ class Game implements GameInterface {
                 this.investigated.init(arg[0]);
                 break;
             case 'game':
-                console.log('run game');
+                this.gamePlay.init();
                 break;
         }
     }

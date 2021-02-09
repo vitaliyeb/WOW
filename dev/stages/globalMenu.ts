@@ -106,6 +106,11 @@ export default class GlobalMenu {
         this.game.setStatus('location');
     }
 
+    playButtonOnClick() {
+        this.game.screenWrapper.style.cursor = "default";
+        this.game.setStatus('game')
+    }
+
     menuLoop(): void {
         if(this.game.status !== 'globalMenu') {
             let screenWrapper = this.game.screenWrapper;
