@@ -7,6 +7,7 @@ interface InterfaceGamePlay{
     setDataGame: () => void;
     createKeysMap: () => Array<Array<boolean | string>>;
     paintHeading: () => void;
+    setParamsTableOptions: ()=> void;
 }
 
 
@@ -31,7 +32,11 @@ export default class gamePlay implements InterfaceGamePlay{
         width: number,
         height: number,
         x: number,
-        y: number
+        y: number,
+        rowCount: number,
+        colCount: number,
+        gap: number,
+        cellSize: number
     };
 
     constructor(game: Game) {
@@ -60,6 +65,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.setParamsTableOptions();
         this.game.clearMainCanvas();
         this.paintHeading();
+        this.paintGrid();
     }
 
     setDataGame() {
@@ -82,14 +88,35 @@ export default class gamePlay implements InterfaceGamePlay{
             colCount = map[0].length,
             widthDivision = minMax(width / 100 * 80, 310, 900),
             heightDivision = minMax(height / 100 * 40, 250, 500),
-            mainSize = Math.min(widthDivision, heightDivision);
+            mainSize = Math.min(widthDivision, heightDivision),
+            gap = 4,
+            maxCellInDirection = Math.max(rowCount, colCount);
 
             this.tableOtions = {
+                rowCount,
+                colCount,
                 width: mainSize,
                 height: mainSize,
                 x: (width - mainSize) / 2,
-                y: this.headingData.height + 25
+                y: this.headingData.height + 25,
+                gap, 
+                cellSize: mainSize / ((maxCellInDirection - 1) * gap)
             }
+    }
+
+    paintGrid() {
+        let { x, y, width, height, rowCount, colCount } = this.tableOtions,
+            ctx = this.game.mainContext;
+
+            for (let row = 0; row < rowCount; row++) {
+                for (let col = 0; col < colCount; col++) {
+                    console.log(row, col);
+                    
+                }
+            }
+
+        ctx.rect(x, y, width, height);
+        ctx.stroke();    
     }
 
     paintHeading() {
