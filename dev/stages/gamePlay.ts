@@ -27,6 +27,12 @@ export default class gamePlay implements InterfaceGamePlay{
         }
     };
     backPath: Path2D;
+    tableOtions: {
+        width: number,
+        height: number,
+        x: number,
+        y: number
+    };
 
     constructor(game: Game) {
         this.game = game,
@@ -44,11 +50,14 @@ export default class gamePlay implements InterfaceGamePlay{
             }
         };
         this.backPath = null
+        this.tableOtions = null;
+    
+
     }
 
     init() {
         this.setDataGame();
-
+        this.setParamsTableOptions();
         this.game.clearMainCanvas();
         this.paintHeading();
     }
@@ -64,6 +73,23 @@ export default class gamePlay implements InterfaceGamePlay{
         this.levelData = level[countries].sights[sights].levels[playId];
         this.map = this.createKeysMap();
         this.game.setBackground(this.bgImageId);
+    }
+    setParamsTableOptions() {
+        let minMax = this.game.minMax,
+            map = this.map, 
+            { width, height } = this.game.windowSize,
+            rowCount = map.length,
+            colCount = map[0].length,
+            widthDivision = minMax(width / 100 * 80, 310, 900),
+            heightDivision = minMax(height / 100 * 40, 250, 500),
+            mainSize = Math.min(widthDivision, heightDivision);
+
+            this.tableOtions = {
+                width: mainSize,
+                height: mainSize,
+                x: (width - mainSize) / 2,
+                y: this.headingData.height + 25
+            }
     }
 
     paintHeading() {
