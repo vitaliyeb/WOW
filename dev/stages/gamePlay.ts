@@ -19,6 +19,7 @@ export default class gamePlay implements InterfaceGamePlay{
     map: Array<Array<boolean | string>>;
     headingData: {
         height: number;
+        headingTextData: string,
         backIcon: {
             width: number,
             height: number,
@@ -35,6 +36,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.map = null;
         this.headingData = {
             height: 50,
+            headingTextData: `${this.game.minMax(this.game.windowSize.width / 100 * 3 , 18, 24)}px Roboto`,
             backIcon: {
                 width: 15,
                 height: 25,
@@ -46,6 +48,8 @@ export default class gamePlay implements InterfaceGamePlay{
 
     init() {
         this.setDataGame();
+
+        this.game.clearMainCanvas();
         this.paintHeading();
     }
 
@@ -64,7 +68,7 @@ export default class gamePlay implements InterfaceGamePlay{
 
     paintHeading() {
         let ctx = this.game.mainContext,
-            { height: heightHead } = this.headingData,
+            { height: heightHead, headingTextData } = this.headingData,
             { width } = this.game.windowSize,
             leftSpace = 30;
         
@@ -82,8 +86,11 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.lineCap = 'round';
         ctx.fillStyle = '#fff';
         ctx.stroke(this.backPath);
-        
 
+        ctx.font = headingTextData;
+        ctx.textBaseline = 'middle';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${this.title} ● ${this.game.user.levelCount}`, width / 2, heightHead / 2);
     }
 
     createKeysMap() {

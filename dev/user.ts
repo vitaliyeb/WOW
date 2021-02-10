@@ -13,11 +13,13 @@ class User implements InterfaceUser {
         playId: number;
 
     };
+    levelCount: number;
     levels: Levels;
 
 
     constructor(game: Game) {
         this.game = game;
+        this.levelCount = 1;
         this.levelData = {
             countries: 0,
             sights: 0,
