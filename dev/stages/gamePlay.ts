@@ -52,20 +52,23 @@ export default class gamePlay implements InterfaceGamePlay{
             if(data.direction === 'right') maxCol.push(data.col + key.length);
         });
         
-        map = Array(Math.max(...maxRow)).fill(Array(Math.max(...maxCol)).fill(false));
+        map = Array(Math.max(...maxRow)).fill(0).map(()=>Array(Math.max(...maxCol)).fill(false));
         
         dataEntry.forEach(([key, {direction, row, col}])=> {
-            if(direction == 'row'){
+            if(direction == 'down'){
                 let min = row,
-                    max = row + key.length;
-                map.forEach((row, i) => {
-                    if(i > min && i < max) 
-                });
+                    max = row + key.length,
+                    letters = key.split('');
+                for (let row = min; row < max; row++) map[row][col] = letters.shift();  
             }
-        });
 
-        
-        
-        
+            if(direction == 'right'){
+                let min = col,
+                    max = col + key.length,
+                    letters = key.split('');
+                for (let col = min; col < max; col++) map[row][col] = letters.shift();  
+            }
+        });                
+        return map;
     }
 }
