@@ -1,11 +1,12 @@
+import { createTextChangeRange } from 'typescript';
 import { Game } from './../game';
 import { Levels, InterfeceLevelData } from "./../levels";
 
 
 interface InterfaceGamePlay{
     setDataGame: () => void;
-    createKeysMap: () => any;
-
+    createKeysMap: () => Array<Array<boolean | string>>;
+    paintHeading: () => void;
 }
 
 
@@ -15,16 +16,37 @@ export default class gamePlay implements InterfaceGamePlay{
     title: string;
     bgImageId: string;
     levelData: InterfeceLevelData;
+    map: Array<Array<boolean | string>>;
+    headingData: {
+        height: number;
+        backIcon: {
+            width: number,
+            height: number,
+            lineWidth: number
+        }
+    };
+    backPath: Path2D;
 
     constructor(game: Game) {
         this.game = game,
         this.title = null;
         this.levels = game.user.levels;
         this.levelData = null;
+        this.map = null;
+        this.headingData = {
+            height: 50,
+            backIcon: {
+                width: 15,
+                height: 25,
+                lineWidth: 6
+            }
+        };
+        this.backPath = null
     }
 
     init() {
         this.setDataGame();
+        this.paintHeading();
     }
 
     setDataGame() {
@@ -36,8 +58,32 @@ export default class gamePlay implements InterfaceGamePlay{
         this.title = handler.heading,
         this.bgImageId = handler.img;
         this.levelData = level[countries].sights[sights].levels[playId];
+        this.map = this.createKeysMap();
+        this.game.setBackground(this.bgImageId);
+    }
+
+    paintHeading() {
+        let ctx = this.game.mainContext,
+            { height: heightHead } = this.headingData,
+            { width } = this.game.windowSize,
+            leftSpace = 30;
         
-        this.createKeysMap();
+        if(!this.backPath) {
+            let backPath = new Path2D(),
+            { width, height, lineWidth } = this.headingData.backIcon,
+            yStart =  (heightHead - height) / 2;
+            ctx.lineWidth = lineWidth;
+            backPath.moveTo( leftSpace + width, yStart);
+            backPath.lineTo( leftSpace , yStart + height /2);
+            backPath.lineTo( leftSpace + width, yStart + height);
+            this.backPath = backPath;
+        };
+
+        ctx.lineCap = 'round';
+        ctx.fillStyle = '#fff';
+        ctx.stroke(this.backPath);
+        
+
     }
 
     createKeysMap() {
