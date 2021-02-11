@@ -7,7 +7,6 @@ interface LocationInterface {
     fillBackground: () => void;
     paintHeader: () => void;
     createBackPath: () => Path2D;
-    createRect: (x: number, y: number, width: number, height: number, radius: number ) => Path2D;
 }
 
 interface EventHandlersInterface {

@@ -36,7 +36,8 @@ export default class gamePlay implements InterfaceGamePlay{
         rowCount: number,
         colCount: number,
         gap: number,
-        cellSize: number
+        cellSize: number,
+        borderRadius: number
     };
 
     constructor(game: Game) {
@@ -87,12 +88,14 @@ export default class gamePlay implements InterfaceGamePlay{
             { width, height } = this.game.windowSize,
             rowCount = map.length,
             colCount = map[0].length,
-            blockSize = Math.min(minMax(width / 100 * 80, 310, 900), minMax(height / 100 * 40, 250, 500)),
+            blockSize = Math.min(minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500)),
             gap = 4,
             maxCellInDirection = Math.max(rowCount, colCount),
             cellSize = (blockSize  - (gap * (maxCellInDirection - 1))) / maxCellInDirection,
             totalWidth = cellSize * colCount + gap * (colCount - 1),
             totalHeight = cellSize * rowCount + gap * (rowCount - 1);
+            console.log(blockSize, minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500));
+            
 
 
             this.tableOtions = {
@@ -103,7 +106,8 @@ export default class gamePlay implements InterfaceGamePlay{
                 x: (width - totalWidth) / 2,
                 y: this.headingData.height + 25,
                 gap, 
-                cellSize
+                cellSize,
+                borderRadius: 5
             }
     }
 
@@ -124,23 +128,35 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     paintGrid() {
-        let { x, y, width, height, rowCount, colCount, cellSize, gap } = this.tableOtions,
-            ctx = this.game.mainContext;
-            ctx.fillStyle = 'red';
-
-            ctx.fillRect(x, y, width, height);
+        let { x, y, width, height, rowCount, colCount, cellSize, gap, borderRadius } = this.tableOtions,
+            { mainContext: ctx } = this.game,
+            map = this.map;
 
             ctx.beginPath();  
-            ctx.fillStyle = '#fff';
+            ctx.font = `${cellSize / 1.6}px Roboto`;
+
             for (let row = 0; row < rowCount; row++) {
                 for (let col = 0; col < colCount; col++) {
                     let xr = x + cellSize * col + gap * col,
-                        yr = y + cellSize * row + gap * row;
-                        console.log(col ? gap : 0);
+                        yr = y + cellSize * row + gap * row,
+                        item = map[row][col];
+                     
+                    ctx.shadowBlur = 2;
+                    ctx.shadowColor = '#b1adad59';    
+                    if(item && typeof item === 'boolean'){
+                        ctx.fillStyle = '#ebe9e9'; 
+                        let path = this.game.createRect(xr, yr, cellSize, cellSize, borderRadius)
+                        ctx.fill(path);
+                    }              
 
-                    ctx.rect(xr, yr, cellSize, cellSize)
-                    ctx.fill();
-                    
+                    if(typeof item === 'string'){
+                        ctx.fillStyle = '#e42e61';
+                        let path = this.game.createRect(xr, yr, cellSize, cellSize, borderRadius)
+                        ctx.fill(path);
+                        ctx.shadowBlur = 0;
+                        ctx.fillStyle = '#ebe9e9'; 
+                        ctx.fillText(item, xr + cellSize / 2, yr + cellSize / 1.8);
+                    }   
                 }
             }              
     }
@@ -196,7 +212,7 @@ export default class gamePlay implements InterfaceGamePlay{
             if(direction == 'right'){
                 let min = col,
                     max = col + key.length;
-                for (let col = min; col < max; col++) map[row][col] = true;  
+                for (let col = min; col < max; col++) map[row][col] = 'Н';  
             }
         });                
         return map;

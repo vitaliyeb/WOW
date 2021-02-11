@@ -17,6 +17,7 @@ interface GameInterface {
     minMax: <T>(n: T, min: T, max: T )=> T;
     getCursorPosition: (e: MouseEvent) => {x: number, y: number};
     loadImages: (url: string, name: string) => Promise<HTMLImageElement>;
+    createRect: (x: number, y: number, width: number, height: number, radius: number ) => Path2D;
 };
 
 
