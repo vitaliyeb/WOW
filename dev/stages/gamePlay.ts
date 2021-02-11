@@ -80,27 +80,30 @@ export default class gamePlay implements InterfaceGamePlay{
         this.map = this.createKeysMap();
         this.game.setBackground(this.bgImageId);
     }
+
     setParamsTableOptions() {
         let minMax = this.game.minMax,
             map = this.map, 
             { width, height } = this.game.windowSize,
             rowCount = map.length,
             colCount = map[0].length,
-            widthDivision = minMax(width / 100 * 80, 310, 900),
-            heightDivision = minMax(height / 100 * 40, 250, 500),
-            mainSize = Math.min(widthDivision, heightDivision),
+            blockSize = Math.min(minMax(width / 100 * 80, 310, 900), minMax(height / 100 * 40, 250, 500)),
             gap = 4,
-            maxCellInDirection = Math.max(rowCount, colCount);
+            maxCellInDirection = Math.max(rowCount, colCount),
+            cellSize = (blockSize  - (gap * (maxCellInDirection - 1))) / maxCellInDirection,
+            totalWidth = cellSize * colCount + gap * (colCount - 1),
+            totalHeight = cellSize * rowCount + gap * (rowCount - 1);
+
 
             this.tableOtions = {
                 rowCount,
                 colCount,
-                width: mainSize,
-                height: mainSize,
-                x: (width - mainSize) / 2,
+                width: totalWidth,
+                height: totalHeight,
+                x: (width - totalWidth) / 2,
                 y: this.headingData.height + 25,
                 gap, 
-                cellSize: (mainSize  - (gap * (maxCellInDirection - 1))) / maxCellInDirection
+                cellSize
             }
     }
 

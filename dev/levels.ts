@@ -59,12 +59,12 @@ class Levels implements InterfaceLevels{
                         levels: [
                             {
                                 keyData: {
-                                    'НОСfаа': { 
+                                    'НОС': { 
                                         row: 0,
                                         col: 1,
                                         direction: 'down'
                                     },
-                                    'СОНfаа': {
+                                    'СОН': {
                                         row: 1,
                                         col: 0,
                                         direction: 'right'
