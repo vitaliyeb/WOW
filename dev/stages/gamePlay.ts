@@ -42,7 +42,7 @@ export default class gamePlay implements InterfaceGamePlay{
     };
     enteredTeextData: {
         height: number,
-        x: number
+        y: number
     }
 
     constructor(game: Game) {
@@ -75,13 +75,15 @@ export default class gamePlay implements InterfaceGamePlay{
         this.game.clearMainCanvas();
         this.paintHeading();
         this.paintGrid();
+        this.paintInputsWord();
         
     }
 
     setEnteredTeextData() {
+        let { height, y } = this.tableOtions;
         this.enteredTeextData = {
             height: 25,
-            x: null
+            y: y + height + 10
         }
     }
 
@@ -111,8 +113,6 @@ export default class gamePlay implements InterfaceGamePlay{
             totalWidth = cellSize * colCount + gap * (colCount - 1),
             totalHeight = cellSize * rowCount + gap * (rowCount - 1);
             console.log(blockSize, minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500));
-            
-
 
             this.tableOtions = {
                 rowCount,
@@ -180,12 +180,11 @@ export default class gamePlay implements InterfaceGamePlay{
     paintInputsWord() {
         let ctx  = this.game.mainContext,
             width = this.game.windowSize.width,
-            { height: enteredHeight } = this.enteredTeextData,
-            { height: tableHeight, x } = this.tableOtions;
+            { height, y } = this.enteredTeextData;
 
 
         ctx.fillStyle = 'red';
-        ctx.fillRect();
+        ctx.fillRect(width / 2, y + height / 2, 4, 4);
 
     }
 
