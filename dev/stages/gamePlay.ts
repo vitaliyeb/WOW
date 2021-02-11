@@ -100,23 +100,31 @@ export default class gamePlay implements InterfaceGamePlay{
                 x: (width - mainSize) / 2,
                 y: this.headingData.height + 25,
                 gap, 
-                cellSize: mainSize / ((maxCellInDirection - 1) * gap)
+                cellSize: (mainSize  - (gap * (maxCellInDirection - 1))) / maxCellInDirection
             }
     }
 
     paintGrid() {
-        let { x, y, width, height, rowCount, colCount } = this.tableOtions,
+        let { x, y, width, height, rowCount, colCount, cellSize, gap } = this.tableOtions,
             ctx = this.game.mainContext;
+            ctx.fillStyle = 'red';
 
+            ctx.fillRect(x, y, width, height);
+
+            ctx.beginPath();  
+            ctx.fillStyle = '#fff';
             for (let row = 0; row < rowCount; row++) {
                 for (let col = 0; col < colCount; col++) {
-                    console.log(row, col);
+                    let xr = x + cellSize * col + gap * col,
+                        yr = y + cellSize * row + gap * row;
+                        console.log(col ? gap : 0);
+                        
+
+                    ctx.rect(xr, yr, cellSize, cellSize)
+                    ctx.fill();
                     
                 }
-            }
-
-        ctx.rect(x, y, width, height);
-        ctx.stroke();    
+            }              
     }
 
     paintHeading() {
