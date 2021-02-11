@@ -8,6 +8,7 @@ interface InterfaceGamePlay{
     createKeysMap: () => Array<Array<boolean | string>>;
     paintHeading: () => void;
     setParamsTableOptions: ()=> void;
+    paintInputsWord: () => void;
 }
 
 
@@ -39,6 +40,10 @@ export default class gamePlay implements InterfaceGamePlay{
         cellSize: number,
         borderRadius: number
     };
+    enteredTeextData: {
+        height: number,
+        x: number
+    }
 
     constructor(game: Game) {
         this.game = game,
@@ -57,6 +62,7 @@ export default class gamePlay implements InterfaceGamePlay{
         };
         this.backPath = null
         this.tableOtions = null;
+        this.enteredTeextData = null;
     
 
     }
@@ -64,9 +70,19 @@ export default class gamePlay implements InterfaceGamePlay{
     init() {
         this.setDataGame();
         this.setParamsTableOptions();
+        this.setEnteredTeextData();
+
         this.game.clearMainCanvas();
         this.paintHeading();
         this.paintGrid();
+        
+    }
+
+    setEnteredTeextData() {
+        this.enteredTeextData = {
+            height: 25,
+            x: null
+        }
     }
 
     setDataGame() {
@@ -128,7 +144,7 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     paintGrid() {
-        let { x, y, width, height, rowCount, colCount, cellSize, gap, borderRadius } = this.tableOtions,
+        let { x, y, rowCount, colCount, cellSize, gap, borderRadius } = this.tableOtions,
             { mainContext: ctx } = this.game,
             map = this.map;
 
@@ -159,6 +175,18 @@ export default class gamePlay implements InterfaceGamePlay{
                     }   
                 }
             }              
+    }
+
+    paintInputsWord() {
+        let ctx  = this.game.mainContext,
+            width = this.game.windowSize.width,
+            { height: enteredHeight } = this.enteredTeextData,
+            { height: tableHeight, x } = this.tableOtions;
+
+
+        ctx.fillStyle = 'red';
+        ctx.fillRect();
+
     }
 
     paintHeading() {
