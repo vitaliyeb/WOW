@@ -178,7 +178,7 @@ export default class Location {
         let ctx = this.game.mainContext,
             width = this.cardSize.width,
             angleRadiusDivision = 15,
-            path = this.createRect(x, y, width, cardHeight, angleRadiusDivision),
+            path = this.game.createRect(x, y, width, cardHeight, angleRadiusDivision),
             isBlock = el.status === 'block',
             cardTitle = isBlock ? 'НЕ ИЗУЧЕНО' : el.country;
 
@@ -236,7 +236,7 @@ export default class Location {
         ctx.textAlign = 'left';
         ctx.textBaseline = "middle";
         country.sights.reduce((lastY, sight)=>{
-            let path = this.createRect(x + margin, lastY, width, height, height /2);
+            let path = this.game.createRect(x + margin, lastY, width, height, height /2);
             ctx.fillStyle = '#ea5c01';
             ctx.fill(path);
             ctx.fillStyle = '#fff';
@@ -259,22 +259,6 @@ export default class Location {
             this.clearEventListeners();
             this.game.setStatus(status === "process" ? 'game' : 'investigated', handler);
         };
-    }
-
-    createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
-        let path = new Path2D();
-
-        path.moveTo(x + radius, y);
-        path.lineTo(x + width - radius, y);
-        path.quadraticCurveTo(x + width, y, x + width, y + radius);
-        path.lineTo(x + width, y + height - radius); 
-        path.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        path.lineTo(x + radius, y + height); 
-        path.quadraticCurveTo(x, y + height, x, y + height - radius);
-        path.lineTo(x, y + radius); 
-        path.quadraticCurveTo(x, y, x + radius, y);
-
-        return path;
     }
 
 

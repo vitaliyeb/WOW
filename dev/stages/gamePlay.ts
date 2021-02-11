@@ -107,6 +107,22 @@ export default class gamePlay implements InterfaceGamePlay{
             }
     }
 
+    createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
+        let path = new Path2D();
+
+        path.moveTo(x + radius, y);
+        path.lineTo(x + width - radius, y);
+        path.quadraticCurveTo(x + width, y, x + width, y + radius);
+        path.lineTo(x + width, y + height - radius); 
+        path.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+        path.lineTo(x + radius, y + height); 
+        path.quadraticCurveTo(x, y + height, x, y + height - radius);
+        path.lineTo(x, y + radius); 
+        path.quadraticCurveTo(x, y, x + radius, y);
+
+        return path;
+    }
+
     paintGrid() {
         let { x, y, width, height, rowCount, colCount, cellSize, gap } = this.tableOtions,
             ctx = this.game.mainContext;
@@ -121,7 +137,6 @@ export default class gamePlay implements InterfaceGamePlay{
                     let xr = x + cellSize * col + gap * col,
                         yr = y + cellSize * row + gap * row;
                         console.log(col ? gap : 0);
-                        
 
                     ctx.rect(xr, yr, cellSize, cellSize)
                     ctx.fill();
@@ -174,16 +189,14 @@ export default class gamePlay implements InterfaceGamePlay{
         dataEntry.forEach(([key, {direction, row, col}])=> {
             if(direction == 'down'){
                 let min = row,
-                    max = row + key.length,
-                    letters = key.split('');
-                for (let row = min; row < max; row++) map[row][col] = letters.shift();  
+                    max = row + key.length;
+                for (let row = min; row < max; row++) map[row][col] = true;  
             }
 
             if(direction == 'right'){
                 let min = col,
-                    max = col + key.length,
-                    letters = key.split('');
-                for (let col = min; col < max; col++) map[row][col] = letters.shift();  
+                    max = col + key.length;
+                for (let col = min; col < max; col++) map[row][col] = true;  
             }
         });                
         return map;
