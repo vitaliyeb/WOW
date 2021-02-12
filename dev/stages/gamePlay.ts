@@ -185,12 +185,18 @@ export default class gamePlay implements InterfaceGamePlay{
     paintInputsWord() {
         let ctx  = this.game.mainContext,
             width = this.game.windowSize.width,
-            { height, y } = this.enteredTeextData;
+            { height, y } = this.enteredTeextData,
+            text = this.temporaryWord,
+            padding = 7;
 
+        ctx.font = `bold ${height * .8}px Roboto`;
+        let textWidth = ctx.measureText(text).width;
 
-        ctx.fillStyle = 'red';
-        ctx.fillRect(width / 2, y, 4, height);
+        ctx.fillStyle = '#d72a46';
+        ctx.fill(this.game.createRect((width - textWidth) / 2 - padding, y, textWidth + padding * 2, height, 9));
 
+        ctx.fillStyle = '#ebe9e9';
+        ctx.fillText(text, width / 2, y + height / 2 + height * .06)
     }
 
     paintHeading() {
