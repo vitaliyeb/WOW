@@ -41,9 +41,11 @@ export default class gamePlay implements InterfaceGamePlay{
         borderRadius: number
     };
     enteredTeextData: {
+        outside: number,
         height: number,
         y: number
-    }
+    };
+    temporaryWord: string;
 
     constructor(game: Game) {
         this.game = game,
@@ -63,6 +65,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.backPath = null
         this.tableOtions = null;
         this.enteredTeextData = null;
+        this.temporaryWord = 'НОС';
     
 
     }
@@ -80,10 +83,12 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     setEnteredTeextData() {
-        let { height, y } = this.tableOtions;
+        let { height, y } = this.tableOtions,
+            outside = 20;
         this.enteredTeextData = {
-            height: 25,
-            y: y + height + 10
+            outside,
+            height: 30,
+            y: y + height + outside
         }
     }
 
@@ -184,7 +189,7 @@ export default class gamePlay implements InterfaceGamePlay{
 
 
         ctx.fillStyle = 'red';
-        ctx.fillRect(width / 2, y + height / 2, 4, 4);
+        ctx.fillRect(width / 2, y, 4, height);
 
     }
 
