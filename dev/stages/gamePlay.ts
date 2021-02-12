@@ -97,7 +97,10 @@ export default class gamePlay implements InterfaceGamePlay{
         let { cy, cx,  width, height, r } = this.arcData,
             ctx = this.game.mainContext;
 
-        ctx.beginPath();    
+        ctx.beginPath();   
+        ctx.shadowBlur = 5;
+        ctx.shadowColor = '#9ba1b7';
+        ctx.fillStyle = '#d9dbe0cf'; 
         ctx.arc(cx , cy, r, 0, Math.PI * 2);    
         ctx.fill();
     }
