@@ -46,6 +46,15 @@ export default class gamePlay implements InterfaceGamePlay{
         y: number
     };
     temporaryWord: string;
+    arcData: { 
+        width: number,
+        height: number,
+        r: number,
+        letterSpace: number,
+        cx: number,
+        cy: number,
+        y: number
+    }
 
     constructor(game: Game) {
         this.game = game,
@@ -74,12 +83,43 @@ export default class gamePlay implements InterfaceGamePlay{
         this.setDataGame();
         this.setParamsTableOptions();
         this.setEnteredTeextData();
+        this.initArcData();
 
         this.game.clearMainCanvas();
         this.paintHeading();
         this.paintGrid();
         this.paintInputsWord();
+        this.paintArcLetters();
         
+    }
+
+    paintArcLetters() {
+        let { cy, cx,  width, height, r } = this.arcData,
+            ctx = this.game.mainContext;
+
+        ctx.beginPath();    
+        ctx.arc(cx , cy, r, 0, Math.PI * 2);    
+        ctx.fill();
+    }
+
+    initArcData() {
+        let {width, height} = this.game.windowSize,
+            minMax = this.game.minMax,
+            blockSize = Math.min(minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500)),
+            y = this.enteredTeextData.y + this.enteredTeextData.height + 15,  
+            r = blockSize / 2;
+            console.log(blockSize);
+            
+
+        this.arcData = { 
+            width: blockSize,
+            height: blockSize,
+            r,
+            letterSpace: 0,
+            cx: (width - blockSize) / 2 + r,
+            cy: y + r,
+            y
+        }
     }
 
     setEnteredTeextData() {
@@ -132,22 +172,6 @@ export default class gamePlay implements InterfaceGamePlay{
             }
     }
 
-    createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
-        let path = new Path2D();
-
-        path.moveTo(x + radius, y);
-        path.lineTo(x + width - radius, y);
-        path.quadraticCurveTo(x + width, y, x + width, y + radius);
-        path.lineTo(x + width, y + height - radius); 
-        path.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
-        path.lineTo(x + radius, y + height); 
-        path.quadraticCurveTo(x, y + height, x, y + height - radius);
-        path.lineTo(x, y + radius); 
-        path.quadraticCurveTo(x, y, x + radius, y);
-
-        return path;
-    }
-
     paintGrid() {
         let { x, y, rowCount, colCount, cellSize, gap, borderRadius } = this.tableOtions,
             { mainContext: ctx } = this.game,
@@ -187,13 +211,13 @@ export default class gamePlay implements InterfaceGamePlay{
             width = this.game.windowSize.width,
             { height, y } = this.enteredTeextData,
             text = this.temporaryWord,
-            padding = 7;
+            padding = 14;
 
         ctx.font = `bold ${height * .8}px Roboto`;
         let textWidth = ctx.measureText(text).width;
 
         ctx.fillStyle = '#d72a46';
-        ctx.fill(this.game.createRect((width - textWidth) / 2 - padding, y, textWidth + padding * 2, height, 9));
+        ctx.fill(this.game.createRect((width - textWidth) / 2 - padding, y, textWidth + padding * 2, height,  height / 2));
 
         ctx.fillStyle = '#ebe9e9';
         ctx.fillText(text, width / 2, y + height / 2 + height * .06)
@@ -250,7 +274,7 @@ export default class gamePlay implements InterfaceGamePlay{
             if(direction == 'right'){
                 let min = col,
                     max = col + key.length;
-                for (let col = min; col < max; col++) map[row][col] = 'Н';  
+                for (let col = min; col < max; col++) map[row][col] = true;  
             }
         });                
         return map;
