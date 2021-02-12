@@ -53,7 +53,9 @@ export default class gamePlay implements InterfaceGamePlay{
         letterSpace: number,
         cx: number,
         cy: number,
-        y: number
+        y: number,
+        insideRadius: number,
+        letterStep: number
     }
 
     constructor(game: Game) {
@@ -94,7 +96,7 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     paintArcLetters() {
-        let { cy, cx,  width, height, r } = this.arcData,
+        let { cy, cx,  width, height, r, insideRadius, letterStep } = this.arcData,
             ctx = this.game.mainContext;
 
         ctx.beginPath();   
@@ -103,15 +105,28 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.fillStyle = '#d9dbe0cf'; 
         ctx.arc(cx , cy, r, 0, Math.PI * 2);    
         ctx.fill();
+
+        ctx.beginPath();
+
+        for (let a = 0; a < Math.PI * 2; a+=letterStep) {
+            ctx.lineTo(cx + Math.sin(a) * insideRadius, cy + insideRadius * Math.cos(a));
+        }
+        ctx.fillStyle = 'red';
+        ctx.fill();
+        
+        // ctx.arc(cx , cy, insideRadius, 0, Math.PI * 2);
+        // ctx.fill();
     }
 
     initArcData() {
         let {width, height} = this.game.windowSize,
+            ctx = this.game.mainContext,
             minMax = this.game.minMax,
             blockSize = Math.min(minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500)),
             y = this.enteredTeextData.y + this.enteredTeextData.height + 15,  
-            r = blockSize / 2;
-            console.log(blockSize);
+            r = blockSize / 2,
+            insidePadding = 10,
+            insideFs = r / 5;
             
 
         this.arcData = { 
@@ -121,7 +136,9 @@ export default class gamePlay implements InterfaceGamePlay{
             letterSpace: 0,
             cx: (width - blockSize) / 2 + r,
             cy: y + r,
-            y
+            y,
+            insideRadius: r - insidePadding - insideFs / 2,
+            letterStep: (Math.PI * 2) / this.levelData.letters.length
         }
     }
 
@@ -160,7 +177,6 @@ export default class gamePlay implements InterfaceGamePlay{
             cellSize = (blockSize  - (gap * (maxCellInDirection - 1))) / maxCellInDirection,
             totalWidth = cellSize * colCount + gap * (colCount - 1),
             totalHeight = cellSize * rowCount + gap * (rowCount - 1);
-            console.log(blockSize, minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500));
 
             this.tableOtions = {
                 rowCount,
