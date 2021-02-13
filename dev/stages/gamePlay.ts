@@ -55,8 +55,16 @@ export default class gamePlay implements InterfaceGamePlay{
         cy: number,
         y: number,
         insideRadius: number,
-        letterStep: number
-    }
+        letterStep: number,
+        insideFs: number
+    };
+    letterPaths: Array<{
+        letter: string,
+        path: Path2D,
+        x: number,
+        y: number,
+        isSelect: boolean
+    }>
 
     constructor(game: Game) {
         this.game = game,
@@ -85,9 +93,10 @@ export default class gamePlay implements InterfaceGamePlay{
         this.setDataGame();
         this.setParamsTableOptions();
         this.setEnteredTeextData();
-        this.initArcData();
+        
 
         this.game.clearMainCanvas();
+        this.initArcData();
         this.paintHeading();
         this.paintGrid();
         this.paintInputsWord();
@@ -96,7 +105,7 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     paintArcLetters() {
-        let { cy, cx,  width, height, r, insideRadius, letterStep } = this.arcData,
+        let { cy, cx,  width, height, r, insideRadius, letterStep, insideFs } = this.arcData,
             ctx = this.game.mainContext;
 
         ctx.beginPath();   
@@ -105,17 +114,17 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.fillStyle = '#d9dbe0cf'; 
         ctx.arc(cx , cy, r, 0, Math.PI * 2);    
         ctx.fill();
+        ctx.shadowBlur = 0;
 
-        ctx.beginPath();
-
-        for (let a = 0; a < Math.PI * 2; a+=letterStep) {
-            ctx.lineTo(cx + Math.sin(a) * insideRadius, cy + insideRadius * Math.cos(a));
-        }
-        ctx.fillStyle = 'red';
-        ctx.fill();
-        
-        // ctx.arc(cx , cy, insideRadius, 0, Math.PI * 2);
-        // ctx.fill();
+        Object.values(this.letterPaths).map(({letter, path, x, y})=>{
+            ctx.fillStyle = '#e42e61';
+            ctx.fill(path);
+            ctx.font = `bold ${insideFs}px Roboto`;
+            ctx.fillStyle = '#fff';
+            ctx.fillText(letter, x, y + insideFs * .1);
+            ctx.beginPath();
+            
+        })
     }
 
     initArcData() {
@@ -125,21 +134,39 @@ export default class gamePlay implements InterfaceGamePlay{
             blockSize = Math.min(minMax(width / 100 * 80, 250, 900), minMax(height / 100 * 40, 250, 500)),
             y = this.enteredTeextData.y + this.enteredTeextData.height + 15,  
             r = blockSize / 2,
-            insidePadding = 10,
-            insideFs = r / 5;
-            
+            insidePadding = 15,
+            insideFs = r / 4,
+            cx = (width - blockSize) / 2 + r,
+            cy = y + r,
+            insideRadius = r - insidePadding - insideFs / 2,
+            letterStep = (Math.PI * 2) / this.levelData.letters.length;
 
         this.arcData = { 
             width: blockSize,
             height: blockSize,
             r,
             letterSpace: 0,
-            cx: (width - blockSize) / 2 + r,
-            cy: y + r,
+            cx,
+            cy,
             y,
-            insideRadius: r - insidePadding - insideFs / 2,
-            letterStep: (Math.PI * 2) / this.levelData.letters.length
-        }
+            insideFs,
+            insideRadius,
+            letterStep
+        };        
+
+        this.letterPaths = this.levelData.letters.map((letter, i) => {
+            let path = new Path2D(),
+                x = cx + (insideRadius * Math.sin(i * letterStep)),
+                y = cy + (insideRadius * Math.cos(i * letterStep));   
+            path.arc(x, y, insideFs, 0, Math.PI*2);
+            return {
+                letter,
+                path,
+                x,
+                y,
+                isSelect: false
+            }
+        });
     }
 
     setEnteredTeextData() {
