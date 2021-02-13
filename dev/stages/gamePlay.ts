@@ -64,7 +64,9 @@ export default class gamePlay implements InterfaceGamePlay{
         x: number,
         y: number,
         isSelect: boolean
-    }>
+    }>;
+    inputLetters: boolean;
+
 
     constructor(game: Game) {
         this.game = game,
@@ -85,9 +87,11 @@ export default class gamePlay implements InterfaceGamePlay{
         this.tableOtions = null;
         this.enteredTeextData = null;
         this.temporaryWord = 'НОС';
+        this.inputLetters = false;
     
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
+        this.onMouseDown = this.onMouseDown.bind(this);
     }
 
     mouseMove(e: MouseEvent) {
@@ -95,6 +99,10 @@ export default class gamePlay implements InterfaceGamePlay{
             ctx = this.game.mainContext,
             letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y)),
             screenWrapper = this.game.screenWrapper;
+
+        if(this.inputLetters){
+
+        }    
             
         if(letter)  return screenWrapper.style.cursor = 'pointer';
         if(ctx.isPointInStroke(this.backPath, x, y))  return screenWrapper.style.cursor = 'pointer';
@@ -103,30 +111,35 @@ export default class gamePlay implements InterfaceGamePlay{
 
     click(e: MouseEvent) {
         let {x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext;
+
+        if(ctx.isPointInStroke(this.backPath, x, y)){
+            this.game.setStatus('globalMenu');
+        }
+    }
+
+    onMouseDown(e: MouseEvent) {
+        let {x, y} = this.game.getCursorPosition(e),
             ctx = this.game.mainContext,
             letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y));
-
-            console.log('tetts');
-            
-
-
+        
+        if(letter){
+            this.inputLetters = true;
+            letter.isSelect = true;
+        }
     }
 
     init() {
         this.setDataGame();
         this.setParamsTableOptions();
         this.setEnteredTeextData();
-        
-
-        this.game.clearMainCanvas();
         this.initArcData();
-        this.paintHeading();
-        this.paintGrid();
-        this.paintInputsWord();
-        this.paintArcLetters();
-        
+
+        this.loop();
+                
         document.addEventListener('mousemove', this.mouseMove);
         document.addEventListener('click', this.click);
+        document.addEventListener('mousedown', this.onMouseDown);
     }
 
     paintArcLetters() {
@@ -141,11 +154,13 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        this.letterPaths.map(({letter, path, x, y})=>{
-            ctx.fillStyle = '#e42e61';
-            ctx.fill(path);
+        this.letterPaths.map(({letter, path, x, y, isSelect})=>{
+            if(isSelect){
+                ctx.fillStyle = '#e42e61';
+                ctx.fill(path);
+            }
             ctx.font = `bold ${insideFs}px Roboto`;
-            ctx.fillStyle = '#fff';
+            ctx.fillStyle = isSelect ? '#fff' : '#18416a';
             ctx.fillText(letter, x, y + insideFs * .1);
             ctx.beginPath();
             
@@ -192,6 +207,16 @@ export default class gamePlay implements InterfaceGamePlay{
                 isSelect: false
             }
         });
+    }
+
+    loop() {
+        this.game.clearMainCanvas();
+        this.paintHeading();
+        this.paintGrid();
+        this.paintInputsWord();
+        this.paintArcLetters();
+
+        requestAnimationFrame(() => this.loop());
     }
 
     setEnteredTeextData() {
