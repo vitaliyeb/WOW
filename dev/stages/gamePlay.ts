@@ -86,6 +86,29 @@ export default class gamePlay implements InterfaceGamePlay{
         this.enteredTeextData = null;
         this.temporaryWord = 'НОС';
     
+        this.mouseMove = this.mouseMove.bind(this);
+        this.click = this.click.bind(this);
+    }
+
+    mouseMove(e: MouseEvent) {
+        let {x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext,
+            letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y)),
+            screenWrapper = this.game.screenWrapper;
+            
+        if(letter)  return screenWrapper.style.cursor = 'pointer';
+        if(ctx.isPointInStroke(this.backPath, x, y))  return screenWrapper.style.cursor = 'pointer';
+        return screenWrapper.style.cursor = 'default';
+    }
+
+    click(e: MouseEvent) {
+        let {x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext,
+            letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y));
+
+            console.log('tetts');
+            
+
 
     }
 
@@ -102,6 +125,8 @@ export default class gamePlay implements InterfaceGamePlay{
         this.paintInputsWord();
         this.paintArcLetters();
         
+        document.addEventListener('mousemove', this.mouseMove);
+        document.addEventListener('click', this.click);
     }
 
     paintArcLetters() {
@@ -116,7 +141,7 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.fill();
         ctx.shadowBlur = 0;
 
-        Object.values(this.letterPaths).map(({letter, path, x, y})=>{
+        this.letterPaths.map(({letter, path, x, y})=>{
             ctx.fillStyle = '#e42e61';
             ctx.fill(path);
             ctx.font = `bold ${insideFs}px Roboto`;
