@@ -65,7 +65,14 @@ export default class gamePlay implements InterfaceGamePlay{
         y: number,
         isSelect: boolean
     }>;
-    inputLetters: boolean;
+    inputLetters: Array<{
+        x: number;
+        y: number;
+    }>;
+    mouseData: {
+        x: number;
+        y: number;
+    };
 
 
     constructor(game: Game) {
@@ -87,7 +94,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.tableOtions = null;
         this.enteredTeextData = null;
         this.temporaryWord = 'НОС';
-        this.inputLetters = false;
+        this.inputLetters = [];
     
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
@@ -101,7 +108,7 @@ export default class gamePlay implements InterfaceGamePlay{
             screenWrapper = this.game.screenWrapper;
 
         if(this.inputLetters){
-
+            this.mouseData = {x, y};
         }    
             
         if(letter)  return screenWrapper.style.cursor = 'pointer';
@@ -124,8 +131,9 @@ export default class gamePlay implements InterfaceGamePlay{
             letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y));
         
         if(letter){
-            this.inputLetters = true;
+            this.inputLetters.push({x: letter.x, y: letter.y});
             letter.isSelect = true;
+            this.mouseData = {x, y};
         }
     }
 
@@ -142,6 +150,20 @@ export default class gamePlay implements InterfaceGamePlay{
         document.addEventListener('mousedown', this.onMouseDown);
     }
 
+    paintLine() { 
+        let ctx = this.game.mainContext,
+            {x, y} = this.mouseData;
+
+        ctx.beginPath();
+        ctx.strokeStyle = '#e42e61';
+        ctx.lineWidth = 7;
+        this.inputLetters.forEach(({x, y}) => {
+            ctx.lineTo(x, y);
+        });
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+
     paintArcLetters() {
         let { cy, cx,  width, height, r, insideRadius, letterStep, insideFs } = this.arcData,
             ctx = this.game.mainContext;
@@ -153,6 +175,8 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.arc(cx , cy, r, 0, Math.PI * 2);    
         ctx.fill();
         ctx.shadowBlur = 0;
+
+        if(this.inputLetters.length) this.paintLine();
 
         this.letterPaths.map(({letter, path, x, y, isSelect})=>{
             if(isSelect){
@@ -337,12 +361,13 @@ export default class gamePlay implements InterfaceGamePlay{
         };
 
         ctx.lineCap = 'round';
-        ctx.fillStyle = '#fff';
+        ctx.strokeStyle= '#fff';
         ctx.stroke(this.backPath);
 
         ctx.font = headingTextData;
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
+        ctx.fillStyle = '#fff';
         ctx.fillText(`${this.title} ● ${this.game.user.levelCount}`, width / 2, heightHead / 2);
     }
 
