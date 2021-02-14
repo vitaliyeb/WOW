@@ -93,7 +93,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.backPath = null
         this.tableOtions = null;
         this.enteredTeextData = null;
-        this.temporaryWord = 'НОС';
+        this.temporaryWord = '';
         this.inputLetters = [];
     
         this.mouseMove = this.mouseMove.bind(this);
@@ -112,6 +112,7 @@ export default class gamePlay implements InterfaceGamePlay{
             this.mouseData = {x, y};
             if(letter  && !letter.isSelect) {
                 letter.isSelect = true; 
+                this.temporaryWord += letter.letter;
                 this.inputLetters.push({x: letter.x, y: letter.y});
             }
         }    
@@ -138,6 +139,7 @@ export default class gamePlay implements InterfaceGamePlay{
         if(letter){
             this.inputLetters.push({x: letter.x, y: letter.y});
             letter.isSelect = true;
+            this.temporaryWord = letter.letter;
             this.mouseData = {x, y};
         }
     }
@@ -160,6 +162,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.inputLetters = [];
         this.letterPaths.forEach((letter, index, arr)=> arr[index].isSelect = false);  
 
+        this.temporaryWord = '';
     }
 
     paintLine() { 
@@ -249,8 +252,8 @@ export default class gamePlay implements InterfaceGamePlay{
         this.game.clearMainCanvas();
         this.paintHeading();
         this.paintGrid();
-        this.paintInputsWord();
         this.paintArcLetters();
+        if(this.temporaryWord.length) this.paintInputsWord();
 
         requestAnimationFrame(() => this.loop());
     }
