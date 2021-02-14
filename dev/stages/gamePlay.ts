@@ -143,6 +143,23 @@ export default class gamePlay implements InterfaceGamePlay{
         }
     }
 
+    checkWordInTable() {
+        let word = 'НОС',
+            wordData = this.levelData.keyData[word];
+        console.log(word);
+        
+        if(word) {
+            let { direction, col, row } = wordData,
+                letters = word.split('');
+
+            if(direction === 'down'){
+                for (let row = 0; row < letters.length; row++) {
+                    this.map[row][col] = letters.pop();
+                }
+            }
+        }
+    }
+
     onMouseDown(e: MouseEvent) {
         let {x, y} = this.game.getCursorPosition(e),
             ctx = this.game.mainContext,
@@ -172,6 +189,7 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     mouseUp() {
+        this.checkWordInTable();
         this.inputLetters = [];
         this.letterPaths.forEach((letter, index, arr)=> arr[index].isSelect = false);  
         this.historyAddLetter = [];
