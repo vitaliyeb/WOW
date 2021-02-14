@@ -11,6 +11,19 @@ interface InterfaceGamePlay{
     paintInputsWord: () => void;
 }
 
+interface InterfaceCoordData {
+    x: number;
+    y: number;
+}
+
+interface InnterfaceLetterPath {
+    letter: string,
+    path: Path2D,
+    x: number,
+    y: number,
+    isSelect: boolean
+}
+
 
 export default class gamePlay implements InterfaceGamePlay{
     game: Game;
@@ -58,22 +71,10 @@ export default class gamePlay implements InterfaceGamePlay{
         letterStep: number,
         insideFs: number
     };
-    letterPaths: Array<{
-        letter: string,
-        path: Path2D,
-        x: number,
-        y: number,
-        isSelect: boolean
-    }>;
-    inputLetters: Array<{
-        x: number;
-        y: number;
-    }>;
-    mouseData: {
-        x: number;
-        y: number;
-    };
-
+    letterPaths: Array<InnterfaceLetterPath>;
+    inputLetters: Array<InterfaceCoordData>;
+    mouseData: InterfaceCoordData;
+    historyAddLetter: Array<InnterfaceLetterPath>;
 
     constructor(game: Game) {
         this.game = game,
@@ -95,6 +96,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.enteredTeextData = null;
         this.temporaryWord = '';
         this.inputLetters = [];
+        this.historyAddLetter = [];
     
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
@@ -110,10 +112,20 @@ export default class gamePlay implements InterfaceGamePlay{
 
         if(this.inputLetters.length ){
             this.mouseData = {x, y};
-            if(letter  && !letter.isSelect) {
-                letter.isSelect = true; 
-                this.temporaryWord += letter.letter;
-                this.inputLetters.push({x: letter.x, y: letter.y});
+            if(letter) {
+                if(!letter.isSelect) {
+                    letter.isSelect = true; 
+                    this.temporaryWord += letter.letter;
+                    this.inputLetters.push({x: letter.x, y: letter.y});
+                    return this.historyAddLetter.push(letter);
+                }
+                if(letter === this.historyAddLetter[this.historyAddLetter.length - 2]) {
+                    this.inputLetters.pop();
+                    let letter = this.historyAddLetter.pop();
+                    letter.isSelect = false;
+                    this.temporaryWord = this.temporaryWord.slice(0, -1);
+                }
+
             }
         }    
             
@@ -137,6 +149,7 @@ export default class gamePlay implements InterfaceGamePlay{
             letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y));
         
         if(letter){
+            this.historyAddLetter.push(letter);
             this.inputLetters.push({x: letter.x, y: letter.y});
             letter.isSelect = true;
             this.temporaryWord = letter.letter;
