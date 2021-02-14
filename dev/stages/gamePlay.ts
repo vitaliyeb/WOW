@@ -99,6 +99,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
         this.onMouseDown = this.onMouseDown.bind(this);
+        this.mouseUp = this.mouseUp.bind(this);
     }
 
     mouseMove(e: MouseEvent) {
@@ -107,8 +108,12 @@ export default class gamePlay implements InterfaceGamePlay{
             letter = this.letterPaths.find(i=>ctx.isPointInPath(i.path, x, y)),
             screenWrapper = this.game.screenWrapper;
 
-        if(this.inputLetters){
+        if(this.inputLetters.length ){
             this.mouseData = {x, y};
+            if(letter  && !letter.isSelect) {
+                letter.isSelect = true; 
+                this.inputLetters.push({x: letter.x, y: letter.y});
+            }
         }    
             
         if(letter)  return screenWrapper.style.cursor = 'pointer';
@@ -148,6 +153,13 @@ export default class gamePlay implements InterfaceGamePlay{
         document.addEventListener('mousemove', this.mouseMove);
         document.addEventListener('click', this.click);
         document.addEventListener('mousedown', this.onMouseDown);
+        document.addEventListener('mouseup', this.mouseUp);
+    }
+
+    mouseUp() {
+        this.inputLetters = [];
+        this.letterPaths.forEach((letter, index, arr)=> arr[index].isSelect = false);  
+
     }
 
     paintLine() { 
