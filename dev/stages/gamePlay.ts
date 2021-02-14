@@ -174,7 +174,7 @@ export default class gamePlay implements InterfaceGamePlay{
     mouseUp() {
         this.inputLetters = [];
         this.letterPaths.forEach((letter, index, arr)=> arr[index].isSelect = false);  
-
+        this.historyAddLetter = [];
         this.temporaryWord = '';
     }
 
