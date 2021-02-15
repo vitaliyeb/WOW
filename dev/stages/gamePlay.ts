@@ -151,11 +151,16 @@ export default class gamePlay implements InterfaceGamePlay{
         if(word) {
             let { direction, col, row } = wordData,
                 letters = word.split('');
-
+            
             if(direction === 'down'){
-                for (let row = 0; row < letters.length; row++) {
-                    this.map[row][col] = letters.pop();
+                for(; row < row + letters.length; row++) {
+                    console.log('ss');
                 }
+                // for (let row = 0; row <= letters.length; row++) {
+                //     
+                    
+                //     this.map[row][col] = letters.shift();
+                // }
             }
         }
     }
