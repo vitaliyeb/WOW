@@ -71,6 +71,7 @@ export default class gamePlay implements InterfaceGamePlay{
         letterStep: number,
         insideFs: number
     };
+    done: boolean;
     letterPaths: Array<InnterfaceLetterPath>;
     inputLetters: Array<InterfaceCoordData>;
     mouseData: InterfaceCoordData;
@@ -97,7 +98,8 @@ export default class gamePlay implements InterfaceGamePlay{
         this.temporaryWord = '';
         this.inputLetters = [];
         this.historyAddLetter = [];
-    
+        this.done = true;
+
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
         this.onMouseDown = this.onMouseDown.bind(this);
@@ -150,17 +152,30 @@ export default class gamePlay implements InterfaceGamePlay{
         if(wordData) {
             let { direction, col, row } = wordData,
                 letters = word.split('');
+            wordData.selected = true;    
             
             if(direction === 'down'){
                 letters.forEach((letter, inedx) => this.map[row + inedx][col] = letter);
             }
 
             if(direction === 'right'){
-                console.log('ttt');
-                
                 letters.forEach((letter, inedx) => this.map[row][col + inedx] = letter);
             }
+            
+            if(Object.values(this.levelData.keyData).every(letterData => letterData.selected)) return this.done = true;
         }
+    }
+
+    passed() {
+        let { mainContext: ctx, windowSize: {width, height}} = this.game,
+            messageHeight = 50;
+
+        ctx.beginPath();
+        ctx.fillStyle = '#cd2b58';
+        ctx.fillRect(0, (height - messageHeight) / 2, width, messageHeight);
+
+        ctx.fillText('ВЕЛИКОЛЕПНО', x, y, maxWidth);
+                
     }
 
     onMouseDown(e: MouseEvent) {
@@ -288,6 +303,10 @@ export default class gamePlay implements InterfaceGamePlay{
         this.paintGrid();
         this.paintArcLetters();
         if(this.temporaryWord.length) this.paintInputsWord();
+
+        if(this.done){
+            this.passed();
+        }
 
         requestAnimationFrame(() => this.loop());
     }

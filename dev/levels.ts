@@ -5,6 +5,7 @@ interface InterfeceLevelData {
             row: number;
             col: number;
             direction: string;
+            selected?: boolean;
         };
     };
     letters: Array<string>
