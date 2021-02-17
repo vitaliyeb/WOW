@@ -153,14 +153,7 @@ export default class gamePlay implements InterfaceGamePlay{
                 letters = word.split('');
             
             if(direction === 'down'){
-                for(; row < row + letters.length; row++) {
-                    console.log('ss');
-                }
-                // for (let row = 0; row <= letters.length; row++) {
-                //     
-                    
-                //     this.map[row][col] = letters.shift();
-                // }
+                letters.forEach((letter, inedx) => this.map[row + inedx][col] = letter);
             }
         }
     }
