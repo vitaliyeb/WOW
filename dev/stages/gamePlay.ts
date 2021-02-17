@@ -144,16 +144,21 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     checkWordInTable() {
-        let word = 'НОС',
+        let word = this.temporaryWord,
             wordData = this.levelData.keyData[word];
-        console.log(word);
         
-        if(word) {
+        if(wordData) {
             let { direction, col, row } = wordData,
                 letters = word.split('');
             
             if(direction === 'down'){
                 letters.forEach((letter, inedx) => this.map[row + inedx][col] = letter);
+            }
+
+            if(direction === 'right'){
+                console.log('ttt');
+                
+                letters.forEach((letter, inedx) => this.map[row][col + inedx] = letter);
             }
         }
     }

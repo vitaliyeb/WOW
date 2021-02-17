@@ -70,7 +70,7 @@ class Levels implements InterfaceLevels{
                                         direction: 'right'
                                     }
                                 },
-                                letters: ["C", "О", "Н"]
+                                letters: ["С", "О", "Н"]
                             }
                         ]
                     },
