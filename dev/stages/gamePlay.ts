@@ -168,13 +168,22 @@ export default class gamePlay implements InterfaceGamePlay{
 
     passed() {
         let { mainContext: ctx, windowSize: {width, height}} = this.game,
-            messageHeight = 50;
+            text = 'ВЕЛИКОЛЕПНО',
+            messageHeight = 50,
+            letterSpace = 1;
 
         ctx.beginPath();
         ctx.fillStyle = '#cd2b58';
         ctx.fillRect(0, (height - messageHeight) / 2, width, messageHeight);
 
-        ctx.fillText('ВЕЛИКОЛЕПНО', x, y, maxWidth);
+        ctx.fillStyle = '#fff';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = 'bold 22px Roboto';
+        let textWidth = ctx.measureText(text).width;
+        console.log(width);
+        ctx.fillText(text, width / 2, height / 2 + messageHeight / 2 );
+        
                 
     }
 
