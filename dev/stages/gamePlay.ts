@@ -76,6 +76,7 @@ export default class gamePlay implements InterfaceGamePlay{
     inputLetters: Array<InterfaceCoordData>;
     mouseData: InterfaceCoordData;
     historyAddLetter: Array<InnterfaceLetterPath>;
+    letterTransformK: number;
 
     constructor(game: Game) {
         this.game = game,
@@ -99,6 +100,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.inputLetters = [];
         this.historyAddLetter = [];
         this.done = true;
+        this.letterTransformK = 0;
 
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
@@ -169,8 +171,7 @@ export default class gamePlay implements InterfaceGamePlay{
     passed() {
         let { mainContext: ctx, windowSize: {width, height}} = this.game,
             text = 'ВЕЛИКОЛЕПНО',
-            messageHeight = 50,
-            letterSpace = 1;
+            messageHeight = 50;
 
         ctx.beginPath();
         ctx.fillStyle = '#cd2b58';
@@ -180,9 +181,15 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.font = 'bold 22px Roboto';
-        let textWidth = ctx.measureText(text).width;
-        console.log(width);
-        ctx.fillText(text, width / 2, height / 2 + messageHeight / 2 );
+        let textWidth = ctx.measureText(text).width,
+            k = this.letterTransformK += .08, 
+            letterArr = text.split(''),
+            xs = (width - textWidth - (letterArr.length * k)) / 2;
+        
+        letterArr.forEach((letter, i) => {
+            let letterWidth = 15;
+            ctx.fillText(letter, xs + letterWidth * i + k * i, height / 2);
+        })
         
                 
     }
@@ -336,6 +343,7 @@ export default class gamePlay implements InterfaceGamePlay{
             { countries, sights, playId } = user.levelData,
             handler = level[countries].sights[sights].handler;
 
+        this.letterTransformK = 0;
         this.title = handler.heading,
         this.bgImageId = handler.img;
         this.levelData = level[countries].sights[sights].levels[playId];
