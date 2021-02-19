@@ -71,6 +71,7 @@ export default class gamePlay implements InterfaceGamePlay{
         letterStep: number,
         insideFs: number
     };
+    preDone: boolean;
     done: boolean;
     letterPaths: Array<InnterfaceLetterPath>;
     inputLetters: Array<InterfaceCoordData>;
@@ -99,8 +100,9 @@ export default class gamePlay implements InterfaceGamePlay{
         this.temporaryWord = '';
         this.inputLetters = [];
         this.historyAddLetter = [];
-        this.done = true;
+        this.preDone = true;
         this.letterTransformK = 0;
+        this.done = false;
 
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
@@ -182,16 +184,24 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.textBaseline = 'middle';
         ctx.font = 'bold 22px Roboto';
         let textWidth = ctx.measureText(text).width,
-            k = this.letterTransformK += .08, 
+            k = this.letterTransformK += .15, 
             letterArr = text.split(''),
             xs = (width - textWidth - (letterArr.length * k)) / 2;
         
         letterArr.forEach((letter, i) => {
             let letterWidth = 15;
             ctx.fillText(letter, xs + letterWidth * i + k * i, height / 2);
-        })
-        
-                
+        });
+        if(k > 15) this.clearStage();             
+    }
+
+    clearStage() {
+        this.done = true;
+        document.removeEventListener('mousemove', this.mouseMove);
+        document.removeEventListener('click', this.click);
+        document.removeEventListener('mousedown', this.onMouseDown);
+        document.removeEventListener('mouseup', this.mouseUp);
+
     }
 
     onMouseDown(e: MouseEvent) {
@@ -209,6 +219,7 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     init() {
+        this.done = false;
         this.setDataGame();
         this.setParamsTableOptions();
         this.setEnteredTeextData();
@@ -319,11 +330,8 @@ export default class gamePlay implements InterfaceGamePlay{
         this.paintGrid();
         this.paintArcLetters();
         if(this.temporaryWord.length) this.paintInputsWord();
-
-        if(this.done){
-            this.passed();
-        }
-
+        if(this.preDone) this.passed();
+        if(this.done) return;
         requestAnimationFrame(() => this.loop());
     }
 
