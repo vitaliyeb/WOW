@@ -194,7 +194,7 @@ export default class gamePlay implements InterfaceGamePlay{
         });
         if(k > 15) {
             this.clearStage()
-            this.game.setStatus();
+            this.game.setStatus('endOfLevel');
         };
     }
 
