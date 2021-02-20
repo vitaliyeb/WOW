@@ -4,6 +4,7 @@ import GamePlay from "./stages/gamePlay";
 import Location from "./stages/location";
 import Investigated from './stages/investigated';
 import {User} from "./user";
+import EndOfLevel from "./stages/endOfLevel";
 
 
 
@@ -38,6 +39,7 @@ class Game implements GameInterface {
     investigated: Investigated;
     user: User;
     gamePlay: GamePlay
+    endOfLevel: EndOfLevel;
     imagesStore: {
         [propName: string]: HTMLImageElement;
     };
@@ -69,6 +71,7 @@ class Game implements GameInterface {
         this.screenWrapper = document.querySelector('.screen');
         this.investigated = new Investigated(this);
         this.user = new User(this);
+        this.endOfLevel = new EndOfLevel(this);
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);

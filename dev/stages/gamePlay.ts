@@ -192,7 +192,10 @@ export default class gamePlay implements InterfaceGamePlay{
             let letterWidth = 15;
             ctx.fillText(letter, xs + letterWidth * i + k * i, height / 2);
         });
-        if(k > 15) this.clearStage();             
+        if(k > 15) {
+            this.clearStage()
+            this.game.setStatus();
+        };
     }
 
     clearStage() {
