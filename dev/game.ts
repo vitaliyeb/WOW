@@ -155,6 +155,10 @@ class Game implements GameInterface {
         });
     }
 
+    nextLevel(): void {
+        
+    }
+
     createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
         let path = new Path2D();
 
