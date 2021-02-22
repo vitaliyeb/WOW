@@ -100,7 +100,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.temporaryWord = '';
         this.inputLetters = [];
         this.historyAddLetter = [];
-        this.preDone = true;
+        this.preDone = false;
         this.letterTransformK = 0;
         this.done = false;
 
@@ -230,7 +230,7 @@ export default class gamePlay implements InterfaceGamePlay{
         this.initArcData();
 
         this.loop();
-                
+        
         document.addEventListener('mousemove', this.mouseMove);
         document.addEventListener('click', this.click);
         document.addEventListener('mousedown', this.onMouseDown);

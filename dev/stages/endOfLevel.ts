@@ -13,6 +13,8 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
     }
 
     init() {
+        this.game.setBackground('mainBg', true);
+        console.log('sasdasd');
         this.game.clearMainCanvas();
     }
 

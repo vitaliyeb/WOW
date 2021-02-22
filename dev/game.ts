@@ -132,6 +132,7 @@ class Game implements GameInterface {
                 break;
             case 'game':
                 this.gamePlay.init();
+                break;
             case 'endOfLevel':
                 this.endOfLevel.init();
                 break;
