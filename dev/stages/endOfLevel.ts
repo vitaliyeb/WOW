@@ -11,8 +11,8 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         radius: number;
         x: number;
         y: number;
-        gradient: CanvasGradient;
-        
+        gradient: CanvasGradient,
+        endY: number
     }
 
     constructor(game: Game) {
@@ -24,6 +24,35 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         this.game.clearMainCanvas();
         if(!this.arcData) this.arcSetData();
         this.paintArc();
+        this.paintInfoBlock();
+    }
+
+    paintInfoBlock() {
+        let {width, height} = this.game.windowSize,
+            ctx = this.game.mainContext, 
+            r = 24,
+            colorOne = 'red',
+            titleWrapperWidth = this.game.minMax(width / 100 * 70, 260, 460),
+            titleWrapperHeight = 30,
+            loadinWrapperWidth = this.game.minMax(width / 100 * 90, 300, 500),
+            loadingWrapperHeight = 30,
+            borderRadius = 16,
+            y = this.arcData.endY + 30 + r / 2,
+            x = width / 2;
+
+        ctx.beginPath();
+        ctx.fillStyle = colorOne;
+        ctx.moveTo(x - (titleWrapperWidth / 2) - borderRadius / 2, y + r);
+        ctx.lineTo(x - r / 2,  y + r);
+        ctx.arc(x, y + r, r, Math.PI, 0);
+        ctx.lineTo(x + (titleWrapperWidth / 2) - borderRadius / 2, y + r);
+        ctx.quadraticCurveTo(x + titleWrapperWidth / 2, y + r, x + titleWrapperWidth / 2, y + r + borderRadius / 2);
+        ctx.lineTo(x + titleWrapperWidth / 2, y + r + titleWrapperHeight - borderRadius /2);
+        ctx.quadraticCurveTo(x + titleWrapperWidth / 2, y + r + titleWrapperHeight, x + titleWrapperWidth / 2 + borderRadius / 2, y + r + titleWrapperHeight);
+        ctx.lineTo(x + loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight);
+
+        ctx.fill();      
+
 
     }
 
@@ -31,15 +60,17 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         let {width, height} = this.game.windowSize,
             minSize =   Math.min(width, height),
             radius = minSize / 100 * 15,
+            y = height / 100 * 20 + radius,
             gradient = this.game.mainContext.createLinearGradient(0, 0, width, height);
             gradient.addColorStop(0, '#697af3');
             gradient.addColorStop(1, '#7d42d1');
 
         this.arcData = {
             x: width / 2,
-            y: height / 100 * 20 + radius,
+            y,
             radius,
-            gradient
+            gradient,
+            endY: y + radius
         }
     }
 
@@ -57,4 +88,4 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.textBaseline = 'middle';
         ctx.fillText(String(this.game.user.levelCount), x, y);
     }
-}
+} 
