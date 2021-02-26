@@ -42,7 +42,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
         ctx.beginPath();
         ctx.fillStyle = colorOne;
-        ctx.moveTo(x - (titleWrapperWidth / 2) - borderRadius / 2, y + r);
+        ctx.moveTo(x - (titleWrapperWidth / 2 - borderRadius / 2), y + r);
         ctx.lineTo(x - r / 2,  y + r);
         ctx.arc(x, y + r, r, Math.PI, 0);
         ctx.lineTo(x + (titleWrapperWidth / 2) - borderRadius / 2, y + r);
@@ -50,6 +50,9 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.lineTo(x + titleWrapperWidth / 2, y + r + titleWrapperHeight - borderRadius /2);
         ctx.quadraticCurveTo(x + titleWrapperWidth / 2, y + r + titleWrapperHeight, x + titleWrapperWidth / 2 + borderRadius / 2, y + r + titleWrapperHeight);
         ctx.lineTo(x + loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight);
+        ctx.lineTo(x - (loadinWrapperWidth / 2 - loadingWrapperHeight / 2), y + r + titleWrapperHeight + loadingWrapperHeight);
+        ctx.quadraticCurveTo(x - loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight, x - loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight / 2);
+        ctx.quadraticCurveTo(x - loadinWrapperWidth / 2, y + r + titleWrapperHeight, x - (loadinWrapperWidth / 2 - loadingWrapperHeight / 2), y + r + titleWrapperHeight);
 
         ctx.fill();      
 
