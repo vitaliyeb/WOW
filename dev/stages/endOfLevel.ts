@@ -31,16 +31,18 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         let {width, height} = this.game.windowSize,
             ctx = this.game.mainContext, 
             r = 24,
-            titleWrapperWidth = this.game.minMax(width / 100 * 70, 260, 460),
+            titleWrapperWidth = this.game.minMax(width / 100 * 80, 260, 450),
             titleWrapperHeight = 30,
             loadinWrapperWidth = this.game.minMax(width / 100 * 90, 300, 500),
             loadingWrapperHeight = 30,
             borderRadius = 16,
             y = this.arcData.endY + 30 + r / 2,
-            x = width / 2;
+            x = width / 2,
+            ineriorLoadingBorderWeight = 4,
+            interiorLoadingWrapperHeight =  loadingWrapperHeight - ineriorLoadingBorderWeight * 2;
 
         ctx.beginPath();
-        ctx.fillStyle = '#5987c0';
+        ctx.fillStyle = '#3f83be';
         ctx.moveTo(x - (titleWrapperWidth / 2 - borderRadius / 2), y + r);
         ctx.lineTo(x - r / 2,  y + r);
         ctx.arc(x, y + r, r, Math.PI, 0);
@@ -48,6 +50,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.quadraticCurveTo(x + titleWrapperWidth / 2, y + r, x + titleWrapperWidth / 2, y + r + borderRadius / 2);
         ctx.lineTo(x + titleWrapperWidth / 2, y + r + titleWrapperHeight - borderRadius /2);
         ctx.quadraticCurveTo(x + titleWrapperWidth / 2, y + r + titleWrapperHeight, x + titleWrapperWidth / 2 + borderRadius / 2, y + r + titleWrapperHeight);
+        ctx.lineTo(x + loadinWrapperWidth / 2, y + r + titleWrapperHeight);
         ctx.lineTo(x + loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight);
         ctx.lineTo(x - (loadinWrapperWidth / 2 - loadingWrapperHeight / 2), y + r + titleWrapperHeight + loadingWrapperHeight);
         ctx.quadraticCurveTo(x - loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight, x - loadinWrapperWidth / 2, y + r + titleWrapperHeight + loadingWrapperHeight / 2);
@@ -56,6 +59,15 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.lineTo(x - (titleWrapperWidth / 2),  y + r + borderRadius /2);
         ctx.quadraticCurveTo(x - titleWrapperWidth / 2, y + r, x - (titleWrapperWidth / 2 - borderRadius / 2), y + r);
         ctx.fill();      
+
+        ctx.arc(x + loadinWrapperWidth / 2 - ineriorLoadingBorderWeight,
+             y + r + titleWrapperHeight + loadingWrapperHeight / 2 - ineriorLoadingBorderWeight,
+             (loadingWrapperHeight) / 2 + ineriorLoadingBorderWeight,
+             Math.PI * 2,
+             0
+            );
+
+        ctx.fill();
 
 
     }
