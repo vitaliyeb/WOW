@@ -13,6 +13,10 @@ interface EventHandlersInterface {
     [propName : string] : any 
 }
 
+interface InterfaceSectionStatusIcons {
+    [statusName: string]: string
+}
+
 export default class Location {
     game: Game;
     headingGradient: CanvasGradient;
@@ -24,6 +28,7 @@ export default class Location {
         x: number,
         y: number
     };
+    sectionStatusIcons :InterfaceSectionStatusIcons;
     heightVisibleDivision: number;
     eventStore: Array<EventHandlersInterface>;
     cardBottomPadding: number;
@@ -43,6 +48,9 @@ export default class Location {
         this.fullHeightLevels = undefined;
         this.scrolTop = 0;
         this.eventStore = [];
+        this.sectionStatusIcons = {
+
+        };
         this.cardSize = {
             width: this.game.minMax(300, this.game.windowSize.width / 100 * 50, 500),
             height: 250

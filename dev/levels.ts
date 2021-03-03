@@ -13,7 +13,7 @@ interface InterfeceLevelData {
 
 interface InterfaceSights {
     title: string,
-    status: "done" | "process",
+    status: "done" | "process" | "block",
     handlerId: string;
     handler: InterfaceSightHandler,
     levels: Array<InterfeceLevelData>
@@ -46,7 +46,7 @@ class Levels implements InterfaceLevels{
             {
                 country: 'ЕГИПЕТ',
                 imageName: 'locationEgipet',
-                status: 'done',
+                status: 'process',
                 sights: [
                     {
                         title: 'ПИРАМИДЫ ГИЗЫ',
@@ -77,7 +77,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'БОЛЬШОЙ СФИНКС',
-                        status: 'done',
+                        status: 'block',
                         handlerId: "2",
                         handler: {
                             img: 'bigSfinxBg',
@@ -104,7 +104,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'КРАСНОЕ МОРЕ',
-                        status: 'done',
+                        status: 'block',
                         handlerId: "3",
                         handler: {
                             img: 'redSeaBg',
@@ -134,7 +134,7 @@ class Levels implements InterfaceLevels{
             {
                 country: 'ФРАНЦИЯ',
                 imageName: 'locationFrance',
-                status: 'process',
+                status: 'block',
                 sights: [
                     {
                         title: 'Пирамиды гизы',
