@@ -49,7 +49,9 @@ export default class Location {
         this.scrolTop = 0;
         this.eventStore = [];
         this.sectionStatusIcons = {
-
+            'done': 'check',
+            'process': 'searchIcon',
+            'block': 'lockIcon'
         };
         this.cardSize = {
             width: this.game.minMax(300, this.game.windowSize.width / 100 * 50, 500),
@@ -233,6 +235,7 @@ export default class Location {
 
     paintSections(y: number, x: number, country: InterfaceСountry ): void{
         let ctx = this.game.mainContext,
+            { sectionStatusIcons } = this,
             height = 25,
             width = 130,
             margin = 10,
@@ -248,7 +251,7 @@ export default class Location {
             ctx.fill(path);
             ctx.fillStyle = '#fff';
             ctx.fillText(sight.title, x + margin + 10, lastY + height / 2, width - 40);
-            let icon = this.game.imagesStore[sight.status === 'done' ? 'check' : 'searchIcon'];
+            let icon = this.game.imagesStore[sectionStatusIcons[sight.status]];
             ctx.drawImage(icon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
 
             this.eventStore.push({

@@ -47,7 +47,8 @@ class LoadingGame implements InterfaceLoadingGame{
             ()=>this.game.loadImages('./images/search.png', 'searchIcon'),
             ()=>this.game.loadImages('./images/question.png', 'questoin'),
             ()=>this.game.loadImages('./images/franceLocal.jpg', 'locationFrance'),
-            ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet')
+            ()=>this.game.loadImages('./images/egipetLocal.jpg', 'locationEgipet'),
+            ()=>this.game.loadImages('./images/lock.svg', 'lock')
         ];
     }
 
