@@ -251,6 +251,7 @@ export default class Location {
             ctx.fill(path);
             ctx.fillStyle = '#fff';
             ctx.fillText(sight.title, x + margin + 10, lastY + height / 2, width - 40);
+            console.log(sectionStatusIcons[sight.status]);
             let icon = this.game.imagesStore[sectionStatusIcons[sight.status]];
             ctx.drawImage(icon, x + margin + width - iconWidth - 10, lastY + (height - iconHeight) / 2, iconWidth, iconHeight);
 
