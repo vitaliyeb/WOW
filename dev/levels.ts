@@ -77,7 +77,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'БОЛЬШОЙ СФИНКС',
-                        status: 'block',
+                        status: 'process',
                         handlerId: "2",
                         handler: {
                             img: 'bigSfinxBg',
