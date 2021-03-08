@@ -14,6 +14,12 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         gradient: CanvasGradient,
         endY: number
     }
+    endLevelData: {
+        sightsTitle: string;
+        levelsStart: number;
+        levelsEnd: number;
+        countLevelsDone: number;
+    }
 
     constructor(game: Game) {
         this.game = game;
@@ -23,17 +29,20 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         this.game.setBackground('mainBg', true);
         this.game.clearMainCanvas();
         if(!this.arcData) this.arcSetData();
+        this.setEndLevelData();
         this.paintArc();
         this.paintInfoBlock();
     }
 
     setEndLevelData() {
-        let data = {
-            sightsTitle: '',
-            levelsStart: 0,
-            levelsEnd: 1,
-            countLevelsDone: 1
-        }
+        let { countries, sights, playId } = this.game.user.levelData;
+        let levels = this.game.user.levels;
+        this.endLevelData = {
+            sightsTitle: levels.countries[countries].sights[sights].title,
+            levelsStart: playId,
+            levelsEnd: playId + 1,
+            countLevelsDone: this.game.user.levelCount
+        };
     }
 
     paintInfoBlock() {
