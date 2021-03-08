@@ -27,6 +27,15 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         this.paintInfoBlock();
     }
 
+    setEndLevelData() {
+        let data = {
+            sightsTitle: '',
+            levelsStart: 0,
+            levelsEnd: 1,
+            countLevelsDone: 1
+        }
+    }
+
     paintInfoBlock() {
         let {width, height} = this.game.windowSize,
             ctx = this.game.mainContext, 
