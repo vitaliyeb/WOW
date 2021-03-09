@@ -83,7 +83,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.fill();
 
         ctx.beginPath();
-        ctx.fillStyle = 'red';
+        ctx.fillStyle = '#36658e';
         let titleBgPath = this.game.createRect(
             x - titleWrapperWidth / 2 + interiorTitleBorder,
             y + r + interiorTitleBorder,
@@ -93,11 +93,11 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         );
         ctx.fill(titleBgPath);
 
-        // ctx.fillStyle = '#fff';
-        // ctx.textBaseline = 'middle'
-        // ctx.textAlign = 'center';
-        // ctx.font = `400 ${titleWrapperHeight * 0.65}px roboto`
-        // ctx.fillText(this.endLevelData.sightsTitle, x, y + r + titleWrapperHeight / 1.5);
+        ctx.fillStyle = '#fff';
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center';
+        ctx.font = `400 ${(titleWrapperHeight - interiorTitleBorder * 2) * 0.55}px roboto`
+        ctx.fillText(this.endLevelData.sightsTitle, x, y + r + interiorTitleBorder + (titleWrapperHeight - interiorTitleBorder * 2) * .55);
 
         ctx.beginPath();
         ctx.fillStyle = darkSirenColor;
