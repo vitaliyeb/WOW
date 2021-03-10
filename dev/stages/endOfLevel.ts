@@ -79,6 +79,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.quadraticCurveTo(x - (titleWrapperWidth / 2), y + r + titleWrapperHeight, x - titleWrapperWidth / 2, y + r + titleWrapperHeight - borderRadius / 2);
         ctx.lineTo(x - (titleWrapperWidth / 2),  y + r + borderRadius /2);
         ctx.quadraticCurveTo(x - titleWrapperWidth / 2, y + r, x - (titleWrapperWidth / 2 - borderRadius / 2), y + r);
+        ctx.moveTo(x, y + r * 1.3);
         ctx.arc(x, y + r * 1.3, r, Math.PI, 0);
         ctx.fill();
 
