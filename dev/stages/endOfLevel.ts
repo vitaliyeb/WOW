@@ -18,6 +18,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         sightsTitle: string;
         levelsStart: number;
         levelsEnd: number;
+        levelCount: number,
         countLevelsDone: number;
     }
 
@@ -41,6 +42,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             sightsTitle: levels.countries[countries].sights[sights].title,
             levelsStart: playId,
             levelsEnd: playId + 1,
+            levelCount: levels.countries[countries].sights[sights].levels.length,
             countLevelsDone: this.game.user.levelCount
         };
     }
@@ -61,7 +63,8 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             x = width / 2,
             interiorLoadingBorderWeight = 4,
             interiorLoadingWrapperHeight =  loadingWrapperHeight - interiorLoadingBorderWeight * 2,
-            interiorLoadingWrapperWidth = loadinWrapperWidth - interiorLoadingBorderWeight * 2;
+            interiorLoadingWrapperWidth = loadinWrapperWidth - interiorLoadingBorderWeight * 2,
+            { sightsTitle, levelsStart, levelsEnd, countLevelsDone, levelCount } = this.endLevelData;
 
         ctx.beginPath();
         ctx.fillStyle = sirenColor;
@@ -98,7 +101,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.textBaseline = 'middle'
         ctx.textAlign = 'center';
         ctx.font = `400 ${(titleWrapperHeight - interiorTitleBorder * 2) * 0.55}px roboto`
-        ctx.fillText(this.endLevelData.sightsTitle, x, y + r + interiorTitleBorder + (titleWrapperHeight - interiorTitleBorder * 2) * .55);
+        ctx.fillText(sightsTitle, x, y + r + interiorTitleBorder + (titleWrapperHeight - interiorTitleBorder * 2) * .55);
 
         ctx.beginPath();
         ctx.fillStyle = darkSirenColor;
@@ -111,6 +114,21 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             interiorLoadingWrapperHeight / 2
         );
         ctx.fill(interiorLoadingPath);
+
+        ctx.beginPath();
+        ctx.fillStyle = "green";
+
+        let loadWidth = interiorLoadingWrapperWidth / levelCount * levelsStart + .05,
+            loadWidthEnd = interiorLoadingWrapperWidth / levelCount * levelsEnd;
+
+        let loadPath = this.game.createRect(
+            x - (loadinWrapperWidth / 2 - interiorLoadingBorderWeight),
+            y + r + titleWrapperHeight + interiorLoadingBorderWeight,
+            loadWidth,
+            interiorLoadingWrapperHeight,
+            interiorLoadingWrapperHeight / 2
+        );
+        ctx.fill(loadPath);
 
         ctx.beginPath();
         ctx.fillStyle = sirenColor;
