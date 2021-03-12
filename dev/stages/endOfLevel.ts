@@ -14,7 +14,8 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         gradient: CanvasGradient,
         endY: number
     }
-
+    loadProgress: number;
+    requestId: number;
     endLevelData: {
         sightsTitle: string;
         levelsStart: number;
@@ -28,6 +29,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
     }
 
     init() {
+        this.loadProgress = 0;
         this.game.setBackground('mainBg', true);
         if(!this.arcData) this.arcSetData();
         this.loop();
@@ -124,8 +126,12 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.beginPath();
         ctx.fillStyle = "green";
 
-        let loadWidth = interiorLoadingWrapperWidth / levelCount * levelsStart + .05,
+        let loadWidth = interiorLoadingWrapperWidth / levelCount * levelsStart + this.loadProgress,
             loadWidthEnd = interiorLoadingWrapperWidth / levelCount * levelsEnd;
+
+        if (loadWidth <= loadWidthEnd){
+            this.loadProgress+=2;
+        }
 
         let loadPath = this.game.createRect(
             x - (loadinWrapperWidth / 2 - interiorLoadingBorderWeight),
