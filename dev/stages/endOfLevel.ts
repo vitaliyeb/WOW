@@ -14,6 +14,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         gradient: CanvasGradient,
         endY: number
     }
+
     endLevelData: {
         sightsTitle: string;
         levelsStart: number;
@@ -28,11 +29,8 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
     init() {
         this.game.setBackground('mainBg', true);
-        this.game.clearMainCanvas();
         if(!this.arcData) this.arcSetData();
-        this.setEndLevelData();
-        this.paintArc();
-        this.paintInfoBlock();
+        this.loop();
     }
 
     setEndLevelData() {
@@ -45,6 +43,14 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             levelCount: levels.countries[countries].sights[sights].levels.length,
             countLevelsDone: this.game.user.levelCount
         };
+    }
+
+    loop() {
+        this.game.clearMainCanvas();
+        this.setEndLevelData();
+        this.paintArc();
+        this.paintInfoBlock();
+        requestAnimationFrame(()=> this.loop())
     }
 
     paintInfoBlock() {
