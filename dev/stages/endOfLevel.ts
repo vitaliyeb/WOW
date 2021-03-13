@@ -58,7 +58,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
     paintInfoBlock() {
         let {width, height} = this.game.windowSize,
             ctx = this.game.mainContext, 
-            r = 24,
+            r = 28,
             sirenColor = '#3f83be',
             darkSirenColor = 'red', 
             titleWrapperWidth = this.game.minMax(width / 100 * 80, 260, 450),
@@ -69,6 +69,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             borderRadius = 16,
             y = this.arcData.endY + 30 + r / 2,
             x = width / 2,
+            fsLevelProgress = r * .45,
             interiorLoadingBorderWeight = 4,
             interiorLoadingWrapperHeight =  loadingWrapperHeight - interiorLoadingBorderWeight * 2,
             interiorLoadingWrapperWidth = loadinWrapperWidth - interiorLoadingBorderWeight * 2,
@@ -110,6 +111,10 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.textAlign = 'center';
         ctx.font = `400 ${(titleWrapperHeight - interiorTitleBorder * 2) * 0.55}px roboto`
         ctx.fillText(sightsTitle, x, y + r + interiorTitleBorder + (titleWrapperHeight - interiorTitleBorder * 2) * .55);
+
+        ctx.textBaseline = 'bottom';
+        ctx.font = `400 ${fsLevelProgress}px roboto`
+        ctx.fillText(`8/8`, x, y + r - fsLevelProgress * 0);
 
         ctx.beginPath();
         ctx.fillStyle = darkSirenColor;
