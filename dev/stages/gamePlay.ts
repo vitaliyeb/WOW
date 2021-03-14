@@ -144,6 +144,7 @@ export default class gamePlay implements InterfaceGamePlay{
             ctx = this.game.mainContext;
 
         if(ctx.isPointInStroke(this.backPath, x, y)){
+            this.clearStage();
             this.game.setStatus('globalMenu');
         }
     }
