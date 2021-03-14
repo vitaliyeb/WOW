@@ -146,7 +146,7 @@ class Game implements GameInterface {
     }
 
     loadImages(url: string, name: string): Promise<HTMLImageElement> {
-        let htmlImgElement: HTMLImageElement = new Image(1000, 1000);
+        let htmlImgElement: HTMLImageElement = new Image(500, 500);
         return new Promise((res, rej)=> {
             htmlImgElement.src = url;
             htmlImgElement.onload = () => {
@@ -207,9 +207,11 @@ class Game implements GameInterface {
             image = this.imagesStore[imageId];
             
         if (width >= height){
-            bgCtx.drawImage(image, 0, 0, width, height*(width/height));
+            bgCtx.drawImage(image, 0, 0, width, height);
+            // bgCtx.drawImage(image, 0, 0, width, height*(width/height));
         }else {
-            bgCtx.drawImage(image, 0, 0, width*(height/width), height);
+            bgCtx.drawImage(image, 0, 0, width, height);
+            // bgCtx.drawImage(image, 0, 0, width*(height/width), height);
         }
         if (titleGame){
             let left = width / 2,

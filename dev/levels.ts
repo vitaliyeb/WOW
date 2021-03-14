@@ -53,7 +53,7 @@ class Levels implements InterfaceLevels{
                         status: 'done',
                         handlerId: "1",
                         handler: {
-                            img: 'gizaBg',
+                            img: 'bigSfinxBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
                             description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
                         },
@@ -62,13 +62,13 @@ class Levels implements InterfaceLevels{
                                 keyData: {
                                     'ГИЗ': {
                                         row: 0,
-                                        col: 1,
+                                        col: 0,
                                         direction: 'down'
                                     },
-                                    'ИЗГ': {
-                                        row: 1,
+                                    'ГЗИ': {
+                                        row: 0,
                                         col: 0,
-                                        direction: 'left'
+                                        direction: 'right'
                                     }
                                 },
                                 letters: ["Г", "И", "З"]
@@ -92,10 +92,10 @@ class Levels implements InterfaceLevels{
                                         col: 1,
                                         direction: 'down'
                                     },
-                                    'ЗИГ': {
-                                        row: 1,
+                                    'ГЗИ': {
+                                        row: 0,
                                         col: 0,
-                                        direction: 'left'
+                                        direction: 'right'
                                     }
                                 },
                                 letters: ["Г", "И", "З"]
@@ -122,7 +122,7 @@ class Levels implements InterfaceLevels{
                                     'СОН': {
                                         row: 1,
                                         col: 0,
-                                        direction: 'left'
+                                        direction: 'right'
                                     }
                                 },
                                 letters: ["C", "О", "Н"]
