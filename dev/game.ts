@@ -157,7 +157,28 @@ class Game implements GameInterface {
     }
 
     nextLevel(): void {
-        
+        ++this.user.levelData.playId;
+        ++this.user.levelCount;
+
+        let user = this.user,
+            { countries, sights, playId } = user.levelData,
+            levels = user.levels.countries;
+
+        if (playId >=  levels[countries].sights[sights].levels.length){
+            user.levelData.playId = 0;
+            ++user.levelData.sights;
+            ++sights;
+        }
+
+        if (sights >=  levels[countries].sights.length){
+            user.levelData.sights = 0;
+            ++user.levelData.countries;
+            ++countries;
+        }
+
+        if(countries >= levels.length - 1){
+            console.log('end level');
+        }
     }
 
     createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{

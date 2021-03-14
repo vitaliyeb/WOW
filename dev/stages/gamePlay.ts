@@ -72,7 +72,7 @@ export default class gamePlay implements InterfaceGamePlay{
         insideFs: number
     };
     preDone: boolean;
-    done: boolean;
+    requestId: number;
     letterPaths: Array<InnterfaceLetterPath>;
     inputLetters: Array<InterfaceCoordData>;
     mouseData: InterfaceCoordData;
@@ -102,7 +102,6 @@ export default class gamePlay implements InterfaceGamePlay{
         this.historyAddLetter = [];
         this.preDone = false;
         this.letterTransformK = 0;
-        this.done = false;
 
         this.mouseMove = this.mouseMove.bind(this);
         this.click = this.click.bind(this);
@@ -166,7 +165,7 @@ export default class gamePlay implements InterfaceGamePlay{
                 letters.forEach((letter, inedx) => this.map[row][col + inedx] = letter);
             }
             
-            if(Object.values(this.levelData.keyData).every(letterData => letterData.selected)) return this.done = true;
+            if(Object.values(this.levelData.keyData).every(letterData => letterData.selected)) return this.preDone = true;
         }
     }
 
@@ -194,13 +193,14 @@ export default class gamePlay implements InterfaceGamePlay{
         });
         if(k > 15) {
             this.clearStage()
-            this.game.nextLevel();
-            this.game.setStatus('endOfLevel');
+            setTimeout(() => {
+                this.game.setStatus('endOfLevel');
+            }, 750);
         };
     }
 
     clearStage() {
-        this.done = true;
+        cancelAnimationFrame(this.requestId);
         document.removeEventListener('mousemove', this.mouseMove);
         document.removeEventListener('click', this.click);
         document.removeEventListener('mousedown', this.onMouseDown);
@@ -223,7 +223,7 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     init() {
-        this.done = false;
+        this.preDone = false;
         this.setDataGame();
         this.setParamsTableOptions();
         this.setEnteredTeextData();
@@ -329,14 +329,13 @@ export default class gamePlay implements InterfaceGamePlay{
     }
 
     loop() {
+        this.requestId = requestAnimationFrame(() => this.loop());
         this.game.clearMainCanvas();
         this.paintHeading();
         this.paintGrid();
         this.paintArcLetters();
         if(this.temporaryWord.length) this.paintInputsWord();
         if(this.preDone) this.passed();
-        if(this.done) return;
-        requestAnimationFrame(() => this.loop());
     }
 
     setEnteredTeextData() {

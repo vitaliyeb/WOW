@@ -19,7 +19,7 @@ class User implements InterfaceUser {
 
     constructor(game: Game) {
         this.game = game;
-        this.levelCount = 1;
+        this.levelCount = 0;
         this.levelData = {
             countries: 0,
             sights: 0,

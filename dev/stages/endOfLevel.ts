@@ -39,6 +39,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         this.loadProgress = 0;
         this.game.setBackground('mainBg', true);
         if(!this.arcData) this.arcSetData();
+        this.setEndLevelData();
         this.loop();
     }
 
@@ -68,14 +69,13 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             levelsStart: playId,
             levelsEnd: playId + 1,
             levelCount: levels.countries[countries].sights[sights].levels.length,
-            countLevelsDone: this.game.user.levelCount
+            countLevelsDone: this.game.user.levelCount + 1
         };
     }
 
     loop() {
         this.requestId = requestAnimationFrame(()=> this.loop());
         this.game.clearMainCanvas();
-        this.setEndLevelData();
         this.paintArc();
         this.paintInfoBlock();
     }
@@ -101,6 +101,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
             this.paths.push({
                 callback: () => {
+                    this.game.nextLevel();
                     this.cancelEvents();
                     document.body.style.cursor = 'default';
                     this.game.setStatus('game');

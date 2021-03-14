@@ -72,6 +72,21 @@ class Levels implements InterfaceLevels{
                                     }
                                 },
                                 letters: ["С", "О", "Н"]
+                            },
+                            {
+                                keyData: {
+                                    'НОБ': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'БОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["Б", "О", "Н"]
                             }
                         ]
                     },
