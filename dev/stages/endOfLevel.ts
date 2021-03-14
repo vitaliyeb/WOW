@@ -3,6 +3,7 @@ import { Game } from "../game";
 
 interface InterfaceEndOfLevel {
     init: () => void;
+    nextSteep: (startYPosition: number, centerXPosition: number) => void;
 }
 
 export default class EndOfLevel implements InterfaceEndOfLevel{
@@ -14,6 +15,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         gradient: CanvasGradient,
         endY: number
     }
+    paths: Array<{callback: ()=> any, path: Path2D}>
     loadProgress: number;
     requestId: number;
     endLevelData: {
@@ -53,6 +55,26 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         this.paintArc();
         this.paintInfoBlock();
         requestAnimationFrame(()=> this.loop())
+    }
+
+    nextSteep(startYPosition: number, centerXPosition: number) {
+        let { mainContext: ctx, createRect } = this.game,
+            buttonWidth = 250,
+            buttonHeight = 45,
+            buttonPath = createRect(
+                centerXPosition - buttonWidth / 2,
+                startYPosition,
+                buttonWidth,
+                buttonHeight,
+                buttonHeight / 2
+            );
+            ctx.fillStyle = 'red';
+            ctx.fill(buttonPath);
+
+            ctx.font = '18px roboto';
+            ctx.fillStyle = '#fff';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('ДАЛЬШЕ', centerXPosition, startYPosition + buttonHeight / 2);
     }
 
     paintInfoBlock() {
@@ -134,10 +156,6 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         let loadWidth = interiorLoadingWrapperWidth / levelCount * levelsStart + this.loadProgress,
             loadWidthEnd = interiorLoadingWrapperWidth / levelCount * levelsEnd;
 
-        if (loadWidth <= loadWidthEnd){
-            this.loadProgress+=2;
-        }
-
         let loadPath = this.game.createRect(
             x - (loadinWrapperWidth / 2 - interiorLoadingBorderWeight),
             y + r + titleWrapperHeight + interiorLoadingBorderWeight,
@@ -158,6 +176,13 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
         ctx.fill();
 
+        this.nextSteep(25 + y + r + titleWrapperHeight + loadingWrapperHeight, x);
+        return;
+        if (loadWidth <= loadWidthEnd){
+            this.loadProgress+=4;
+        } else {
+            this.nextSteep(25 + y + r + titleWrapperHeight + loadingWrapperHeight, x);
+        }
 
     }
 
