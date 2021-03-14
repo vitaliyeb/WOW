@@ -114,7 +114,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
         ctx.textBaseline = 'bottom';
         ctx.font = `400 ${fsLevelProgress}px roboto`
-        ctx.fillText(`8/8`, x, y + r - fsLevelProgress * 0);
+        ctx.fillText(`${this.endLevelData.levelsEnd}/${this.endLevelData.levelCount}`, x, y + r - fsLevelProgress * 0);
 
         ctx.beginPath();
         ctx.fillStyle = darkSirenColor;
