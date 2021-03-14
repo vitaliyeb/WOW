@@ -469,18 +469,18 @@ export default class gamePlay implements InterfaceGamePlay{
 
     createKeysMap() {
         let data = this.levelData.keyData,
-        map: Array<Array<any>> =null,
+        map: Array<Array<any>> = null,
         dataEntry = Object.entries(data),
         maxRow = [1],
         maxCol = [1];
-        
+        console.log(data)
         dataEntry.forEach(([key, data])=> {
             if(data.direction === 'down') maxRow.push(data.row + key.length);
             if(data.direction === 'right') maxCol.push(data.col + key.length);
         });
         
         map = Array(Math.max(...maxRow)).fill(0).map(()=>Array(Math.max(...maxCol)).fill(false));
-        
+        console.log(map)
         dataEntry.forEach(([key, {direction, row, col}])=> {
             if(direction == 'down'){
                 let min = row,
@@ -493,7 +493,8 @@ export default class gamePlay implements InterfaceGamePlay{
                     max = col + key.length;
                 for (let col = min; col < max; col++) map[row][col] = true;  
             }
-        });                
+        });
+        console.log(map)
         return map;
     }
 }
