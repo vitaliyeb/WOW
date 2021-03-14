@@ -28,13 +28,28 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
     constructor(game: Game) {
         this.game = game;
+        this.mouseMove = this.mouseMove.bind(this);
+        this.clickHandler = this.clickHandler.bind(this);
     }
 
     init() {
+        this.paths = [];
+        document.addEventListener('mousemove', this.mouseMove);
+        document.addEventListener('click', this.clickHandler);
         this.loadProgress = 0;
         this.game.setBackground('mainBg', true);
         if(!this.arcData) this.arcSetData();
         this.loop();
+    }
+
+    mouseMove(e: MouseEvent) {
+        let {x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext;
+        document.body.style.cursor = this.paths.find(({ path }) => ctx.isPointInPath(path, x, y)) ? 'pointer' : 'default';
+    }
+
+    clickHandler() {
+
     }
 
     setEndLevelData() {
@@ -75,6 +90,11 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             ctx.fillStyle = '#fff';
             ctx.textBaseline = 'middle';
             ctx.fillText('ДАЛЬШЕ', centerXPosition, startYPosition + buttonHeight / 2);
+
+            this.paths.push({
+                callback: () => document.body.style.cursor = 'pointer',
+                path: buttonPath
+            })
     }
 
     paintInfoBlock() {
