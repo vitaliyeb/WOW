@@ -48,8 +48,16 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         document.body.style.cursor = this.paths.find(({ path }) => ctx.isPointInPath(path, x, y)) ? 'pointer' : 'default';
     }
 
-    clickHandler() {
+    clickHandler(e: MouseEvent) {
+        let {x, y} = this.game.getCursorPosition(e),
+            ctx = this.game.mainContext;
 
+        this.paths.find(({ path }) => ctx.isPointInPath(path, x, y))?.callback();
+    }
+
+    cancelEvents() {
+        document.removeEventListener('mousemove', this.mouseMove);
+        document.removeEventListener('click', this.clickHandler);
     }
 
     setEndLevelData() {
@@ -65,11 +73,11 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
     }
 
     loop() {
+        this.requestId = requestAnimationFrame(()=> this.loop());
         this.game.clearMainCanvas();
         this.setEndLevelData();
         this.paintArc();
         this.paintInfoBlock();
-        requestAnimationFrame(()=> this.loop())
     }
 
     nextSteep(startYPosition: number, centerXPosition: number) {
@@ -92,7 +100,11 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             ctx.fillText('ДАЛЬШЕ', centerXPosition, startYPosition + buttonHeight / 2);
 
             this.paths.push({
-                callback: () => document.body.style.cursor = 'pointer',
+                callback: () => {
+                    this.cancelEvents();
+                    document.body.style.cursor = 'default';
+                    this.game.setStatus('game');
+                },
                 path: buttonPath
             })
     }
@@ -196,12 +208,11 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
 
         ctx.fill();
 
-        this.nextSteep(25 + y + r + titleWrapperHeight + loadingWrapperHeight, x);
-        return;
         if (loadWidth <= loadWidthEnd){
             this.loadProgress+=4;
         } else {
             this.nextSteep(25 + y + r + titleWrapperHeight + loadingWrapperHeight, x);
+            cancelAnimationFrame(this.requestId);
         }
 
     }
