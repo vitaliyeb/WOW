@@ -46,7 +46,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
     mouseMove(e: MouseEvent) {
         let {x, y} = this.game.getCursorPosition(e),
             ctx = this.game.mainContext;
-        document.body.style.cursor = this.paths.find(({ path }) => ctx.isPointInPath(path, x, y)) ? 'pointer' : 'default';
+        this.game.screenWrapper.style.cursor = this.paths.find(({ path }) => ctx.isPointInPath(path, x, y)) ? 'pointer' : 'default';
     }
 
     clickHandler(e: MouseEvent) {
@@ -248,6 +248,6 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.font = `${radius * .28}px Roboto`;
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
-        ctx.fillText(String(this.game.user.levelCount), x, y);
+        ctx.fillText(String(this.game.user.levelCount + 1), x, y);
     }
 } 
