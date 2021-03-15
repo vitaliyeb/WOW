@@ -465,7 +465,7 @@ export default class gamePlay implements InterfaceGamePlay{
         ctx.textBaseline = 'middle';
         ctx.textAlign = 'center';
         ctx.fillStyle = '#fff';
-        ctx.fillText(`${this.title} ● ${this.game.user.levelCount}`, width / 2, heightHead / 2);
+        ctx.fillText(`${this.title} ● ${this.game.user.levelCount + 1}`, width / 2, heightHead / 2);
     }
 
     createKeysMap() {

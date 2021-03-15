@@ -53,7 +53,7 @@ class Levels implements InterfaceLevels{
                         status: 'done',
                         handlerId: "1",
                         handler: {
-                            img: 'bigSfinxBg',
+                            img: 'gizaBg',
                             heading: 'ПИРАМИДЫ ГИЗЫ',
                             description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
                         },
@@ -81,7 +81,7 @@ class Levels implements InterfaceLevels{
                         handlerId: "2",
                         handler: {
                             img: 'bigSfinxBg',
-                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            heading: 'БОЛЬШОЙ СФИНКС',
                             description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
                         },
                         levels: [
@@ -108,7 +108,7 @@ class Levels implements InterfaceLevels{
                         handlerId: "3",
                         handler: {
                             img: 'redSeaBg',
-                            heading: 'ПИРАМИДЫ ГИЗЫ',
+                            heading: 'КРАСНОЕ МОРЕ',
                             description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
                         },
                         levels: [
