@@ -37,6 +37,7 @@ export default class GlobalMenu {
     buttonPlayGradient: CanvasGradient;
     levelInfoGradient: CanvasGradient;
     locationImg: HTMLImageElement;
+    paintLevelCount: () => void;
 
     constructor(game: Game) {
         this.game = game;
@@ -60,6 +61,7 @@ export default class GlobalMenu {
             'levelInfo': undefined,
             'locationIcon' : undefined
         };
+        this.paintLevelCount = null;
         this.mainClick = this.mainClick.bind(this);
         this.menuMouseMove = this.menuMouseMove.bind(this);
     }
@@ -185,6 +187,13 @@ export default class GlobalMenu {
 
         path.arc(left, bottom, radius, 0, Math.PI * 2);
 
+        this.paintLevelCount = () => {
+            ctx.fillStyle = '#fff';
+            ctx.textBaseline = 'middle';
+            ctx.textAlign = 'center';
+            ctx.fillText(String(this.game.user.levelCount + 1), left, bottom);
+        }
+
         return path;
     }
 
@@ -229,6 +238,6 @@ export default class GlobalMenu {
         ctx.fillStyle = this.levelInfoGradient;
         ctx.fill(levelInfo);
         ctx.restore();
-
+        this.paintLevelCount();
     }
 }
