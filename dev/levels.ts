@@ -60,18 +60,33 @@ class Levels implements InterfaceLevels{
                         levels: [
                             {
                                 keyData: {
-                                    'ГИЗ': {
+                                    'СОН': {
                                         row: 0,
-                                        col: 0,
+                                        col: 1,
                                         direction: 'down'
                                     },
-                                    'ГЗИ': {
-                                        row: 0,
+                                    'НОС': {
+                                        row: 1,
                                         col: 0,
                                         direction: 'right'
                                     }
                                 },
-                                letters: ["Г", "И", "З"]
+                                letters: ["О", "С", "Н"]
+                            },
+                            {
+                                keyData: {
+                                    'ВОР': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'РОВ': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["О", "Р", "В"]
                             }
                         ]
                     },
