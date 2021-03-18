@@ -126,7 +126,9 @@ export default class Location {
             this.clearEventListeners();
             return this.game.setStatus('globalMenu');
         };
-        let suitablePath = this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)).pop();
+        console.log(this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)));
+        let suitablePath = this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)).shift();
+        console.log(suitablePath)
         suitablePath?.handler();
     }
 
