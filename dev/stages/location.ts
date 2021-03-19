@@ -126,9 +126,7 @@ export default class Location {
             this.clearEventListeners();
             return this.game.setStatus('globalMenu');
         };
-        console.log(this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)));
         let suitablePath = this.eventStore.filter(item=>ctx.isPointInPath(item.path, x, y)).shift();
-        console.log(suitablePath)
         suitablePath?.handler();
     }
 
@@ -227,7 +225,6 @@ export default class Location {
                 handler: () => {
                     cancelAnimationFrame(this.animateFrameId);
                     this.clearEventListeners();
-                    console.log('card')
                     this.game.setStatus('game');
                 }
             });            
@@ -267,9 +264,9 @@ export default class Location {
 
     handlerSectionClick({status, handler}: InterfaceSights) {
         return () => {
+            if (status === 'block') return;
             cancelAnimationFrame(this.animateFrameId);
             this.clearEventListeners();
-            console.log(status, 'section')
             this.game.setStatus(status === "process" ? 'game' : 'investigated', handler);
         };
     }
