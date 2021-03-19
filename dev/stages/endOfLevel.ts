@@ -90,8 +90,13 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
                 buttonWidth,
                 buttonHeight,
                 buttonHeight / 2
-            );
-            ctx.fillStyle = 'red';
+            ),
+            linearGradient = this.game.mainContext.createLinearGradient();
+
+            linearGradient.addColorStop(0, '#f46a49');
+            linearGradient.addColorStop(1, '#f652a8');
+
+            ctx.fillStyle = linearGradient;
             ctx.fill(buttonPath);
 
             ctx.font = '18px roboto';
@@ -115,7 +120,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
             ctx = this.game.mainContext, 
             r = 28,
             sirenColor = '#3f83be',
-            darkSirenColor = 'red', 
+            darkSirenColor = '#444a73',
             titleWrapperWidth = this.game.minMax(width / 100 * 80, 260, 450),
             titleWrapperHeight = 35,
             loadinWrapperWidth = this.game.minMax(width / 100 * 90, 300, 500),
@@ -184,7 +189,7 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
         ctx.fill(interiorLoadingPath);
 
         ctx.beginPath();
-        ctx.fillStyle = "green";
+        ctx.fillStyle = "#52f54e";
 
         let loadWidth = interiorLoadingWrapperWidth / levelCount * levelsStart + this.loadProgress,
             loadWidthEnd = interiorLoadingWrapperWidth / levelCount * levelsEnd;
