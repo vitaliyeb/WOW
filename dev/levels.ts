@@ -77,17 +77,57 @@ class Levels implements InterfaceLevels{
                                 keyData: {
                                     'ВОР': {
                                         row: 0,
-                                        col: 1,
+                                        col: 2,
                                         direction: 'down'
                                     },
                                     'РОВ': {
-                                        row: 1,
+                                        row: 0,
                                         col: 0,
                                         direction: 'right'
                                     }
                                 },
                                 letters: ["О", "Р", "В"]
-                            }
+                            },
+                            {
+                                keyData: {
+                                    'ЛОСЬ': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'down'
+                                    },
+                                    'СОЛЬ': {
+                                        row: 0,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ОСЬ': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["Л", "О", "С", "Ь"]
+                            },
+                            {
+                                keyData: {
+                                    'ФАРШ': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'ШАРФ': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ШАР': {
+                                        row: 3,
+                                        col: 1,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["Ф", "А", "Р", "Ш"]
+                            },
                         ]
                     },
                     {

@@ -23,7 +23,7 @@ class User implements InterfaceUser {
         this.levelData = {
             countries: 0,
             sights: 0,
-            playId: 0
+            playId: 3
         };
         this.levels = new Levels();
     }
