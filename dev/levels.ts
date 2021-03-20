@@ -142,6 +142,46 @@ class Levels implements InterfaceLevels{
                         levels: [
                             {
                                 keyData: {
+                                    'ГОЛ': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'ЛУГ': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'right'
+                                    },
+                                    'ГУЛ': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'down'
+                                    },
+                                    'УГОЛ': {
+                                        row: 2,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["У", "Г", "О", "Л"]
+                            },
+                            {
+                                keyData: {
+                                    'ГИЗ': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'ГЗИ': {
+                                        row: 0,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["Г", "И", "З"]
+                            },
+                            {
+                                keyData: {
                                     'ГИЗ': {
                                         row: 0,
                                         col: 1,
