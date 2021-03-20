@@ -91,7 +91,11 @@ export default class EndOfLevel implements InterfaceEndOfLevel{
                 buttonHeight,
                 buttonHeight / 2
             ),
-            linearGradient = this.game.mainContext.createLinearGradient();
+            linearGradient = this.game.mainContext.createLinearGradient(
+                centerXPosition - buttonWidth / 2,
+                startYPosition,
+                centerXPosition + buttonWidth / 2,
+                startYPosition + buttonHeight);
 
             linearGradient.addColorStop(0, '#f46a49');
             linearGradient.addColorStop(1, '#f652a8');
