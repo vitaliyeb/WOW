@@ -70,8 +70,8 @@ class Game implements GameInterface {
         this.mainContext = this.canvasMain.getContext('2d');
         this.screenWrapper = document.querySelector('.screen');
         this.investigated = new Investigated(this);
-        this.user = new User(this);
         this.endOfLevel = new EndOfLevel(this);
+        this.initUser();
         this.setFullSize();
         this.loadingGameStages = new LoadingGame(this);
         this.globalMenu = new GlobalMenu(this);
@@ -137,6 +137,17 @@ class Game implements GameInterface {
                 this.endOfLevel.init();
                 break;
         }
+    }
+
+    initUser(): void{
+        let storage = window.localStorage;
+        let user = storage.getItem('WOW_USER');
+
+        if (user){
+            return this.user = JSON.parse(user);
+        };
+
+        this.user = new User(this);
     }
 
     clearMainCanvas(): void {
