@@ -190,6 +190,14 @@ class Game implements GameInterface {
         if(countries >= levels.length - 1){
             console.log('end level');
         }
+
+        this.setUserData();
+    }
+
+    setUserData() {
+        let user = this.user;
+        console.log(user)
+        window.localStorage.setItem('WOW_USER', JSON.stringify(user));
     }
 
     createRect(x: number, y: number, width: number, height: number, radius: number ): Path2D{
