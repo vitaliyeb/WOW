@@ -137,7 +137,7 @@ class Levels implements InterfaceLevels{
                         handler: {
                             img: 'bigSfinxBg',
                             heading: 'БОЛЬШОЙ СФИНКС',
-                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                            description: 'Большой сфинкс на западном берегу Нила в Гизе — древнейшая сохранившаяся на Земле монументальная скульптура.'
                         },
                         levels: [
                             {
@@ -359,23 +359,68 @@ class Levels implements InterfaceLevels{
                         handler: {
                             img: 'redSeaBg',
                             heading: 'КРАСНОЕ МОРЕ',
-                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                            description: 'Красное море — внутреннее море Индийского океана, расположенное между Аравийским полуостровом и Африкой в тектонической впадине.'
                         },
                         levels: [
                             {
                                 keyData: {
-                                    'НОС': { 
-                                        row: 1,
-                                        col: 1,
+                                    'ТЕНОР': {
+                                        row: 0,
+                                        col: 2,
                                         direction: 'down'
                                     },
-                                    'СОН': {
-                                        row: 1,
+                                    'РОТ': {
+                                        row: 0,
                                         col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ЕНОТ': {
+                                        row: 1,
+                                        col: 2,
+                                        direction: 'right'
+                                    },
+                                    'ТОН': {
+                                        row: 2,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ТРОН': {
+                                        row: 4,
+                                        col: 1,
                                         direction: 'right'
                                     }
                                 },
-                                letters: ["C", "О", "Н"]
+                                letters: ["Т", "Е", "Н", "О", "Р"]
+                            },
+                            {
+                                keyData: {
+                                    'ШАКАЛ': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'down'
+                                    },
+                                    'ШЛАК': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'right'
+                                    },
+                                    'ШКАЛА': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'КАША': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'down'
+                                    },
+                                    'ЛАК': {
+                                        row: 2,
+                                        col: 4,
+                                        direction: 'down'
+                                    }
+                                },
+                                letters: ["Ш", "А", "К", "А", "Л"]
                             }
                         ]
                     }
@@ -384,7 +429,7 @@ class Levels implements InterfaceLevels{
             {
                 country: 'ФРАНЦИЯ',
                 imageName: 'locationFrance',
-                status: 'block',
+                status: 'process',
                 sights: [
                     {
                         title: 'Пирамиды гизы',
