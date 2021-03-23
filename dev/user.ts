@@ -1,4 +1,3 @@
-import {Game} from "./game";
 import { Levels } from "./levels";
 interface  InterfaceUser {
 
@@ -6,7 +5,6 @@ interface  InterfaceUser {
 
 
 class User implements InterfaceUser {
-    game: Game;
     levelData: {
         countries: number;
         sights: number;
@@ -17,8 +15,7 @@ class User implements InterfaceUser {
     levels: Levels;
 
 
-    constructor(game: Game) {
-        this.game = game;
+    constructor() {
         this.levelCount = 0;
         this.levelData = {
             countries: 0,

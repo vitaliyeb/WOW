@@ -147,7 +147,7 @@ class Game implements GameInterface {
             return this.user = JSON.parse(user);
         };
 
-        this.user = new User(this);
+        this.user = new User();
     }
 
     clearMainCanvas(): void {
@@ -196,7 +196,7 @@ class Game implements GameInterface {
 
     setUserData() {
         let user = this.user;
-        console.log(user)
+
         window.localStorage.setItem('WOW_USER', JSON.stringify(user));
     }
 
