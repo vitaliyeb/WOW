@@ -143,9 +143,9 @@ class Game implements GameInterface {
         let storage = window.localStorage;
         let user = storage.getItem('WOW_USER');
 
-        if (user){
-            return this.user = JSON.parse(user);
-        };
+        // if (user){
+        //     return this.user = JSON.parse(user);
+        // };
 
         this.user = new User();
     }

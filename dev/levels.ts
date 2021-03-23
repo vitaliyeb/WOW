@@ -167,33 +167,188 @@ class Levels implements InterfaceLevels{
                             },
                             {
                                 keyData: {
-                                    'ГИЗ': {
-                                        row: 0,
-                                        col: 1,
+                                    'КРАБ': {
+                                        row: 1,
+                                        col: 2,
                                         direction: 'down'
                                     },
-                                    'ГЗИ': {
+                                    'БРАК': {
                                         row: 0,
+                                        col: 5,
+                                        direction: 'down'
+                                    },
+                                    'РЫБАК': {
+                                        row: 4,
                                         col: 0,
+                                        direction: 'right'
+                                    },
+                                    'БАК': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'РЫБА': {
+                                        row: 2,
+                                        col: 2,
                                         direction: 'right'
                                     }
                                 },
-                                letters: ["Г", "И", "З"]
+                                letters: ["Р", "Ы", "Б", "А", "К"]
                             },
                             {
                                 keyData: {
-                                    'ГИЗ': {
+                                    'АДРЕС': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'СЕРА': {
+                                        row: 0,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ДАР': {
+                                        row: 1,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'САД': {
+                                        row: 0,
+                                        col: 0,
+                                        direction: 'down'
+                                    },
+                                    'СРЕДА': {
+                                        row: 3,
+                                        col: 1,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["А", "Д", "Р", "Е", "С"]
+                            },
+                            {
+                                keyData: {
+                                    'ФАЗА': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'down'
+                                    },
+                                    'ФРАЗА': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'АРА': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'РАЗ': {
+                                        row: 2,
+                                        col: 4,
+                                        direction: 'down'
+                                    },
+                                    'ФАРА': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'right'
+                                    },
+                                    'АРФА': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'down'
+                                    }
+                                },
+                                letters: ["Ф", "Р", "А", "З", "А"]
+                            },
+                            {
+                                keyData: {
+                                    'ЛОТ': {
                                         row: 0,
                                         col: 1,
                                         direction: 'down'
                                     },
-                                    'ГЗИ': {
-                                        row: 0,
+                                    'ОТДЕЛ': {
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'right'
+                                    },
+                                    'ДЕЛО': {
+                                        row: 1,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'ЛЕТО': {
+                                        row: 1,
+                                        col: 5,
+                                        direction: 'down'
+                                    },
+                                    'ТЕЛО': {
+                                        row: 4,
                                         col: 0,
                                         direction: 'right'
                                     }
                                 },
-                                letters: ["Г", "И", "З"]
+                                letters: ["Т", "Е", "Л", "О", "Д"]
+                            },
+                            {
+                                keyData: {
+                                    'ЛАК': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'right'
+                                    },
+                                    'ЛАД': {
+                                        row: 1,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'КЛАД': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'down'
+                                    },
+                                    'КЛАДЬ': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'ДАЛЬ': {
+                                        row: 4,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["К", "Л", "А", "Д", "Ь"]
+                            },
+                            {
+                                keyData: {
+                                    'ДИВАН': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'ДВА': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'ВИД': {
+                                        row: 2,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'ВИНА': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'НИВА': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'down'
+                                    }
+                                },
+                                letters: ["Д", "И", "В", "А", "Н"]
                             }
                         ]
                     },
