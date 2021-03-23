@@ -432,29 +432,106 @@ class Levels implements InterfaceLevels{
                 status: 'process',
                 sights: [
                     {
-                        title: 'Пирамиды гизы',
+                        title: 'ЭЙФЕЛЕВА БАШНЯ',
                         status: 'process',
                         handlerId: "4",
                         handler: {
-                            img: 'gizaBg',
-                            heading: 'ПИРАМИДЫ ГИЗЫ',
-                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                            img: 'locationFrance',
+                            heading: 'ЭЙФЕЛЕВА БАШНЯ',
+                            description: 'Эйфелева башня — металлическая башня в центре Парижа, самая узнаваемая его архитектурная достопримечательность.'
                         },
                         levels: [
                             {
                                 keyData: {
-                                    'НОС': { 
-                                        row: 1,
+                                    'ТОРФ': {
+                                        row: 2,
+                                        col: 4,
+                                        direction: 'down'
+                                    },
+                                    'ТРОН': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'down'
+                                    },
+                                    'ФТОР': {
+                                        row: 2,
+                                        col: 0,
+                                        direction: 'down'
+                                    },
+                                    'ТОН': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'right'
+                                    },
+                                    'ФРОНТ': {
+                                        row: 2,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'РОТ': {
+                                        row: 5,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ФОН': {
+                                        row: 5,
+                                        col: 4,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["Ф", "Р", "О", "Н", "Т"]
+                            }
+                        ]
+                    },
+                    {
+                        title: 'СОБОР ПАРИЖСКОЙ БОГОМАТЕРИ',
+                        status: 'process',
+                        handlerId: "5",
+                        handler: {
+                            img: 'soborParish',
+                            heading: 'СОБОР ПАРИЖСКОЙ БОГОМАТЕРИ',
+                            description: 'Собор Парижской Богоматери — католический храм в центре Парижа, один из символов французской столицы.'
+                        },
+                        levels: [
+                            {
+                                keyData: {
+                                    'ЯРМО': {
+                                        row: 0,
                                         col: 1,
                                         direction: 'down'
                                     },
-                                    'СОН': {
-                                        row: 1,
+                                    'РОМ': {
+                                        row: 3,
                                         col: 0,
-                                        direction: 'left'
+                                        direction: 'down'
+                                    },
+                                    'ЛОМ': {
+                                        row: 3,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'МОЛЬ': {
+                                        row: 0,
+                                        col: 4,
+                                        direction: 'down'
+                                    },
+                                    'РОЯЛЬ': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'РОЛЬ': {
+                                        row: 1,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'МОР': {
+                                        row: 5,
+                                        col: 3,
+                                        direction: 'right'
                                     }
                                 },
-                                letters: ["C", "О", "Н"]
+                                letters: ["Р", "О", "Я", "Л", "Ь", "М"]
                             }
                         ]
                     }
@@ -485,7 +562,7 @@ class Levels implements InterfaceLevels{
                                     'СОН': {
                                         row: 1,
                                         col: 0,
-                                        direction: 'left'
+                                        direction: 'right'
                                     }
                                 },
                                 letters: ["C", "О", "Н"]

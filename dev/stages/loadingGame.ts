@@ -41,6 +41,7 @@ class LoadingGame implements InterfaceLoadingGame{
             lineWidth: .5
         };
         this.defaultLoaders = [
+            ()=>this.game.loadImages('./images/soborParish.jpg', 'soborParish'),
             ()=>this.game.loadImages('./images/sea.jpg', 'redSeaBg'),
             ()=>this.game.loadImages('./images/giza.jpg', 'gizaBg'),
             ()=>this.game.loadImages('./images/check.png', 'check'),
