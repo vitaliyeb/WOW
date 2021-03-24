@@ -80,9 +80,9 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
-        if (this.lazyProcessing < this.processing) this.lazyProcessing+= 50//.6
+        if (this.lazyProcessing < this.processing) this.lazyProcessing+= .6;
         this.paintLoadingProcess();
-        if (this.lazyProcessing >= 100) return this.game.setStatus('game');
+        if (this.lazyProcessing >= 100) return this.game.setStatus('globalMenu');
         requestAnimationFrame(()=>this.loadingLoop());
     }
 
