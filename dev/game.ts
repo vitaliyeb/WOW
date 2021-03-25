@@ -176,12 +176,14 @@ class Game implements GameInterface {
             levels = user.levels.countries;
 
         if (playId >=  levels[countries].sights[sights].levels.length){
+            levels[countries].sights[sights].status = 'done';
             user.levelData.playId = 0;
             ++user.levelData.sights;
             ++sights;
         }
 
         if (sights >=  levels[countries].sights.length){
+            levels[countries].status = 'done';
             user.levelData.sights = 0;
             ++user.levelData.countries;
             ++countries;
