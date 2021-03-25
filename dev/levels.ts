@@ -534,9 +534,178 @@ class Levels implements InterfaceLevels{
                                 letters: ["Р", "О", "Я", "Л", "Ь", "М"]
                             }
                         ]
+                    },
+                    {
+                        title: 'ТРИУМФАЛЬНАЯ АРКА',
+                        status: 'block',
+                        handlerId: "6",
+                        handler: {
+                            img: 'arkaTriumfa',
+                            heading: 'ТРИУМФАЛЬНАЯ АРКА',
+                            description: 'Триумфальная арка — архитектурный памятник, монументальное сооружение, представляющее собой архитектурно оформленную арку.'
+                        },
+                        levels: [
+                            {
+                                keyData: {
+                                    'РУЛЕТ': {
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'ЛЕТО': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'УТРО': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'right'
+                                    },
+                                    'ТЕЛО': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'ОРЕЛ': {
+                                        row: 0,
+                                        col: 5,
+                                        direction: 'down'
+                                    },
+                                    'РОТ': {
+                                        row: 1,
+                                        col: 5,
+                                        direction: 'right'
+                                    },
+                                    'ЛОТ': {
+                                        row: 3,
+                                        col: 5,
+                                        direction: 'right'
+                                    },
+                                    'ТУР': {
+                                        row: 3,
+                                        col: 7,
+                                        direction: 'down'
+                                    }
+                                },
+                                letters: ["Р", "У", "Л", "Е", "Т", "О"]
+                            }
+                        ]
                     }
                 ]
             }, 
+            {
+                country: 'АРГЕНТИНА',
+                imageName: 'locationArgentine',
+                status: 'block',
+                sights: [
+                    {
+                        title: 'БУЭНОС-АЙРЕС',
+                        status: 'block',
+                        handlerId: "7",
+                        handler: {
+                            img: 'buaneAres',
+                            heading: 'БУЭНОС-АЙРЕС',
+                            description: 'Буэнос-Айрес - это город, столица Аргентин.'
+                        },
+                        levels: [
+                            {
+                                keyData: {
+                                    'ЛОТ': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'down'
+                                    },
+                                    'МЕЛ': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'ТОМ': {
+                                        row: 0,
+                                        col: 1,
+                                        direction: 'right'
+                                    },
+                                    'ДЕЛО': {
+                                        row: 2,
+                                        col: 1,
+                                        direction: 'right'
+                                    },
+                                    'ОТДЕЛ': {
+                                        row: 4,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ДОМ': {
+                                        row: 4,
+                                        col: 2,
+                                        direction: 'down'
+                                    },
+                                    'ОМЛЕТ': {
+                                        row: 2,
+                                        col: 4,
+                                        direction: 'down'
+                                    },
+                                    'МЕТОД': {
+                                        row: 3,
+                                        col: 4,
+                                        direction: 'right'
+                                    },
+                                    'ТЕЛО': {
+                                        row: 0,
+                                        col: 5,
+                                        direction: 'right'
+                                    },
+                                    'ЛЕТО': {
+                                        row: 0,
+                                        col: 7,
+                                        direction: 'down'
+                                    },
+                                    'ДЕМО': {
+                                        row: 3,
+                                        col: 8,
+                                        direction: 'down'
+                                    },
+                                    'ЛОМ': {
+                                        row: 5,
+                                        col: 6,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["М", "Е", "Т", "О", "Д", "Л"]
+                            }
+                        ]
+                    },
+                    {
+                        title: 'ХРАМ СВЯТОГО СЕМЕЙСТВА',
+                        status: 'block',
+                        handlerId: "5",
+                        handler: {
+                            img: 'gizaBg',
+                            heading: 'ХРАМ СВЯТОГО СЕМЕЙСТВА',
+                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                        },
+                        levels: [
+                            {
+                                keyData: {
+                                    'НОС': {
+                                        row: 1,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'СОН': {
+                                        row: 1,
+                                        col: 0,
+                                        direction: 'right'
+                                    }
+                                },
+                                letters: ["C", "О", "Н"]
+                            }
+                        ]
+                    }
+
+                ]
+            },
             {
                 country: 'ФРАНЦИЯ',
                 imageName: 'locationFrance',
@@ -554,7 +723,7 @@ class Levels implements InterfaceLevels{
                         levels: [
                             {
                                 keyData: {
-                                    'НОС': { 
+                                    'НОС': {
                                         row: 1,
                                         col: 1,
                                         direction: 'down'

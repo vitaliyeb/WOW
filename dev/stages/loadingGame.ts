@@ -40,7 +40,11 @@ class LoadingGame implements InterfaceLoadingGame{
             lineThickness: 10,
             lineWidth: .5
         };
+
         this.defaultLoaders = [
+            ()=>this.game.loadImages('./images/locationArgentine.jpg', 'locationArgentine'),
+            ()=>this.game.loadImages('./images/buaneAres.jpg', 'buaneAres'),
+            ()=>this.game.loadImages('./images/arkaTriumfa.jpg', 'arkaTriumfa'),
             ()=>this.game.loadImages('./images/soborParish.jpg', 'soborParish'),
             ()=>this.game.loadImages('./images/sea.jpg', 'redSeaBg'),
             ()=>this.game.loadImages('./images/giza.jpg', 'gizaBg'),
@@ -80,9 +84,9 @@ class LoadingGame implements InterfaceLoadingGame{
     }
 
     loadingLoop():void {
-        if (this.lazyProcessing < this.processing) this.lazyProcessing+= .6;
+        if (this.lazyProcessing < this.processing) this.lazyProcessing+= 50//.6;
         this.paintLoadingProcess();
-        if (this.lazyProcessing >= 100) return this.game.setStatus('globalMenu');
+        if (this.lazyProcessing >= 100) return this.game.setStatus('game');
         requestAnimationFrame(()=>this.loadingLoop());
     }
 
