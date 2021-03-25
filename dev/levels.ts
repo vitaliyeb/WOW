@@ -50,7 +50,7 @@ class Levels implements InterfaceLevels{
                 sights: [
                     {
                         title: 'ПИРАМИДЫ ГИЗЫ',
-                        status: 'done',
+                        status: 'process',
                         handlerId: "1",
                         handler: {
                             img: 'gizaBg',
@@ -132,7 +132,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'БОЛЬШОЙ СФИНКС',
-                        status: 'process',
+                        status: 'block',
                         handlerId: "2",
                         handler: {
                             img: 'bigSfinxBg',
@@ -429,11 +429,11 @@ class Levels implements InterfaceLevels{
             {
                 country: 'ФРАНЦИЯ',
                 imageName: 'locationFrance',
-                status: 'process',
+                status: 'block',
                 sights: [
                     {
                         title: 'ЭЙФЕЛЕВА БАШНЯ',
-                        status: 'process',
+                        status: 'block',
                         handlerId: "4",
                         handler: {
                             img: 'locationFrance',
@@ -485,7 +485,7 @@ class Levels implements InterfaceLevels{
                     },
                     {
                         title: 'СОБОР ПАРИЖСКОЙ БОГОМАТЕРИ',
-                        status: 'process',
+                        status: 'block',
                         handlerId: "5",
                         handler: {
                             img: 'soborParish',
@@ -606,7 +606,7 @@ class Levels implements InterfaceLevels{
                         handler: {
                             img: 'buaneAres',
                             heading: 'БУЭНОС-АЙРЕС',
-                            description: 'Буэнос-Айрес - это город, столица Аргентин.'
+                            description: 'Буэнос-Айрес - это город, столица Аргентины.'
                         },
                         levels: [
                             {
@@ -677,29 +677,79 @@ class Levels implements InterfaceLevels{
                         ]
                     },
                     {
-                        title: 'ХРАМ СВЯТОГО СЕМЕЙСТВА',
+                        title: 'ЛА-БОКА',
                         status: 'block',
-                        handlerId: "5",
+                        handlerId: "8",
                         handler: {
-                            img: 'gizaBg',
-                            heading: 'ХРАМ СВЯТОГО СЕМЕЙСТВА',
-                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                            img: 'laBoca',
+                            heading: 'ЛА-БОКА',
+                            description: 'Ла-Бока – район, где проживают представители рабочего класса.'
                         },
                         levels: [
                             {
                                 keyData: {
-                                    'НОС': {
-                                        row: 1,
-                                        col: 1,
+                                    'УГАР': {
+                                        row: 4,
+                                        col: 0,
                                         direction: 'down'
                                     },
-                                    'СОН': {
+                                    'ГАЗ': {
                                         row: 1,
                                         col: 0,
                                         direction: 'right'
+                                    },
+                                    'РОЗА': {
+                                        row: 7,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ГРОЗА': {
+                                        row: 5,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'УЗОР': {
+                                        row: 0,
+                                        col: 2,
+                                        direction: 'down'
+                                    },
+                                    'УГРОЗА': {
+                                        row: 0,
+                                        col: 4,
+                                        direction: 'down'
+                                    },
+                                    'РОЗГА': {
+                                        row: 2,
+                                        col: 4,
+                                        direction: 'right'
+                                    },
+                                    'ГОРА': {
+                                        row: 2,
+                                        col: 7,
+                                        direction: 'down'
+                                    },
+                                    'РАГУ': {
+                                        row: 5,
+                                        col: 6,
+                                        direction: 'right'
+                                    },
+                                    'РАЗ': {
+                                        row: 5,
+                                        col: 6,
+                                        direction: 'down'
+                                    },
+                                    'АЗУ': {
+                                        row: 3,
+                                        col: 9,
+                                        direction: 'down'
+                                    },
+                                    'АРГО': {
+                                        row: 3,
+                                        col: 1,
+                                        direction: 'right'
                                     }
                                 },
-                                letters: ["C", "О", "Н"]
+                                letters: ["У", "Г", "Р", "О", "З", "А"]
                             }
                         ]
                     }
@@ -707,34 +757,59 @@ class Levels implements InterfaceLevels{
                 ]
             },
             {
-                country: 'ФРАНЦИЯ',
-                imageName: 'locationFrance',
+                country: 'ЯПОНИЯ',
+                imageName: 'yaponiaLocation',
                 status: 'block',
                 sights: [
                     {
-                        title: 'Пирамиды гизы',
-                        status: 'process',
-                        handlerId: "5",
+                        title: 'ЗАМОК В ОСАКЕ',
+                        status: 'block',
+                        handlerId: "9",
                         handler: {
-                            img: 'gizaBg',
-                            heading: 'ПИРАМИДЫ ГИЗЫ',
-                            description: 'Пирамиды Гизы - это древние усыпальницы - первое из семи чудес света.'
+                            img: 'osake',
+                            heading: 'ЗАМОК В ОСАКЕ',
+                            description: 'Замок в Осаке — пятиэтажный самурайский замок в городе Осака, Япония, который играл ключевую роль в японской истории конца XVI — начала XVII столетий.'
                         },
                         levels: [
                             {
                                 keyData: {
-                                    'НОС': {
-                                        row: 1,
-                                        col: 1,
-                                        direction: 'down'
-                                    },
-                                    'СОН': {
+                                    'АИСТ': {
                                         row: 1,
                                         col: 0,
                                         direction: 'right'
+                                    },
+                                    'СТИХ': {
+                                        row: 3,
+                                        col: 0,
+                                        direction: 'right'
+                                    },
+                                    'ТИС': {
+                                        row: 3,
+                                        col: 1,
+                                        direction: 'down'
+                                    },
+                                    'СТИХИЯ': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'down'
+                                    },
+                                    'СТАЯ': {
+                                        row: 0,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'ЯХТА': {
+                                        row: 5,
+                                        col: 3,
+                                        direction: 'right'
+                                    },
+                                    'ХИТ': {
+                                        row: 3,
+                                        col: 5,
+                                        direction: 'down'
                                     }
                                 },
-                                letters: ["C", "О", "Н"]
+                                letters: ["С", "Т", "А", "И", "Х", "И", "Я"]
                             }
                         ]
                     }

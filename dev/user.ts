@@ -18,7 +18,7 @@ class User implements InterfaceUser {
     constructor() {
         this.levelCount = 0;
         this.levelData = {
-            countries: 2,
+            countries: 0,
             sights: 0,
             playId: 0
         };
