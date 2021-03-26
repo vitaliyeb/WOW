@@ -143,9 +143,9 @@ class Game implements GameInterface {
         let storage = window.localStorage;
         let user = storage.getItem('WOW_USER');
 
-        // if (user){
-        //     return this.user = JSON.parse(user);
-        // };
+        if (user){
+            return this.user = JSON.parse(user);
+        };
 
         this.user = new User();
     }
@@ -180,6 +180,7 @@ class Game implements GameInterface {
             user.levelData.playId = 0;
             ++user.levelData.sights;
             ++sights;
+            levels[countries].sights[sights] && (levels[countries].sights[sights].status = 'process')
         }
 
         if (sights >=  levels[countries].sights.length){
@@ -187,10 +188,14 @@ class Game implements GameInterface {
             user.levelData.sights = 0;
             ++user.levelData.countries;
             ++countries;
+            if (levels[countries]){
+                levels[countries].sights[0].status = 'process'
+                levels[countries].status = 'process';
+            }
         }
 
         if(countries >= levels.length - 1){
-            console.log('end level');
+            alert('end game');
         }
 
         this.setUserData();
